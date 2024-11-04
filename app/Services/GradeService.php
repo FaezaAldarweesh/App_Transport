@@ -74,7 +74,7 @@ class GradeService {
     //========================================================================================================================
     /**
      * method to soft delete grade alraedy exist
-     * @param  Grade $grade
+     * @param  $grade_id
      * @return /Illuminate\Http\JsonResponse if have an error
      */
     public function delete_grade($grade_id)

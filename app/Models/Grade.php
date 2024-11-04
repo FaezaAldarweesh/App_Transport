@@ -31,4 +31,10 @@ class Grade extends Model
         }
         return $query;
     }
+
+    public function classRooms (){
+        
+        return $this->hasMany(ClassRoom::class);
+
+    }
 }
