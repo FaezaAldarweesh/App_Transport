@@ -31,7 +31,7 @@ class UserService {
         try {
             $user = new User();
             $user->name = $data['name'];
-            $user->email = $data['email'];
+            $user->username = $data['username'];
             $user->password = $data['password'];
             
             $user->save(); 
@@ -43,19 +43,24 @@ class UserService {
     /**
      * method to update user alraedy exist
      * @param  $data
-     * @param  User $user
+     * @param  $user_id
      * @return /Illuminate\Http\JsonResponse if have an error
      */
-    public function update_user($data,User $user){
+    public function update_user($data,$user_id){
         try {  
+            $user = User::find($user_id);
+            if(!$user){
+                throw new \Exception('user not found');
+            }
+
             $user->name = $data['name'] ?? $user->name;
-            $user->email = $data['email'] ?? $user->email;
+            $user->username = $data['username'] ?? $user->username;
             $user->password = $data['password'] ?? $user->password;  
             $user->role = $data['role'] ?? $user->role;
 
             $user->save();  
             return $user;
-
+        } catch (\Exception $e) { Log::error($e->getMessage()); return $this->failed_Response($e->getMessage(), 404);
         }catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('Something went wrong with view user', 400);}
     }
     //========================================================================================================================

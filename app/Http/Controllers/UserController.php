@@ -69,13 +69,18 @@ class UserController extends Controller
     /**
      * method to update user alraedy exist
      * @param  Update_User_Request $request
-     * @param  User $user
+     * @param  $user_id
      * @return /Illuminate\Http\JsonResponse
      */
-    public function update(Update_User_Request $request, User $user)
+    public function update(Update_User_Request $request, $user_id)
     {
-        $user = $this->userservices->update_User($request->validated(), $user);
-        return $this->success_Response(new UserResources($user), "User updated successfully", 200);
+        $user = $this->userservices->update_User($request->validated(), $user_id);
+        
+        // In case error messages are returned from the services section 
+        if ($user instanceof \Illuminate\Http\JsonResponse) {
+            return $user;
+        }
+            return $this->success_Response(new UserResources($user), "User updated successfully", 200);
     }
     //===========================================================================================================================
     /**

@@ -1,9 +1,10 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\GradeController;
+use App\Http\Controllers\StudentController;
 use App\Http\Controllers\ClassRoomController;
 
 /*
@@ -38,10 +39,15 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::get('restore_class/{class_id}', [ClassRoomController::class, 'restore']);
     Route::delete('forceDelete_class/{class_id}', [ClassRoomController::class, 'forceDelete']);
 
+    Route::apiResource('user',UserController::class); 
+    Route::get('all_trashed_user', [UserController::class, 'all_trashed_user']);
+    Route::get('restore_user/{user_id}', [UserController::class, 'restore']);
+    Route::delete('forceDelete_user/{user_id}', [UserController::class, 'forceDelete']);
+    
+    Route::apiResource('student',StudentController::class); 
+    Route::get('all_trashed_student', [StudentController::class, 'all_trashed_student']);
+    Route::get('restore_student/{student_id}', [StudentController::class, 'restore']);
+    Route::delete('forceDelete_student/{student_id}', [StudentController::class, 'forceDelete']);
 
-    // Route::apiResource('user',UserController::class); 
-    // Route::get('all_trashed_user', [UserController::class, 'all_trashed_user']);
-    // Route::get('restore_user/{user_id}', [UserController::class, 'restore']);
-    // Route::delete('forceDelete_user/{user_id}', [UserController::class, 'forceDelete']);
-
+    
 });

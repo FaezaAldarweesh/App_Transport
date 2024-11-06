@@ -23,4 +23,10 @@ class ClassRoom extends Model
         return $this->belongsTo(Grade::class,'grade_id','id');
 
     }
+
+    public function students (){
+        
+        return $this->hasMany(Student::class);
+
+    }
 }

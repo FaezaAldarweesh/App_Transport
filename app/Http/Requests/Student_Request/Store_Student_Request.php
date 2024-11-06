@@ -1,20 +1,20 @@
 <?php
 
-namespace App\Http\Requests\User_Rqeuests;
+namespace App\Http\Requests\Student_Request;
 
 use Illuminate\Support\Facades\Log;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class Store_User_Request extends FormRequest
+class Store_Student_Request extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return true;
+        return true;    
     }
 
     /**
@@ -25,9 +25,12 @@ class Store_User_Request extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|regex:/^[\p{L}\s]+$/u|min:2|max:50',
-            'username' => 'required|min:6|max:50|unique:users,username',
-            'password' => 'required|string|min:8',
+            'name' => 'required|unique:students,name|regex:/^[\p{L}\s]+$/u|min:2|max:50',
+            'father_phone' => 'required|min:10|max:10|regex:/^([0-9\s\-\+\(\)]*)$/',
+            'mather_phone' => 'required|min:10|max:10|regex:/^([0-9\s\-\+\(\)]*)$/',
+            'location' => 'required',
+            'class_room_id' => 'required|integer|exists:class_rooms,id',
+            'user_id' => 'required|integer|exists:users,id',
         ];
     }
     //===========================================================================================================================
@@ -49,9 +52,12 @@ class Store_User_Request extends FormRequest
     public function attributes(): array
     {
         return [
-            'name' => 'اسم الأب',
-            'username' => 'اسم المستخدم',
-            'password' => 'كلمة المرور',
+            'name' => 'اسم الطالب',
+            'father_phone' => 'رقم الأب',
+            'mather_phone' => 'رقم الأم',
+            'location' => 'الموقع',
+            'class_room_id' => 'الشعبة',
+            'user_id' => 'اسم الأب',
         ];
     }
     //===========================================================================================================================
@@ -61,12 +67,14 @@ class Store_User_Request extends FormRequest
         return [
             'required' => ' :attribute مطلوب',
             'unique' => ':attribute  موجود سابقاً , يجب أن يكون :attribute غير مكرر',
-            'regex' => 'يجب أن يحوي  :attribute على أحرف فقط',
-            'max' => 'الحد الأقصى لطول  :attribute هو 50 حرف',
-            'string' => 'يجب أن يكون :attribute عبارة عن سلسة نصية',
+            'name.regex' => 'يجب أن يحوي  :attribute على أحرف فقط',
+            'name.max' => 'الحد الأقصى لطول  :attribute هو 50 حرف',
             'name.min' => 'الحد الأدنى لطول :attribute على الأقل هو 2 حرف',
-            'username.min' => 'الحد الأدنى لطول :attribute على الأقل هو 2 حرف',
-            'password.min' => 'الحد الأدنى لطول :attribute على الأقل هو 8 محرف',
+            'regex' => 'يجب أن يحوي  :attribute على أرقام فقط',
+            'max' => 'الحد الأقصى لطول  :attribute هو 10 حرف',
+            'min' => 'الحد الأدنى لطول :attribute على الأقل هو 10 حرف',
+            'integer' => 'يجب أن يكون الحقل :attribute من نمط int',
+            'exists' => 'يجب أن يكون :attribute موجودا مسبقا',
         ];
     }
 }

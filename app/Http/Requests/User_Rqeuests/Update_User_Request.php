@@ -29,7 +29,7 @@ class Update_User_Request extends FormRequest
 
         return [
             'name' => 'sometimes|nullable|regex:/^[\p{L}\s]+$/u|min:2|max:50',
-            'email' => ['sometimes','nullable', 'email', Rule::unique('users', 'email')->ignore($user_id)],
+            'username' => ['sometimes','nullable', 'min:2','max:50', Rule::unique('users', 'username')->ignore($user_id)],
             'password' => 'sometimes|nullable|string|min:8',
         ];
     }
@@ -52,8 +52,8 @@ class Update_User_Request extends FormRequest
     public function attributes(): array
     {
         return [
-            'name' => 'اسم المستخدم',
-            'email' => 'الإيميل',
+            'name' => 'اسم الأب',
+            'username' => 'اسم المستخدم',
             'password' => 'كلمة المرور',
         ];
     }
@@ -64,9 +64,10 @@ class Update_User_Request extends FormRequest
         return [
             'unique' => ':attribute  موجود سابقاً , يجب أن يكون :attribute غير مكرر',
             'regex' => 'يجب أن يحوي  :attribute على أحرف فقط',
-            'email' => 'يجب أن يكون الحقل :attribute يحوي على لإيميل من نمط @',
             'max' => 'الحد الأقصى لطول  :attribute هو 50 حرف',
+            'string' => 'يجب أن يكون :attribute عبارة عن سلسة نصية',
             'name.min' => 'الحد الأدنى لطول :attribute على الأقل هو 2 حرف',
+            'username.min' => 'الحد الأدنى لطول :attribute على الأقل هو 2 حرف',
             'password.min' => 'الحد الأدنى لطول :attribute على الأقل هو 8 محرف',
         ];
     }

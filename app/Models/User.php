@@ -20,7 +20,7 @@ class User extends Authenticatable implements JWTSubject
      */
     protected $fillable = [
         'name',
-        'email',
+        'username',
         'password',
     ];
 
@@ -79,5 +79,11 @@ class User extends Authenticatable implements JWTSubject
             $query->where('role', '=', $role);
         }
         return $query;
+    }
+
+    public function students (){
+        
+        return $this->hasMany(Student::class);
+
     }
 }
