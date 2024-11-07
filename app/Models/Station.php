@@ -6,21 +6,23 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Path extends Model
+
+class Station extends Model
 {
     use HasFactory,softDeletes;
-
     /**
     * The attributes that are mass assignable.
     * @var array<int, string>
     */
     protected $fillable = [
         'name',
+        'location',
+        'path_id',
     ];
 
-    public function stations (){
+    public function path (){
         
-        return $this->hasMany(Station::class);
+        return $this->belongsTo(Path::class,'path_id','id');
 
     }
 }

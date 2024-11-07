@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\GradeController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\ClassRoomController;
+use App\Http\Controllers\StationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,6 +55,11 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::get('all_trashed_path', [PathController::class, 'all_trashed_path']);
     Route::get('restore_path/{path_id}', [PathController::class, 'restore']);
     Route::delete('forceDelete_path/{path_id}', [PathController::class, 'forceDelete']);
+
+    Route::apiResource('station',StationController::class); 
+    Route::get('all_trashed_station', [StationController::class, 'all_trashed_station']);
+    Route::get('restore_station/{station_id}', [StationController::class, 'restore']);
+    Route::delete('forceDelete_station/{station_id}', [StationController::class, 'forceDelete']);
 
     
 });
