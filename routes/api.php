@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PathController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\GradeController;
 use App\Http\Controllers\StudentController;
@@ -48,6 +49,11 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::get('all_trashed_student', [StudentController::class, 'all_trashed_student']);
     Route::get('restore_student/{student_id}', [StudentController::class, 'restore']);
     Route::delete('forceDelete_student/{student_id}', [StudentController::class, 'forceDelete']);
+
+    Route::apiResource('path',PathController::class); 
+    Route::get('all_trashed_path', [PathController::class, 'all_trashed_path']);
+    Route::get('restore_path/{path_id}', [PathController::class, 'restore']);
+    Route::delete('forceDelete_path/{path_id}', [PathController::class, 'forceDelete']);
 
     
 });
