@@ -9,6 +9,7 @@ use App\Http\Controllers\GradeController;
 use App\Http\Controllers\StationController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\ClassRoomController;
+use App\Http\Controllers\DriverController;
 
 /*
 |--------------------------------------------------------------------------
@@ -67,4 +68,8 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::get('restore_bus/{bus_id}', [BusController::class, 'restore']);
     Route::delete('forceDelete_bus/{bus_id}', [BusController::class, 'forceDelete']);
     
+    Route::apiResource('driver',DriverController::class); 
+    Route::get('all_trashed_driver', [DriverController::class, 'all_trashed_driver']);
+    Route::get('restore_driver/{driver_id}', [DriverController::class, 'restore']);
+    Route::delete('forceDelete_driver/{driver_id}', [DriverController::class, 'forceDelete']);
 });
