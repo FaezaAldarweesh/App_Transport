@@ -1,13 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BusController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PathController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\GradeController;
+use App\Http\Controllers\StationController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\ClassRoomController;
-use App\Http\Controllers\StationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -61,5 +62,9 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::get('restore_station/{station_id}', [StationController::class, 'restore']);
     Route::delete('forceDelete_station/{station_id}', [StationController::class, 'forceDelete']);
 
+    Route::apiResource('bus',BusController::class); 
+    Route::get('all_trashed_bus', [BusController::class, 'all_trashed_bus']);
+    Route::get('restore_bus/{bus_id}', [BusController::class, 'restore']);
+    Route::delete('forceDelete_bus/{bus_id}', [BusController::class, 'forceDelete']);
     
 });
