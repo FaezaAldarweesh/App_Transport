@@ -67,6 +67,7 @@ class Update_Driver_Request extends FormRequest
             'phone.max' => 'الحد الأقصى لطول  :attribute هو 10 حرف',
             'phone.min' => 'الحد الأدنى لطول :attribute على الأقل هو 10 حرف',
             'regex' => 'يجب أن يحوي  :attribute على أرقام فقط',
+            'unique' => ':attribute  موجود سابقاً , يجب أن يكون :attribute غير مكرر',
         ];
     }
 }
