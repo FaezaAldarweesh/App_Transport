@@ -10,6 +10,7 @@ use App\Http\Controllers\StationController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\ClassRoomController;
 use App\Http\Controllers\DriverController;
+use App\Http\Controllers\SupervisorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,12 +32,10 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::post('logout',[AuthController::class ,'logout']); 
     Route::post('refresh', [AuthController::class ,'refresh']);
     
-
     Route::apiResource('grade',GradeController::class); 
     Route::get('all_trashed_grade', [GradeController::class, 'all_trashed_grade']);
     Route::get('restore_grade/{grade_id}', [GradeController::class, 'restore']);
     Route::delete('forceDelete_grade/{grade_id}', [GradeController::class, 'forceDelete']);
-
 
     Route::apiResource('class',ClassRoomController::class); 
     Route::get('all_trashed_class', [ClassRoomController::class, 'all_trashed_class']);
@@ -72,4 +71,9 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::get('all_trashed_driver', [DriverController::class, 'all_trashed_driver']);
     Route::get('restore_driver/{driver_id}', [DriverController::class, 'restore']);
     Route::delete('forceDelete_driver/{driver_id}', [DriverController::class, 'forceDelete']);
+
+    Route::apiResource('supervisor',SupervisorController::class); 
+    Route::get('all_trashed_supervisor', [SupervisorController::class, 'all_trashed_supervisor']);
+    Route::get('restore_supervisor/{supervisor_id}', [SupervisorController::class, 'restore']);
+    Route::delete('forceDelete_supervisor/{supervisor_id}', [SupervisorController::class, 'forceDelete']);
 });

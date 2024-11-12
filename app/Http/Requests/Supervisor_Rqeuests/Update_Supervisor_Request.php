@@ -1,20 +1,21 @@
 <?php
 
-namespace App\Http\Requests\Driver_Request;
+namespace App\Http\Requests\Supervisor_Rqeuests;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class Store_Driver_Request extends FormRequest
+class Update_Supervisor_Request extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return true;    
+        return true;
     }
 
     /**
@@ -24,10 +25,14 @@ class Store_Driver_Request extends FormRequest
      */
     public function rules(): array
     {
+        $supervisor_id = $this->route('supervisor');
+
         return [
-            'name' => 'required||regex:/^[\p{L}\s]+$/u|min:4|max:50|unique:drivers,name',
-            'phone' => 'required|min:10|max:10|regex:/^([0-9\s\-\+\(\)]*)$/|unique:drivers,phone',
-            'location' => 'required',
+            'name' => ['sometimes','nullable','regex:/^[\p{L}\s]+$/u','min:2','max:50 ',Rule::unique('supervisors', 'name')->ignore($supervisor_id)],
+            'username' => ['sometimes','nullable','min:6','max:50',Rule::unique('supervisors', 'username')->ignore($supervisor_id)],
+            'password' => 'sometimes|nullable|string|min:8',
+            'location' => 'sometimes|nullable',
+            'phone' => ['sometimes','nullable','min:10','max:10','regex:/^([0-9\s\-\+\(\)]*)$/',Rule::unique('supervisors', 'phone')->ignore($supervisor_id)],
         ];
     }
     //===========================================================================================================================
@@ -49,9 +54,11 @@ class Store_Driver_Request extends FormRequest
     public function attributes(): array
     {
         return [
-            'name' => 'اسم السائق',
-            'phone' => 'رقم الهاتف',
+            'name' => 'اسم المشرفة',
+            'username' => 'اسم المستخدم',
+            'password' => 'كلمة المرور',
             'location' => 'الموقع',
+            'phone' => 'رقم الهاتف',
         ];
     }
     //===========================================================================================================================
@@ -59,14 +66,16 @@ class Store_Driver_Request extends FormRequest
     public function messages(): array
     {
         return [
-            'required' => ' :attribute مطلوب',
+            'name.regex' => 'يجب أن يحوي  :attribute على أحرف فقط',
+            'name.min' => 'الحد الأدنى لطول :attribute على الأقل هو 2 حرف',
+            'name.max' => 'الحد الأقصى لطول  :attribute هو 50 حرف',            
+            'username.min' => 'الحد الأدنى لطول :attribute على الأقل هو 6 حرف',
+            'username.max' => 'الحد الأقصى لطول :attribute على الأقل هو 50 حرف',
             'unique' => ':attribute  موجود سابقاً , يجب أن يكون :attribute غير مكرر',
-            'name.max' => 'الحد الأقصى لطول  :attribute هو 50 حرف',
-            'name.min' => 'الحد الأدنى لطول :attribute على الأقل هو 4 حرف',
+            'password.min' => 'الحد الأدنى لطول :attribute على الأقل هو 8 محرف',
             'phone.max' => 'الحد الأقصى لطول  :attribute هو 10 حرف',
             'phone.min' => 'الحد الأدنى لطول :attribute على الأقل هو 10 حرف',
-            'phon.regex' => 'يجب أن يحوي  :attribute على أرقام فقط',
-            'name.regex' => 'يجب أن يحوي  :attribute على أحرف فقط',
+            'phone.regex' => 'يجب أن يحوي  :attribute على أرقام فقط',
         ];
     }
 }
