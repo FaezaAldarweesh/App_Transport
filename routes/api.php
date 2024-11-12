@@ -11,6 +11,7 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\ClassRoomController;
 use App\Http\Controllers\DriverController;
 use App\Http\Controllers\SupervisorController;
+use App\Http\Controllers\TripController;
 
 /*
 |--------------------------------------------------------------------------
@@ -76,4 +77,9 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::get('all_trashed_supervisor', [SupervisorController::class, 'all_trashed_supervisor']);
     Route::get('restore_supervisor/{supervisor_id}', [SupervisorController::class, 'restore']);
     Route::delete('forceDelete_supervisor/{supervisor_id}', [SupervisorController::class, 'forceDelete']);
+
+    Route::apiResource('trip',TripController::class); 
+    Route::get('all_trashed_trip', [TripController::class, 'all_trashed_trip']);
+    Route::get('restore_trip/{trip_id}', [TripController::class, 'restore']);
+    Route::delete('forceDelete_trip/{trip_id}', [TripController::class, 'forceDelete']);
 });

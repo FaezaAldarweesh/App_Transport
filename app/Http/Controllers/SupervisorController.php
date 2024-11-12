@@ -31,7 +31,7 @@ class SupervisorController extends Controller
      * @return /Illuminate\Http\JsonResponse
      * UserResources to customize the return responses.
      */
-    public function index(Request $request)
+    public function index()
     {  
         $supervisors = $this->supervisorservices->get_all_Supervisors();
         return $this->success_Response(SupervisorResources::collection($supervisors), "All supervisors fetched successfully", 200);
