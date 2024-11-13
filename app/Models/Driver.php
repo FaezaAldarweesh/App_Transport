@@ -18,4 +18,9 @@ class Driver extends Model
         'phone',
         'location',
     ];
+
+    public function buses (){
+        
+        return $this->belongsToMany(Bus::class);
+    }
 }

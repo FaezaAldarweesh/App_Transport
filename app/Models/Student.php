@@ -35,4 +35,9 @@ class Student extends Model
         return $this->belongsTo(ClassRoom::class,'class_room_id','id');
 
     }
+
+    public function buses (){
+        
+        return $this->belongsToMany(Bus::class);
+    }
 }

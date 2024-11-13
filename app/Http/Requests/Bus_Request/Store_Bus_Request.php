@@ -26,6 +26,7 @@ class Store_Bus_Request extends FormRequest
     {
         return [
             'name' => 'required|unique:buses,name|string|min:4|max:50',
+            'number_of_seats' => 'required|min:30|integer',
         ];
     }
     //===========================================================================================================================
@@ -48,6 +49,7 @@ class Store_Bus_Request extends FormRequest
     {
         return [
             'name' => 'اسم الباص',
+            'number_of_seats' => 'عدد المقاعد'
         ];
     }
     //===========================================================================================================================
@@ -58,7 +60,9 @@ class Store_Bus_Request extends FormRequest
             'required' => ' :attribute مطلوب',
             'unique' => ':attribute  موجود سابقاً , يجب أن يكون :attribute غير مكرر',
             'max' => 'الحد الأقصى لطول  :attribute هو 50 حرف',
-            'min' => 'الحد الأدنى لطول :attribute على الأقل هو 4 حرف',
+            'name.min' => 'الحد الأدنى لطول :attribute على الأقل هو 4 حرف',
+            'number_of_seats.min' => 'الحد الأدنى لطول :attribute على الأقل هو 30 حرف',
+            'integer' => 'يجب أن يكون الحقل :attribute من نمط int',
         ];
     }
 }

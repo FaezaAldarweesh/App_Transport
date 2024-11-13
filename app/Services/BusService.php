@@ -29,8 +29,9 @@ class BusService {
      */
     public function create_bus($data) {
         try {
-            $bus = new Bus();
+            $bus = new Bus(); 
             $bus->name = $data['name'];
+            $bus->number_of_seats = $data['number_of_seats'];
             
             $bus->save(); 
     
@@ -51,6 +52,7 @@ class BusService {
                 throw new \Exception('bus not found');
             }
             $bus->name = $data['name'] ?? $bus->name;
+            $bus->number_of_seats = $data['number_of_seats'] ?? $bus->number_of_seats;
 
             $bus->save(); 
             return $bus;

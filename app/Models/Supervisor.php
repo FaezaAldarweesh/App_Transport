@@ -35,4 +35,9 @@ class Supervisor extends Model
     protected $casts = [
         'password' => 'hashed'
     ];
+
+    public function buses (){
+        
+        return $this->belongsToMany(Bus::class);
+    }
 }

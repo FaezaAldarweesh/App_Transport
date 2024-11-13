@@ -17,6 +17,21 @@ class Bus extends Model
     */
     protected $fillable = [
         'name',
+        'number_of_seats',
     ];
 
+    public function students (){
+        
+        return $this->belongsToMany(Student::class);
+    }
+
+    public function supervisors (){
+        
+        return $this->belongsToMany(Supervisor::class);
+    }
+
+    public function drivers (){
+        
+        return $this->belongsToMany(Driver::class);
+    }
 }

@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('buses', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->integer('number_of_seats');
             $table->timestamps();
             $table->softDeletes();
         });
