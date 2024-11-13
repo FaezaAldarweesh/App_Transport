@@ -15,7 +15,11 @@ class Trip extends Model
     */
     protected $fillable = [
         'type',
-        'bus_id',
         'path_id',
     ];
+
+    public function buses (){
+        
+        return $this->belongsToMany(Bus::class);
+    }
 }

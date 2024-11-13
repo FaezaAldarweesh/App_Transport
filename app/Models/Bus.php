@@ -34,4 +34,9 @@ class Bus extends Model
         
         return $this->belongsToMany(Driver::class);
     }
+
+    public function trips (){
+        
+        return $this->belongsToMany(Trip::class);
+    }
 }
