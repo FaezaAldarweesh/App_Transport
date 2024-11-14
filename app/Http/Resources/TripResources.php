@@ -17,8 +17,13 @@ class TripResources extends JsonResource
         return [
             'trip id' => $this->id,
             'trip type' => $this->type, 
-            'trip bus' => $this->bus_id,
             'trip path' => $this->path_id,
+            'buses' => $this->buses->map(function ($bus) {
+                return [
+                    'id' => $bus->id,
+                    'bus name' => $bus->name,
+                ];
+            }),
         ];
     }
 }
