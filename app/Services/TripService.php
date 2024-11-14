@@ -154,6 +154,7 @@ class TripService {
      */
     public function forceDelete_Trip($Trip_id)
     {   
+        //hello
         try {
             $Trip = Trip::onlyTrashed()->find($Trip_id);
             if(!$Trip){
