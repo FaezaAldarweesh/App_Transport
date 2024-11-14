@@ -27,7 +27,13 @@ class Update_Bus_Request extends FormRequest
     {
         return [
             'name' => ['sometimes','nullable','string','min:4','max:50', 'unique:buses,name,' . $this->route('bus')],
-            'number_of_seats' => 'required|min:30|integer',
+            'number_of_seats' => 'sometimes|nullable|integer',
+            'students' => 'sometimes|nullable|array',
+            'students.*.id' => 'sometimes|nullable|exists:students,id',
+            'supervisors' => 'sometimes|nullable|array',
+            'supervisors.*.id' => 'sometimes|nullable|exists:supervisors,id',
+            'drivers' => 'sometimes|nullable|array',
+            'drivers.*.id' => 'sometimes|nullable|exists:drivers,id',
         ];
     }
     //===========================================================================================================================
@@ -50,7 +56,10 @@ class Update_Bus_Request extends FormRequest
     {
         return [
             'name' => 'اسم الباص',
-            'number_of_seats' => 'عدد المقاعد'
+            'number_of_seats' => 'عدد المقاعد',
+            'student' => 'اسم الطالب',
+            'supervisor' => 'اسم المشرفة',
+            'driver' => 'اسم السائق',
         ];
     }
     //===========================================================================================================================
@@ -61,8 +70,9 @@ class Update_Bus_Request extends FormRequest
             'unique' => ':attribute  موجود سابقاً , يجب أن يكون :attribute غير مكرر',
             'max' => 'الحد الأقصى لطول  :attribute هو 50 حرف',
             'name.min' => 'الحد الأدنى لطول :attribute على الأقل هو 4 حرف',
-            'number_of_seats.min' => 'الحد الأدنى لطول :attribute على الأقل هو 30 حرف',
             'integer' => 'يجب أن يكون الحقل :attribute من نمط int',
+            'exists' => 'يجب أن يكون :attribute موجودا مسبقا',
+            'array' => 'يجب أن يكون الحقل :attribute مصفوفة',
         ];
     }
 }

@@ -45,6 +45,11 @@ class BusController extends Controller
     public function store(Store_Bus_Request $request)
     {
         $bus = $this->busservices->create_bus($request->validated());
+        
+        // In case error messages are returned from the services section 
+        if ($bus instanceof \Illuminate\Http\JsonResponse) {
+            return $bus;
+        }
         return $this->success_Response(new BusResources($bus), "bus created successfully.", 201);
     }
     

@@ -26,13 +26,13 @@ class Store_Bus_Request extends FormRequest
     {
         return [
             'name' => 'required|unique:buses,name|string|min:4|max:50',
-            'number_of_seats' => 'required|min:20|integer',
+            'number_of_seats' => 'required|integer',
             'students' => 'required|array',
-            'students.*.id' => 'required|integer|min:1',
+            'students.*.id' => 'required|exists:students,id',
             'supervisors' => 'required|array',
-            'supervisors.*.id' => 'required|integer|min:1',
+            'supervisors.*.id' => 'required|exists:supervisors,id',
             'drivers' => 'required|array',
-            'drivers.*.id' => 'required|integer|min:1',
+            'drivers.*.id' => 'required|exists:drivers,id',
         ];
     }
     //===========================================================================================================================
@@ -70,8 +70,10 @@ class Store_Bus_Request extends FormRequest
             'unique' => ':attribute  موجود سابقاً , يجب أن يكون :attribute غير مكرر',
             'max' => 'الحد الأقصى لطول  :attribute هو 50 حرف',
             'name.min' => 'الحد الأدنى لطول :attribute على الأقل هو 4 حرف',
-            'number_of_seats.min' => 'الحد الأدنى لطول :attribute على الأقل هو 20 حرف',
+           // 'number_of_seats.min' => 'الحد الأدنى لطول :attribute على الأقل هو 20 مقعد',
             'integer' => 'يجب أن يكون الحقل :attribute من نمط int',
+            'exists' => 'يجب أن يكون :attribute موجودا مسبقا',
+            'array' => 'يجب أن يكون الحقل :attribute مصفوفة',
         ];
     }
 }
