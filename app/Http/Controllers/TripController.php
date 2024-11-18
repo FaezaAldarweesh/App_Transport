@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Trip;
-use Illuminate\Http\Request;
 use App\Services\TripService;
 use App\Http\Resources\TripResources;
 use App\Http\Traits\ApiResponseTrait;

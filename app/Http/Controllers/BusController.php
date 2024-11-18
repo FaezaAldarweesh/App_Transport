@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Bus;
 use App\Services\BusService;
-use Illuminate\Http\Request;
 use App\Http\Resources\BusResources;
 use App\Http\Traits\ApiResponseTrait;
 use App\Http\Requests\Bus_Request\Store_Bus_Request;

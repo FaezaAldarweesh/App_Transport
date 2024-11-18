@@ -18,9 +18,11 @@ class Student extends Model
         'name',
         'father_phone',
         'mather_phone',
-        'location',
+        'longitude',
+        'latitude',
         'class_room_id',
         'user_id',
+        'status',
     ];
 
 

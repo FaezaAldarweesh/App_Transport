@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Station;
-use Illuminate\Http\Request;
 use App\Services\StationService;
 use App\Http\Traits\ApiResponseTrait;
 use App\Http\Resources\StationResources;

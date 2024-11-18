@@ -19,10 +19,12 @@ class StudentResources extends JsonResource
             'student name' => $this->name, 
             'student father phone' => $this->father_phone,
             'student mather phone' => $this->mather_phone,
-            'student location' => $this->location,
+            'student longitude' => $this->longitude,
+            'student latitude' => $this->latitude,
             'student grade' => $this->classRoom->grade->name,
             'student class' => $this->classRoom->name,
             'student parent' => $this->user->name,
+            'student status' => $this->status == 0 ? 'غائب' : 'حاضر',
         ];
     }
 }

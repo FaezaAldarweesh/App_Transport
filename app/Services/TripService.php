@@ -5,12 +5,8 @@ namespace App\Services;
 
 use App\Models\Bus;
 use App\Models\Trip;
-use App\Models\Driver;
-use App\Models\Student;
-use App\Models\Supervisor;
 use Illuminate\Support\Facades\Log;
 use App\Http\Traits\ApiResponseTrait;
-use Illuminate\Support\Facades\Request;
 
 class TripService {
     //trait customize the methods for successful , failed , authentecation responses.
@@ -36,15 +32,16 @@ class TripService {
             $Trip = new Trip(); 
             $Trip->type = $data['type'];
             $Trip->path_id = $data['path_id'];
+            $Trip->status = $data['status'];
             $Trip->save();
-
+            
             foreach ($data['buses'] as $bus) {
                 $bus = Bus::findOrFail($bus['id']);
-                $Trip->students()->attach($bus->id);
+                $Trip->buses()->attach($bus->id);
             }
-
+            
             $Trip->save(); 
-    
+
             return $Trip; 
         } catch (\Exception $e) { Log::error($e->getMessage()); return $this->failed_Response($e->getMessage(), 404);
         } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('Something went wrong with create TRip', 400);}
@@ -65,6 +62,7 @@ class TripService {
 
             $Trip->type = $data['type'] ?? $Trip->type;
             $Trip->path_id = $data['path_id'] ?? $Trip->path_id;
+            $Trip->status = $data['status'] ?? $Trip->status;
             $Trip->buses()->sync(array_column($data['buses'], 'id'));
 
             $Trip->save(); 
@@ -154,7 +152,6 @@ class TripService {
      */
     public function forceDelete_Trip($Trip_id)
     {   
-        //hello
         try {
             $Trip = Trip::onlyTrashed()->find($Trip_id);
             if(!$Trip){

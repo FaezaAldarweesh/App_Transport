@@ -29,9 +29,11 @@ class Update_Student_Request extends FormRequest
             'name' => 'sometimes|nullable|unique:students,name,' . $this->route('student') . '|regex:/^[\p{L}\s]+$/u|min:2|max:50',
             'father_phone' => 'sometimes|nullable|min:10|max:10|regex:/^([0-9\s\-\+\(\)]*)$/',
             'mather_phone' => 'sometimes|nullable|min:10|max:10|regex:/^([0-9\s\-\+\(\)]*)$/',
-            'location' => 'sometimes|nullable',
+            'longitude'   => 'sometimes|nullable|numeric|between:-180,180',
+            'latitude'    => 'sometimes|nullable|numeric|between:-90,90',
             'class_room_id' => 'sometimes|nullable|integer|exists:class_rooms,id',
             'user_id' => 'sometimes|nullable|integer|exists:users,id',
+            'status' => 'sometimes|nullable|boolean'
         ];
     }
     //===========================================================================================================================
@@ -56,9 +58,11 @@ class Update_Student_Request extends FormRequest
             'name' => 'اسم الطالب',
             'father_phone' => 'رقم الأب',
             'mather_phone' => 'رقم الأم',
-            'location' => 'الموقع',
+            'longitude' => 'خط الطول',
+            'latitude' => 'خط العرض',
             'class_room_id' => 'الشعبة',
             'user_id' => 'اسم الأب',
+            'status'=> 'حالة الطالب',
         ];
     }
     //===========================================================================================================================
@@ -75,6 +79,10 @@ class Update_Student_Request extends FormRequest
             'min' => 'الحد الأدنى لطول :attribute على الأقل هو 10 حرف',
             'integer' => 'يجب أن يكون الحقل :attribute من نمط int',
             'exists' => 'يجب أن يكون :attribute موجودا مسبقا',
+            'numeric' => 'يجب أن يكون :attribute رقماً',
+            'latitude.between'  => ':attribute يجب أن يكون بين -90 و 90',
+            'longitude.between'  => ':attribute يجب أن يكون بين -180 و 180',
+            'boolean' => ' يجي أن تكون :attribute  قيمتها إما 1 أو 0',
         ];
     }
 }

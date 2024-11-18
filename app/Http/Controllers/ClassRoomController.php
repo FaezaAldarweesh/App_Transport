@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\ClassRoom;
-use Illuminate\Http\Request;
 use App\Services\ClassService;
 use App\Http\Resources\ClassResources;
 use App\Http\Traits\ApiResponseTrait;

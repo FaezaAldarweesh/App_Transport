@@ -16,9 +16,11 @@ return new class extends Migration
             $table->string('name');
             $table->integer('father_phone');
             $table->integer('mather_phone');
-            $table->text('location');
+            $table->decimal('longitude', 10, 8);
+            $table->decimal('latitude', 10, 8);
             $table->foreignId('class_room_id')->constrained()->onDelete('cascade');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->boolean('status')->default(1);
             $table->timestamps();
             $table->softDeletes();
         });

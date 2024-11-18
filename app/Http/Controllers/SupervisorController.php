@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Supervisor;
-use Illuminate\Http\Request;
 use App\Services\SupervisorService;
 use App\Http\Traits\ApiResponseTrait;
 use App\Http\Resources\SupervisorResources;

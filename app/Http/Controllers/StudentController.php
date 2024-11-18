@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Student;
-use Illuminate\Http\Request;
 use App\Services\StudentService;
 use App\Http\Traits\ApiResponseTrait;
 use App\Http\Resources\StudentResources;

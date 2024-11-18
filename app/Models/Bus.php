@@ -20,10 +20,10 @@ class Bus extends Model
         'number_of_seats',
     ];
 
-    public function students (){
-        
-        return $this->belongsToMany(Student::class);
-    }
+        public function students (){
+            
+            return $this->belongsToMany(Student::class);
+        }
 
     public function supervisors (){
         

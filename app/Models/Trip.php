@@ -16,10 +16,23 @@ class Trip extends Model
     protected $fillable = [
         'type',
         'path_id',
+        'status',
     ];
 
     public function buses (){
         
         return $this->belongsToMany(Bus::class);
+    }
+
+    public function students (){
+        
+        return $this->hasManyThrough(
+            BusStudent::class,
+            BusTrip::class,
+            'trip_id',
+            'bus_id',
+            'id',
+            'bus_id'
+        );
     }
 }

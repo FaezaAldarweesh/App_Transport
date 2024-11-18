@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->enum('type',['go','back','all day'])->default('go');
             $table->foreignId('path_id')->constrained()->onDelete('cascade');
+            $table->boolean('status')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });
