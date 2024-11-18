@@ -25,7 +25,7 @@ class Trip extends Model
     }
 
     public function students (){
-        
+
         return $this->hasManyThrough(
             BusStudent::class,
             BusTrip::class,

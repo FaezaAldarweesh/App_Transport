@@ -82,4 +82,7 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::get('all_trashed_trip', [TripController::class, 'all_trashed_trip']);
     Route::get('restore_trip/{trip_id}', [TripController::class, 'restore']);
     Route::delete('forceDelete_trip/{trip_id}', [TripController::class, 'forceDelete']);
+
+    Route::get('list_of_students/{trip_id}/{latitude}/{longitude}', [TripController::class, 'list_of_students']);
+    
 });

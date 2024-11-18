@@ -3,6 +3,7 @@
 namespace App\Services;
 
 
+use App\Models\Trip;
 use App\Models\Student;
 use Illuminate\Support\Facades\Log;
 use App\Http\Traits\ApiResponseTrait;
@@ -156,5 +157,4 @@ class StudentService {
         } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('Something went wrong with deleting student', 400);}
     }
     //========================================================================================================================
-
 }

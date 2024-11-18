@@ -5,6 +5,7 @@ namespace App\Services;
 
 use App\Models\Bus;
 use App\Models\Trip;
+use App\Models\Student;
 use Illuminate\Support\Facades\Log;
 use App\Http\Traits\ApiResponseTrait;
 
@@ -161,6 +162,31 @@ class TripService {
             return $Trip->forceDelete();
         }catch (\Exception $e) { Log::error($e->getMessage()); return $this->failed_Response($e->getMessage(), 400);   
         } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('Something went wrong with deleting Trip', 400);}
+    }
+    //========================================================================================================================
+
+
+    
+
+    
+
+
+
+    //========================================================================================================================
+    public function list_of_students($trip_id, $latitude, $longitude)
+    {
+        try {
+        $trip = Trip::findOrFail($trip_id);  
+        $studentsIds = $trip->students->pluck('student_id');
+        $students = Student::whereIn('id', $studentsIds)->get();
+
+        $students = $students->sortBy(function ($student) use ($latitude, $longitude) {
+            return $student->distanceFrom($latitude, $longitude);
+        });
+
+        return $students;
+    
+        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('Something went wrong with fetching students', 400);}
     }
     //========================================================================================================================
 

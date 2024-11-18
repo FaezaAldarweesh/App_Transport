@@ -7,6 +7,7 @@ use App\Http\Resources\TripResources;
 use App\Http\Traits\ApiResponseTrait;
 use App\Http\Requests\Trip_Request\Store_Trip_Request;
 use App\Http\Requests\Trip_Request\Update_Trip_Request;
+use App\Http\Resources\StudentResources;
 
 class TripController extends Controller
 {
@@ -138,5 +139,27 @@ class TripController extends Controller
             return $this->success_Response(null, "Trip force deleted successfully", 200);
     }
         
+    //========================================================================================================================
+
+    
+
+
+    
+
+
+    //========================================================================================================================
+    /**
+     * method to get all students sorte by distance
+     * @param   $Trip_id
+     * @param   $latitude
+     * @param   $longitude
+     * @return /Illuminate\Http\JsonResponse
+     */
+    public function list_of_students($trip_id, $latitude, $longitude)
+    {
+        $students = $this->Tripservices->list_of_students($trip_id, $latitude, $longitude);
+        return $this->success_Response(StudentResources::collection($students), "all students successfully", 200);
+
+    }  
     //========================================================================================================================
 }
