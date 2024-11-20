@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('trips', function (Blueprint $table) {
             $table->id();
-            $table->enum('type',['go','back','all day'])->default('go');
+            $table->enum('name',['delivery','school'])->default('delivery');
+            $table->enum('type',['go','back'])->default('go');
             $table->foreignId('path_id')->constrained()->onDelete('cascade');
             $table->boolean('status')->default(0);
             $table->timestamps();

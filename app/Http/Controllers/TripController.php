@@ -7,6 +7,7 @@ use App\Http\Resources\TripResources;
 use App\Http\Traits\ApiResponseTrait;
 use App\Http\Requests\Trip_Request\Store_Trip_Request;
 use App\Http\Requests\Trip_Request\Update_Trip_Request;
+use App\Http\Requests\Trip_Request\Update_Status_Trip_Request;
 use App\Http\Resources\StudentResources;
 
 class TripController extends Controller
@@ -44,7 +45,12 @@ class TripController extends Controller
     public function store(Store_Trip_Request $request)
     {
         $Trip = $this->Tripservices->create_Trip($request->validated());
-        return $this->success_Response(new TripResources($Trip), "Trip created successfully.", 201);
+
+        // In case error messages are returned from the services section 
+        if ($Trip instanceof \Illuminate\Http\JsonResponse) {
+            return $Trip;
+        }
+            return $this->success_Response(new TripResources($Trip), "Trip created successfully.", 201);
     }
     
     //===========================================================================================================================
@@ -159,6 +165,40 @@ class TripController extends Controller
     {
         $students = $this->Tripservices->list_of_students($trip_id, $latitude, $longitude);
         return $this->success_Response(StudentResources::collection($students), "all students successfully", 200);
+
+    }  
+    //========================================================================================================================
+    /**
+     * method to update on trip status
+     * @param   $Trip_id
+     * @return /Illuminate\Http\JsonResponse
+     */
+    public function update_trip_status(Update_Status_Trip_Request $request,$trip_id)
+    {
+        $trip = $this->Tripservices->update_trip_status($request->validated(),$trip_id);
+
+        // In case error messages are returned from the services section 
+        if ($trip instanceof \Illuminate\Http\JsonResponse) {
+            return $trip;
+        }
+        return $this->success_Response(new TripResources($trip), "trip status update successfully", 200);
+
+    }  
+    //========================================================================================================================
+        /**
+     * method to update on trip status
+     * @param   $Trip_id
+     * @return /Illuminate\Http\JsonResponse
+     */
+    public function All_students_belong_to_specific_trip($trip_id)
+    {
+        $students = $this->Tripservices->All_students_belong_to_specific_trip($trip_id);
+
+        // In case error messages are returned from the services section 
+        if ($students instanceof \Illuminate\Http\JsonResponse) {
+            return $students;
+        }
+        return $this->success_Response(StudentResources::collection($students), "All students that belong to a specific trip fetching successfully", 200);
 
     }  
     //========================================================================================================================

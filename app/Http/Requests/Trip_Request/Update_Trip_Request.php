@@ -26,7 +26,8 @@ class Update_Trip_Request extends FormRequest
     public function rules(): array
     {
         return [
-            'type' => 'sometimes|nullable|string|in:go,back,all day',
+            'name' => 'sometimes|nullable|string|in:delivery,school',
+            'type' => 'sometimes|nullable|string|in:go,back',
             'path_id' => 'sometimes|nullable|integer|exists:paths,id',
             'buses' => 'sometimes|nullable|array',
             'buses.*.id' => 'sometimes|nullable|exists:buses,id',
@@ -52,6 +53,7 @@ class Update_Trip_Request extends FormRequest
     public function attributes(): array
     {
         return [
+            'name' => 'اسم الرحلة',
             'type' => 'نوع الرحلة',
             'path_id' => 'اسم المسار',
             'bus_id' => 'اسم الباص',
@@ -62,10 +64,11 @@ class Update_Trip_Request extends FormRequest
 
     public function messages(): array
     {
-        return [
+        return [ 
+            'name.in' => 'يأخذ الحقل :attribute فقط القيم إما ( delivery أو school )',
             'integer' => 'يجب أن يكون الحقل :attribute من نمط int',
-            'exists' => ':attribute غير موجود , يجب أن يكون :attribute موجود ضمن التصنيفات المخزنة سابقا',
-            'in' => 'يأخذ الحقل :attribute فقط القيم إما ( go أو back أو all day )',
+            'exists' => ':attribute غير موجود , يجب أن يكون :attribute موجود ضمن المسارات المخزنة سابقا',
+            'type.in' => 'يأخذ الحقل :attribute فقط القيم إما ( go أو back )',
             'array' => 'يجب أن يكون الحقل :attribute مصفوفة',
             'buses.*.id.exists' => 'يجب أن يكون :attribute موجودا مسبقا',
             'boolean' => ' يجي أن تكون :attribute  قيمتها إما 1 أو 0',

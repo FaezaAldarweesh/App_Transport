@@ -16,6 +16,7 @@ class TripResources extends JsonResource
     {
         return [
             'trip id' => $this->id,
+            'trip name' => $this->name, 
             'trip type' => $this->type, 
             'trip path' => $this->path_id,
             'trip status' => $this->status == 0 ? 'trip end' : 'trip start',

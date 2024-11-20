@@ -84,5 +84,7 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::delete('forceDelete_trip/{trip_id}', [TripController::class, 'forceDelete']);
 
     Route::get('list_of_students/{trip_id}/{latitude}/{longitude}', [TripController::class, 'list_of_students']);
+    Route::patch('update_trip_status/{trip_id}', [TripController::class, 'update_trip_status']);
+    Route::get('All_students_belong_to_specific_trip/{trip_id}', [TripController::class, 'All_students_belong_to_specific_trip']);
     
 });
