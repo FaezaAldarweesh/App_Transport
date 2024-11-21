@@ -7,6 +7,10 @@ use App\Http\Resources\TripResources;
 use App\Http\Traits\ApiResponseTrait;
 use App\Http\Requests\Trip_Request\Store_Trip_Request;
 use App\Http\Requests\Trip_Request\Update_Trip_Request;
+
+use App\Http\Requests\Bind_Request\Store_Bind_Request;
+use App\Http\Requests\Trip_Request\Update_Bind_Request;
+
 use App\Http\Requests\Trip_Request\Update_Status_Trip_Request;
 use App\Http\Resources\StudentResources;
 
@@ -152,7 +156,22 @@ class TripController extends Controller
 
     
 
+    //===========================================================================================================================
+    /**
+     * method to bind  trip with bus , student , supervisor , driver
+     * @param   Store_Bind_Request $request
+     * @return /Illuminate\Http\JsonResponse
+     */
+    public function bind(Store_Bind_Request $request)
+    {
+        $Trip = $this->Tripservices->bind($request->validated());
 
+        // In case error messages are returned from the services section 
+        if ($Trip instanceof \Illuminate\Http\JsonResponse) {
+            return $Trip;
+        }
+            return $this->success_Response(new TripResources($Trip), "Trip created successfully.", 201);
+    }
     //========================================================================================================================
     /**
      * method to get all students sorte by distance

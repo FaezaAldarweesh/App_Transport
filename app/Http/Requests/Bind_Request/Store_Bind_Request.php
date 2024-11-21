@@ -1,21 +1,20 @@
 <?php
 
-namespace App\Http\Requests\Trip_Request;
+namespace App\Http\Requests\Bind_Request;
 
-use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class Update_Trip_Request extends FormRequest
+class Store_Bind_Request extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return true;
+        return true;    
     }
 
     /**
@@ -26,10 +25,19 @@ class Update_Trip_Request extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'sometimes|nullable|string|in:delivery,school',
-            'type' => 'sometimes|nullable|string|in:go,back',
-            'path_id' => 'sometimes|nullable|integer|exists:paths,id',
-            'status' => 'sometimes|nullable|boolean'
+            'trip' => 'required|integer|exists:trips,id',
+
+            'buses' => 'required|array',
+            'buses.*.id' => 'required|integer|exists:buses,id',
+
+            'students' => 'required|array',
+            'students.*.id' => 'required|integer|exists:students,id',
+
+            'supervisors' => 'required|array',
+            'supervisors.*.id' => 'required|integer|exists:supervisors,id',
+
+            'drivers' => 'required|array',
+            'drivers.*.id' => 'required|integer|exists:drivers,id',
         ];
     }
     //===========================================================================================================================
@@ -51,22 +59,25 @@ class Update_Trip_Request extends FormRequest
     public function attributes(): array
     {
         return [
-            'name' => 'اسم الرحلة',
-            'type' => 'نوع الرحلة',
-            'path_id' => 'اسم المسار',
-            'status'=> 'حالة الرحلة',
+            'trip' => 'اسم الرحلة',
+            'bus_id' => 'اسم الباص',
+            'student' => 'اسم الطالب',
+            'supervisor' => 'اسم المشرفة',
+            'driver' => 'اسم السائق',
         ];
     }
     //===========================================================================================================================
 
     public function messages(): array
     {
-        return [ 
-            'name.in' => 'يأخذ الحقل :attribute فقط القيم إما ( delivery أو school )',
+        return [
+            'required' => ' :attribute مطلوب',
             'integer' => 'يجب أن يكون الحقل :attribute من نمط int',
-            'exists' => ':attribute غير موجود , يجب أن يكون :attribute موجود ضمن المسارات المخزنة سابقا',
-            'type.in' => 'يأخذ الحقل :attribute فقط القيم إما ( go أو back )',
-            'boolean' => ' يجي أن تكون :attribute  قيمتها إما 1 أو 0',
+            'trip.exists' => 'يجب أن يكون :attribute موجودا مسبقا',
+            'buses.*.id.exists' => 'يجب أن يكون :attribute موجودا مسبقا',
+            'students.*.id.exists' => 'يجب أن يكون :attribute موجودا مسبقا',
+            'supervisors.*.id.exists' => 'يجب أن يكون :attribute موجودا مسبقا',
+            'drivers.*.id.exists' => 'يجب أن يكون :attribute موجودا مسبقا',
         ];
     }
 }

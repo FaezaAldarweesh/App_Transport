@@ -88,7 +88,7 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::patch('update_trip_status/{trip_id}', [TripController::class, 'update_trip_status']);
     Route::get('All_students_belong_to_specific_trip/{trip_id}', [TripController::class, 'All_students_belong_to_specific_trip']);
 
-    
+    Route::post('bind', [TripController::class, 'bind']);
 
     Route::apiResource('check_out',controller: CheckOutController::class); 
     Route::get('all_trashed_check_out', [CheckOutController::class, 'all_trashed_check_out']);

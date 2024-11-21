@@ -18,24 +18,24 @@ class BusResources extends JsonResource
             'bus id' => $this->id,
             'bus name' => $this->name, 
             'number_of_seats' => $this->number_of_seats,
-            'students' => $this->students->map(function ($student) {
-                return [
-                    'id' => $student->id,
-                    'student name' => $student->name,
-                ];
-            }),
-            'supervisors' => $this->supervisors->map(function ($supervisor) {
-                return [
-                    'id' => $supervisor->id,
-                    'supervisor name' => $supervisor->name,
-                ];
-            }),
-            'drivers' => $this->drivers->map(function ($driver) {
-                return [
-                    'id' => $driver->id,
-                    'driver name' => $driver->name,
-                ];
-            }),
+            // 'students' => $this->students->map(function ($student) {
+            //     return [
+            //         'id' => $student->id,
+            //         'student name' => $student->name,
+            //     ];
+            // }),
+            // 'supervisors' => $this->supervisors->map(function ($supervisor) {
+            //     return [
+            //         'id' => $supervisor->id,
+            //         'supervisor name' => $supervisor->name,
+            //     ];
+            // }),
+            // 'drivers' => $this->drivers->map(function ($driver) {
+            //     return [
+            //         'id' => $driver->id,
+            //         'driver name' => $driver->name,
+            //     ];
+            // }),
         ];
     }
 }

@@ -35,9 +35,9 @@ class BusService {
         try {
             $bus = new Bus(); 
 
-            if (count($data['students']) > $data['number_of_seats']) {
-                throw new \Exception('عدد الطلاب يجب أن يساوي عدد المقاعد المدخل');
-            }
+            // if (count($data['students']) > $data['number_of_seats']) {
+            //     throw new \Exception('عدد الطلاب يجب أن يساوي عدد المقاعد المدخل');
+            // }
 
             $bus->name = $data['name'];
             $bus->number_of_seats = $data['number_of_seats'];
@@ -58,7 +58,7 @@ class BusService {
             //     $bus->drivers()->attach($driver->id);
             // }
 
-            $bus->save(); 
+            //$bus->save(); 
     
             return $bus; 
         } catch (\Exception $e) { Log::error($e->getMessage()); return $this->failed_Response($e->getMessage(), 404);

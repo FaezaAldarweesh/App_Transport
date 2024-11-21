@@ -25,6 +25,11 @@ class Trip extends Model
         return $this->belongsToMany(Bus::class);
     }
 
+    public function path (){
+        
+        return $this->belongsTo(Path::class);
+    }
+
     public function students (){
 
         return $this->hasManyThrough(

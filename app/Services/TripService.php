@@ -8,6 +8,7 @@ use App\Models\Trip;
 use App\Models\Student;
 use Illuminate\Support\Facades\Log;
 use App\Http\Traits\ApiResponseTrait;
+use App\Models\BusTrip;
 
 class TripService {
     //trait customize the methods for successful , failed , authentecation responses.
@@ -30,26 +31,36 @@ class TripService {
      */
     public function create_Trip($data) {
         try {
-            $Trip = new Trip(); 
-
-            if($data['name'] == 'delivery' && count($data['buses']) > 1){
-                throw new \Exception('رحلة التوصيل يجب أن يكون لها باص واحد فقط');
-            }
-            else{
             
+            if ($data['name'] == 'delivery' && $data['type'] == 'go') {
+                $existingTrip = Trip::where('name', 'delivery')
+                                    ->where('type', 'go')
+                                    ->where('path_id', $data['path_id'])
+                                    ->exists();
+        
+                if ($existingTrip) {
+                    throw new \Exception('هذا المسار مرتبط برحلة توصيل أخرى من نمط ذهاب.');
+                }
+
+            }else if ($data['name'] == 'delivery' && $data['type'] == 'back') {
+                $existingTrip = Trip::where('name', 'delivery')
+                                    ->where('type', 'back')
+                                    ->where('path_id', $data['path_id'])
+                                    ->exists();
+        
+                if ($existingTrip) {
+                    throw new \Exception('هذا المسار مرتبط برحلة توصيل أخرى من نمط إياب.');
+                }
+
+            }
+            
+            $Trip = new Trip();
             $Trip->name = $data['name'];
             $Trip->type = $data['type'];
             $Trip->path_id = $data['path_id'];
             $Trip->status = $data['status'];
             $Trip->save();
             
-            // foreach ($data['buses'] as $bus) {
-            //     $bus = Bus::findOrFail($bus['id']);
-            //     $Trip->buses()->attach($bus->id);
-            // }
-            
-            $Trip->save(); 
-        }
 
             return $Trip; 
         } catch (\Exception $e) { Log::error($e->getMessage()); return $this->failed_Response($e->getMessage(), 404);
@@ -67,6 +78,30 @@ class TripService {
             $Trip = Trip::find($Trip_id);
             if(!$Trip){
                 throw new \Exception('Trip not found');
+            }
+
+            if (isset($data['name'], $data['type'], $data['path_id'])) {
+                if ($data['name'] == 'delivery' && $data['type'] == 'go') {
+                    $existingTrip = Trip::where('name', 'delivery')
+                                        ->where('type', 'go')
+                                        ->where('path_id', $data['path_id'])
+                                        ->where('id', '!=', $Trip_id) 
+                                        ->exists();
+
+                    if ($existingTrip) {
+                        throw new \Exception('هذا المسار مرتبط برحلة توصيل أخرى من نمط ذهاب.');
+                    }
+                } elseif ($data['name'] == 'delivery' && $data['type'] == 'back') {
+                    $existingTrip = Trip::where('name', 'delivery')
+                                        ->where('type', 'back')
+                                        ->where('path_id', $data['path_id'])
+                                        ->where('id', '!=', $Trip_id) 
+                                        ->exists();
+
+                    if ($existingTrip) {
+                        throw new \Exception('هذا المسار مرتبط برحلة توصيل أخرى من نمط إياب.');
+                    }
+                }
             }
 
             $Trip->name = $data['name'] ?? $Trip->name;
@@ -178,6 +213,116 @@ class TripService {
     
 
     
+
+    //========================================================================================================================
+    /**
+     * method to bind  trip with bus , student , supervisor , driver
+     * @param  $data
+     * @return /Illuminate\Http\JsonResponse if have an error
+     */
+    public function bind($data) {
+        try { 
+
+            $Trip = Trip::find($data['trip']);
+
+            if(!$Trip){
+                throw new \Exception('Trip not found');
+            }
+
+
+            if($Trip == 'delivery' ){
+                if(count($data['buses']) > 1){
+                    throw new \Exception('رحلة التوصيل يجب أن يكون لديها باص واحد فقط');
+                }
+            }
+
+
+
+
+            if ($data['name'] == 'delivery' && $data['type'] == 'go') {
+                $existingTrips = Trip::where('name', 'delivery')
+                                     ->where('type', 'go')
+                                     ->pluck('id'); 
+            
+                $existingBusLink = BusTrip::whereIn('trip_id', $existingTrips)
+                                          ->where('bus_id', $data['bus_id']) 
+                                          ->exists();
+            
+                    if ($existingBusLink) {
+                        throw new \Exception('هذا الباص مرتبط مع رحلة توصيل  من نمط ذهاب سابقاً');
+                    }            
+
+            }else if ($data['name'] == 'delivery' && $data['type'] == 'back') {
+                $existingTrips = Trip::where('name', 'delivery')
+                                     ->where('type', 'back')
+                                     ->pluck('id'); 
+            
+                $existingBusLink = BusTrip::whereIn('trip_id', $existingTrips)
+                                          ->where('bus_id', $data['bus_id']) 
+                                          ->exists();
+            
+                    if ($existingBusLink) {
+                        throw new \Exception('هذا الباص مرتبط مع رحلة توصيل  من نمط إياب سابقاً');
+                    }
+            }
+
+
+
+
+            if ($data['name'] == 'delivery' && $data['type'] == 'go') {
+                $existingTrips = Trip::where('name', 'delivery')
+                                     ->where('type', 'go')
+                                     ->pluck('id'); 
+            
+                $existingBusLink = BusTrip::whereIn('trip_id', $existingTrips)
+                                          ->where('bus_id', $data['bus_id']) 
+                                          ->exists();
+            
+                    if ($existingBusLink) {
+                        throw new \Exception('هذا الباص مرتبط مع رحلة توصيل  من نمط ذهاب سابقاً');
+                    }            
+
+            }else if ($data['name'] == 'delivery' && $data['type'] == 'back') {
+                $existingTrips = Trip::where('name', 'delivery')
+                                     ->where('type', 'back')
+                                     ->pluck('id'); 
+            
+                $existingBusLink = BusTrip::whereIn('trip_id', $existingTrips)
+                                          ->where('bus_id', $data['bus_id']) 
+                                          ->exists();
+            
+                    if ($existingBusLink) {
+                        throw new \Exception('هذا الباص مرتبط مع رحلة توصيل  من نمط إياب سابقاً');
+                    }
+            }
+
+
+            return $Trip;
+        } catch (\Exception $e) { Log::error($e->getMessage()); return $this->failed_Response($e->getMessage(), 404);
+        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('Something went wrong with update Trip', 400);}
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

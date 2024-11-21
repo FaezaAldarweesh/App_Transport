@@ -18,14 +18,14 @@ class TripResources extends JsonResource
             'trip id' => $this->id,
             'trip name' => $this->name, 
             'trip type' => $this->type, 
-            'trip path' => $this->path_id,
+            'trip path' => $this->path->name,
             'trip status' => $this->status == 0 ? 'trip end' : 'trip start',
-            'buses' => $this->buses->map(function ($bus) {
-                return [
-                    'id' => $bus->id,
-                    'bus name' => $bus->name,
-                ];
-            }),
+            // 'buses' => $this->buses->map(function ($bus) {
+            //     return [
+            //         'id' => $bus->id,
+            //         'bus name' => $bus->name,
+            //     ];
+            // }),
         ];
     }
 }
