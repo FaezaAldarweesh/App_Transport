@@ -27,7 +27,7 @@ class Update_Bus_Request extends FormRequest
     {
         return [
             'name' => ['sometimes','nullable','string','min:4','max:50', 'unique:buses,name,' . $this->route('bus')],
-            'number_of_seats' => 'sometimes|nullable|integer',
+            'number_of_seats' => 'sometimes|nullable|integer|min:20',
             'students' => 'sometimes|nullable|array',
             'students.*.id' => 'sometimes|nullable|exists:students,id',
             'supervisors' => 'sometimes|nullable|array',
@@ -73,6 +73,7 @@ class Update_Bus_Request extends FormRequest
             'integer' => 'يجب أن يكون الحقل :attribute من نمط int',
             'exists' => 'يجب أن يكون :attribute موجودا مسبقا',
             'array' => 'يجب أن يكون الحقل :attribute مصفوفة',
+            'number_of_seats.min' => 'الحد الأدنى لطول :attribute على الأقل هو 20 مقعد',
         ];
     }
 }

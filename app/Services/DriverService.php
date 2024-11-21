@@ -30,7 +30,7 @@ class DriverService {
     public function create_Driver($data) {
         try {
             $driver = new Driver();
-            $driver->name = $data['name'];
+            $driver->name = ['first_name' => $data['first_name'], 'last_name' => $data['last_name']];
             $driver->phone = $data['phone'];
             $driver->location = $data['location'];
             
@@ -52,7 +52,9 @@ class DriverService {
             if(!$driver){
                 throw new \Exception('driver not found');
             }
-            $driver->name = $data['name'] ?? $driver->name;
+            if (isset($data['first_name']) && isset($data['last_name'])) {
+                $driver->name = ['first_name' => $data['first_name'], 'last_name' => $data['last_name']];
+            }
             $driver->phone = $data['phone'] ?? $driver->phone;
             $driver->location = $data['location'] ?? $driver->location;
             

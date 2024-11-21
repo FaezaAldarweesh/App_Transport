@@ -43,10 +43,10 @@ class TripService {
             $Trip->status = $data['status'];
             $Trip->save();
             
-            foreach ($data['buses'] as $bus) {
-                $bus = Bus::findOrFail($bus['id']);
-                $Trip->buses()->attach($bus->id);
-            }
+            // foreach ($data['buses'] as $bus) {
+            //     $bus = Bus::findOrFail($bus['id']);
+            //     $Trip->buses()->attach($bus->id);
+            // }
             
             $Trip->save(); 
         }
@@ -73,7 +73,7 @@ class TripService {
             $Trip->type = $data['type'] ?? $Trip->type;
             $Trip->path_id = $data['path_id'] ?? $Trip->path_id;
             $Trip->status = $data['status'] ?? $Trip->status;
-            $Trip->buses()->sync(array_column($data['buses'], 'id'));
+           // $Trip->buses()->sync(array_column($data['buses'], 'id'));
 
             $Trip->save(); 
             return $Trip;

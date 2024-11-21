@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BusController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CheckOutController;
 use App\Http\Controllers\PathController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\GradeController;
@@ -86,5 +87,11 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::get('list_of_students/{trip_id}/{latitude}/{longitude}', [TripController::class, 'list_of_students']);
     Route::patch('update_trip_status/{trip_id}', [TripController::class, 'update_trip_status']);
     Route::get('All_students_belong_to_specific_trip/{trip_id}', [TripController::class, 'All_students_belong_to_specific_trip']);
+
     
+
+    Route::apiResource('check_out',controller: CheckOutController::class); 
+    Route::get('all_trashed_check_out', [CheckOutController::class, 'all_trashed_check_out']);
+    Route::get('restore_check_out/{check_out_id}', [CheckOutController::class, 'restore']);
+    Route::delete('forceDelete_check_out/{check_out_id}', [CheckOutController::class, 'forceDelete']);
 });

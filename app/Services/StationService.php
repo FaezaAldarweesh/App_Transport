@@ -31,7 +31,6 @@ class StationService {
         try {
             $station = new Station();
             $station->name = $data['name'];
-            $station->location = $data['location'];
             $station->path_id = $data['path_id'];
             
             $station->save(); 
@@ -53,7 +52,6 @@ class StationService {
                 throw new \Exception('station not found');
             }
             $station->name = $data['name'] ?? $station->name;
-            $station->location = $data['location'] ?? $station->location;
             $station->path_id = $data['path_id'] ?? $station->path_id;
             
             $station->save(); 

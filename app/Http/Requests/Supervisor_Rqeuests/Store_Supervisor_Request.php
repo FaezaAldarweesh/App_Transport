@@ -25,10 +25,11 @@ class Store_Supervisor_Request extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|regex:/^[\p{L}\s]+$/u|min:2|max:50|unique:supervisors,name',
+            'first_name' => 'required|regex:/^[\p{L}\s]+$/u|min:2|max:50|unique:supervisors,name',
+            'last_name' => 'required|regex:/^[\p{L}\s]+$/u|min:2|max:50|unique:supervisors,name',
             'username' => 'required|min:6|max:50|unique:supervisors,username',
             'password' => 'required|string|min:8',
-            'location' => 'required',
+            'location' => 'required|string|min:5',
             'phone' => 'required|min:10|max:10|regex:/^([0-9\s\-\+\(\)]*)$/|unique:supervisors,phone',
         ];
     }
@@ -73,6 +74,7 @@ class Store_Supervisor_Request extends FormRequest
             'password.min' => 'الحد الأدنى لطول :attribute على الأقل هو 8 محرف',
             'phone.max' => 'الحد الأقصى لطول  :attribute هو 10 حرف',
             'phone.min' => 'الحد الأدنى لطول :attribute على الأقل هو 10 حرف',
+            'location.min' => 'الحد الأدنى لطول :attribute على الأقل هو 5 حرف',
             'phone.regex' => 'يجب أن يحوي  :attribute على أرقام فقط',
         ];
     }

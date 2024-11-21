@@ -25,9 +25,10 @@ class Store_Driver_Request extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required||regex:/^[\p{L}\s]+$/u|min:4|max:50|unique:drivers,name',
+            'first_name' => 'required||regex:/^[\p{L}\s]+$/u|min:4|max:50|unique:drivers,name',
+            'last_name' => 'required||regex:/^[\p{L}\s]+$/u|min:4|max:50|unique:drivers,name',
             'phone' => 'required|min:10|max:10|regex:/^([0-9\s\-\+\(\)]*)$/|unique:drivers,phone',
-            'location' => 'required',
+            'location' => 'required|string|min:5',
         ];
     }
     //===========================================================================================================================
@@ -65,6 +66,7 @@ class Store_Driver_Request extends FormRequest
             'name.min' => 'الحد الأدنى لطول :attribute على الأقل هو 4 حرف',
             'phone.max' => 'الحد الأقصى لطول  :attribute هو 10 حرف',
             'phone.min' => 'الحد الأدنى لطول :attribute على الأقل هو 10 حرف',
+            'location.min' => 'الحد الأدنى لطول :attribute على الأقل هو 5 حرف',
             'phon.regex' => 'يجب أن يحوي  :attribute على أرقام فقط',
             'name.regex' => 'يجب أن يحوي  :attribute على أحرف فقط',
         ];

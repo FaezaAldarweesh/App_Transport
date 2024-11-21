@@ -50,6 +50,11 @@ class User extends Authenticatable implements JWTSubject
         'password' => 'hashed'
     ];
 
+    public function setNameAttribute($value)
+    {
+        $this->attributes['name'] = $value['first_name'] . ' ' . $value['last_name'];
+    }
+
      /**
      * Get the identifier that will be stored in the subject claim of the JWT.
      * @return mixed
@@ -86,4 +91,5 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(Student::class);
 
     }
+
 }

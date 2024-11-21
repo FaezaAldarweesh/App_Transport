@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Driver extends Model
+class CheckOut extends Model
 {
     use HasFactory,softDeletes;
     /**
@@ -14,16 +14,9 @@ class Driver extends Model
     * @var array<int, string>
     */
     protected $fillable = [
-        'name',
-        'phone',
-        'location',
+        'student_id',
+        'trip_id',
+        'check_out',
+        'note',
     ];
-    public function setNameAttribute($value)
-    {
-        $this->attributes['name'] = $value['first_name'] . ' ' . $value['last_name'];
-    }
-    public function buses (){
-        
-        return $this->belongsToMany(Bus::class);
-    }
 }

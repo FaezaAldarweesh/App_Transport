@@ -26,7 +26,8 @@ class Update_Student_Request extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'sometimes|nullable|unique:students,name,' . $this->route('student') . '|regex:/^[\p{L}\s]+$/u|min:2|max:50',
+            'first_name' => 'sometimes|nullable|unique:students,name,' . $this->route('student') . '|regex:/^[\p{L}\s]+$/u|min:2|max:50',
+            'last_name' => 'sometimes|nullable|unique:students,name,' . $this->route('student') . '|regex:/^[\p{L}\s]+$/u|min:2|max:50',
             'father_phone' => 'sometimes|nullable|min:10|max:10|regex:/^([0-9\s\-\+\(\)]*)$/',
             'mather_phone' => 'sometimes|nullable|min:10|max:10|regex:/^([0-9\s\-\+\(\)]*)$/',
             'longitude'   => 'sometimes|nullable|numeric|between:-180,180',

@@ -28,9 +28,10 @@ class Update_Driver_Request extends FormRequest
         $driver_id = $this->route(param: 'driver');
 
         return [
-            'name' => ['sometimes','nullable','string','min:4','max:50',Rule::unique('drivers', 'name')->ignore($driver_id)],
+            'first_name' => ['sometimes','nullable','string','min:4','max:50',Rule::unique('drivers', 'name')->ignore($driver_id)],
+            'last_name' => ['sometimes','nullable','string','min:4','max:50',Rule::unique('drivers', 'name')->ignore($driver_id)],
             'phone' => ['sometimes','nullable','min:10','max:10','regex:/^([0-9\s\-\+\(\)]*)$/',Rule::unique('drivers', 'phone')->ignore($driver_id)],
-            'location' => 'sometimes|nullable|',
+            'location' => 'sometimes|nullable|string|min:5',
         ];
     }
     //===========================================================================================================================
@@ -68,6 +69,7 @@ class Update_Driver_Request extends FormRequest
             'phone.min' => 'الحد الأدنى لطول :attribute على الأقل هو 10 حرف',
             'regex' => 'يجب أن يحوي  :attribute على أرقام فقط',
             'unique' => ':attribute  موجود سابقاً , يجب أن يكون :attribute غير مكرر',
+            'location.min' => 'الحد الأدنى لطول :attribute على الأقل هو 5 حرف',
         ];
     }
 }

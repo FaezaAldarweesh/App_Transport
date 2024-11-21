@@ -1,20 +1,20 @@
 <?php
 
-namespace App\Http\Requests\User_Rqeuests;
+namespace App\Http\Requests\CheckOut_Request;
 
 use Illuminate\Support\Facades\Log;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class Store_User_Request extends FormRequest
+class Store_CheckOut_Request extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return true;
+        return true;    
     }
 
     /**
@@ -25,10 +25,10 @@ class Store_User_Request extends FormRequest
     public function rules(): array
     {
         return [
-            'first_name' => 'required|regex:/^[\p{L}\s]+$/u|min:2|max:50',
-            'last_name' => 'required|regex:/^[\p{L}\s]+$/u|min:2|max:50',
-            'username' => 'required|min:6|max:50|unique:users,username',
-            'password' => 'required|string|min:8',
+            'student_id' => 'required|integer|exists:students,id',
+            'trip_id' => 'required|integer|exists:trips,id',
+            'check_out' => 'required|boolean',
+            'note' => 'sometimes|nullable|string',
         ];
     }
     //===========================================================================================================================
@@ -50,9 +50,10 @@ class Store_User_Request extends FormRequest
     public function attributes(): array
     {
         return [
-            'name' => 'اسم الأب',
-            'username' => 'اسم المستخدم',
-            'password' => 'كلمة المرور',
+            'student_id' => 'اسم الطالب',
+            'trip_id' => 'اسم الرحلة',
+            'check_out' => 'التفقد',
+            'note' => 'الملاحظات',
         ];
     }
     //===========================================================================================================================
@@ -61,13 +62,9 @@ class Store_User_Request extends FormRequest
     {
         return [
             'required' => ' :attribute مطلوب',
-            'unique' => ':attribute  موجود سابقاً , يجب أن يكون :attribute غير مكرر',
-            'regex' => 'يجب أن يحوي  :attribute على أحرف فقط',
-            'max' => 'الحد الأقصى لطول  :attribute هو 50 حرف',
-            'string' => 'يجب أن يكون :attribute عبارة عن سلسة نصية',
-            'name.min' => 'الحد الأدنى لطول :attribute على الأقل هو 2 حرف',
-            'username.min' => 'الحد الأدنى لطول :attribute على الأقل هو 2 حرف',
-            'password.min' => 'الحد الأدنى لطول :attribute على الأقل هو 8 محرف',
+            'integer' => 'يجب أن يكون الحقل :attribute من نمط int',
+            'exists' => 'يجب أن يكون :attribute موجودا مسبقا',
+            'boolean' => ' يجب أن تكون :attribute  قيمتها إما 1 أو 0',
         ];
     }
 }

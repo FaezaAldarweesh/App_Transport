@@ -26,7 +26,6 @@ class Store_Station_Request extends FormRequest
     {
         return [
             'name' => 'required|string|min:4|max:50',
-            'location' => 'required',
             'path_id' => 'required|integer|exists:paths,id',
         ];
     }
@@ -50,7 +49,6 @@ class Store_Station_Request extends FormRequest
     {
         return [
             'name' => 'اسم المحطة',
-            'location' => 'الموقع',
             'path_id' => 'اسم المسار',
         ];
     }

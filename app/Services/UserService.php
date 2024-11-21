@@ -30,7 +30,7 @@ class UserService {
     public function create_User($data) {
         try {
             $user = new User();
-            $user->name = $data['name'];
+            $user->name = ['first_name' => $data['first_name'], 'last_name' => $data['last_name']];
             $user->username = $data['username'];
             $user->password = $data['password'];
             
@@ -53,7 +53,9 @@ class UserService {
                 throw new \Exception('user not found');
             }
 
-            $user->name = $data['name'] ?? $user->name;
+            if (isset($data['first_name']) && isset($data['last_name'])) {
+                $user->name = ['first_name' => $data['first_name'], 'last_name' => $data['last_name']];
+            }
             $user->username = $data['username'] ?? $user->username;
             $user->password = $data['password'] ?? $user->password;  
             $user->role = $data['role'] ?? $user->role;

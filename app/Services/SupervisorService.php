@@ -29,7 +29,7 @@ class SupervisorService {
     public function create_Supervisor($data) {
         try {
             $Supervisor = new Supervisor();
-            $Supervisor->name = $data['name'];
+            $Supervisor->name = ['first_name' => $data['first_name'], 'last_name' => $data['last_name']];
             $Supervisor->username = $data['username'];
             $Supervisor->password = $data['password'];
             $Supervisor->location = $data['location'];
@@ -53,8 +53,9 @@ class SupervisorService {
             if(!$Supervisor){
                 throw new \Exception('Supervisor not found');
             }
-
-            $Supervisor->name = $data['name'] ?? $Supervisor->name;
+            if (isset($data['first_name']) && isset($data['last_name'])) {
+                $Supervisor->name = ['first_name' => $data['first_name'], 'last_name' => $data['last_name']];
+            }
             $Supervisor->username = $data['username'] ?? $Supervisor->username;
             $Supervisor->password = $data['password'] ?? $Supervisor->password;  
             $Supervisor->location = $data['location'] ?? $Supervisor->location;  

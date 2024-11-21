@@ -28,10 +28,11 @@ class Update_Supervisor_Request extends FormRequest
         $supervisor_id = $this->route('supervisor');
 
         return [
-            'name' => ['sometimes','nullable','regex:/^[\p{L}\s]+$/u','min:2','max:50 ',Rule::unique('supervisors', 'name')->ignore($supervisor_id)],
+            'first_name' => ['sometimes','nullable','regex:/^[\p{L}\s]+$/u','min:2','max:50 ',Rule::unique('supervisors', 'name')->ignore($supervisor_id)],
+            'last_name' => ['sometimes','nullable','regex:/^[\p{L}\s]+$/u','min:2','max:50 ',Rule::unique('supervisors', 'name')->ignore($supervisor_id)],
             'username' => ['sometimes','nullable','min:6','max:50',Rule::unique('supervisors', 'username')->ignore($supervisor_id)],
             'password' => 'sometimes|nullable|string|min:8',
-            'location' => 'sometimes|nullable',
+            'location' => 'sometimes|nullable|string|min:5',
             'phone' => ['sometimes','nullable','min:10','max:10','regex:/^([0-9\s\-\+\(\)]*)$/',Rule::unique('supervisors', 'phone')->ignore($supervisor_id)],
         ];
     }
@@ -76,6 +77,7 @@ class Update_Supervisor_Request extends FormRequest
             'phone.max' => 'الحد الأقصى لطول  :attribute هو 10 حرف',
             'phone.min' => 'الحد الأدنى لطول :attribute على الأقل هو 10 حرف',
             'phone.regex' => 'يجب أن يحوي  :attribute على أرقام فقط',
+            'location.min' => 'الحد الأدنى لطول :attribute على الأقل هو 5 حرف',
         ];
     }
 }

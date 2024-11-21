@@ -6,6 +6,7 @@ namespace App\Services;
 use App\Models\Bus;
 use App\Models\Driver;
 use App\Models\Student;
+use App\Models\BusStudent;
 use App\Models\Supervisor;
 use Illuminate\Support\Facades\Log;
 use App\Http\Traits\ApiResponseTrait;
@@ -42,20 +43,21 @@ class BusService {
             $bus->number_of_seats = $data['number_of_seats'];
             $bus->save();
 
-            foreach ($data['students'] as $student) {
-                $student = Student::findOrFail($student['id']);
-                $bus->students()->attach($student->id);
-            }
+            // foreach ($data['students'] as $student) {
+            //     $student = Student::findOrFail($student['id']);
+            //     $bus->students()->attach($student->id);
+            // }
             
-            foreach ($data['supervisors'] as $supervisor) {
-                $supervisor = Supervisor::findOrFail($supervisor['id']);
-                $bus->supervisors()->attach($supervisor->id);
-            }
+            // foreach ($data['supervisors'] as $supervisor) {
+            //     $supervisor = Supervisor::findOrFail($supervisor['id']);
+            //     $bus->supervisors()->attach($supervisor->id);
+            // }
 
-            foreach ($data['drivers'] as $driver) {
-                $driver = Driver::findOrFail($driver['id']);
-                $bus->drivers()->attach($driver->id);
-            }
+            // foreach ($data['drivers'] as $driver) {
+            //     $driver = Driver::findOrFail($driver['id']);
+            //     $bus->drivers()->attach($driver->id);
+            // }
+
             $bus->save(); 
     
             return $bus; 
@@ -82,9 +84,9 @@ class BusService {
 
             $bus->name = $data['name'] ?? $bus->name;
             $bus->number_of_seats = $data['number_of_seats'] ?? $bus->number_of_seats;
-            $bus->students()->sync(array_column($data['students'], 'id'));
-            $bus->supervisors()->sync(array_column($data['supervisors'], 'id'));
-            $bus->drivers()->sync(array_column($data['drivers'], 'id'));
+            // $bus->students()->sync(array_column($data['students'], 'id'));
+            // $bus->supervisors()->sync(array_column($data['supervisors'], 'id'));
+            // $bus->drivers()->sync(array_column($data['drivers'], 'id'));
 
             $bus->save(); 
             return $bus;

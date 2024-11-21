@@ -32,7 +32,7 @@ class StudentService {
     public function create_Student($data) {
         try {
             $student = new Student();
-            $student->name = $data['name'];
+            $student->name = ['first_name' => $data['first_name'], 'last_name' => $data['last_name']];
             $student->father_phone = $data['father_phone'];
             $student->mather_phone = $data['mather_phone'];
             $student->longitude = $data['longitude'];
@@ -59,7 +59,9 @@ class StudentService {
             if(!$student){
                 throw new \Exception('student not found');
             }
-            $student->name = $data['name'] ?? $student->name;
+            if (isset($data['first_name']) && isset($data['last_name'])) {
+                $student->name = ['first_name' => $data['first_name'], 'last_name' => $data['last_name']];
+            }
             $student->father_phone = $data['father_phone'] ?? $student->father_phone;
             $student->mather_phone = $data['mather_phone'] ?? $student->mather_phone;
             $student->longitude = $data['longitude'] ?? $student->longitude;

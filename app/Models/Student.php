@@ -25,7 +25,10 @@ class Student extends Model
         'status',
     ];
 
-
+    public function setNameAttribute($value)
+    {
+        $this->attributes['name'] = $value['first_name'] . ' ' . $value['last_name'];
+    }
     public function user (){
         
         return $this->belongsTo(User::class,'user_id','id');
@@ -56,4 +59,5 @@ class Student extends Model
         );
         return $distance;
     }
+    
 }

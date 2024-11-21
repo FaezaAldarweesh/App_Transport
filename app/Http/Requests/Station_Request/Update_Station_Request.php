@@ -27,7 +27,6 @@ class Update_Station_Request extends FormRequest
     {
         return [
             'name' => 'sometimes|nullable|string|min:4|max:50',
-            'location' => 'sometimes|nullable',
             'path_id' => 'sometimes|nullable|integer|exists:paths,id',
         ];
     }
@@ -51,7 +50,6 @@ class Update_Station_Request extends FormRequest
     {
         return [
             'name' => 'اسم الشعبة',
-            'location' => 'الموقع',
             'path_id' => 'اسم الصف',
         ];
     }
