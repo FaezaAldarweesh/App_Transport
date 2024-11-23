@@ -26,6 +26,6 @@ class Path extends Model
 
     public function trips (){
         
-        return $this->hasMany(trip::class);
+        return $this->hasMany(Trip::class);
     }
 }

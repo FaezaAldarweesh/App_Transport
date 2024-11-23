@@ -25,14 +25,14 @@ class SupervisorController extends Controller
     }
     //===========================================================================================================================
     /**
-     * method to view all supervisors with a filter on role
+     * method to view all supervisors 
      * @return /Illuminate\Http\JsonResponse
      * UserResources to customize the return responses.
      */
     public function index()
     {  
         $supervisors = $this->supervisorservices->get_all_Supervisors();
-        return $this->success_Response(SupervisorResources::collection($supervisors), "All supervisors fetched successfully", 200);
+        return $this->success_Response(SupervisorResources::collection($supervisors), "تمت عملية الوصول للمشرفين بنجاح", 200);
     }
     //===========================================================================================================================
     /**
@@ -43,7 +43,7 @@ class SupervisorController extends Controller
     public function store(Store_Supervisor_Request $request)
     {
         $supervisor = $this->supervisorservices->create_Supervisor($request->validated());
-        return $this->success_Response(new SupervisorResources($supervisor), "supervisor created successfully.", 201);
+        return $this->success_Response(new SupervisorResources($supervisor), "تمت عملية إضافة المشرف بنجاح", 201);
     }
     
     //===========================================================================================================================
@@ -60,7 +60,7 @@ class SupervisorController extends Controller
         if ($supervisor instanceof \Illuminate\Http\JsonResponse) {
             return $supervisor;
         }
-            return $this->success_Response(new SupervisorResources($supervisor), "supervisor viewed successfully", 200);
+            return $this->success_Response(new SupervisorResources($supervisor), "تمت عملية عرض المشرف بنجاح", 200);
     }
     //===========================================================================================================================
     /**
@@ -77,7 +77,7 @@ class SupervisorController extends Controller
         if ($supervisor instanceof \Illuminate\Http\JsonResponse) {
             return $supervisor;
         }
-            return $this->success_Response(new SupervisorResources($supervisor), "supervisor updated successfully", 200);
+            return $this->success_Response(new SupervisorResources($supervisor), "تمت عملية التعديل على المشرف بنجاح", 200);
     }
     //===========================================================================================================================
     /**
@@ -93,7 +93,7 @@ class SupervisorController extends Controller
         if ($supervisor instanceof \Illuminate\Http\JsonResponse) {
             return $supervisor;
         }
-            return $this->success_Response(null, "supervisor soft deleted successfully", 200);
+            return $this->success_Response(null, "تمت عملية إضافة المشرف للأرشيف بنجاح", 200);
     }
     //========================================================================================================================
     /**
@@ -103,7 +103,7 @@ class SupervisorController extends Controller
     public function all_trashed_supervisor()
     {
         $supervisors = $this->supervisorservices->all_trashed_supervisor();
-        return $this->success_Response(SupervisorResources::collection($supervisors), "All trashed supervisors fetched successfully", 200);
+        return $this->success_Response(SupervisorResources::collection($supervisors), "تمت عملية الوصول لأرشيف المشرفين بنجاح", 200);
     }
     //========================================================================================================================
     /**
@@ -119,7 +119,7 @@ class SupervisorController extends Controller
         if ($delete instanceof \Illuminate\Http\JsonResponse) {
             return $delete;
         }
-            return $this->success_Response(null, "supervisor restored successfully", 200);
+            return $this->success_Response(null, "تمت عملية استعادة المشرف بنجاح", 200);
     }
     //========================================================================================================================
     /**
@@ -135,7 +135,7 @@ class SupervisorController extends Controller
         if ($delete instanceof \Illuminate\Http\JsonResponse) {
             return $delete;
         }
-            return $this->success_Response(null, "supervisor force deleted successfully", 200);
+            return $this->success_Response(null, "تمت عملية حذف المشرف بنجاح", 200);
     }
         
     //========================================================================================================================

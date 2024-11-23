@@ -5,7 +5,6 @@ namespace App\Services;
 use App\Models\Supervisor;
 use Illuminate\Support\Facades\Log;
 use App\Http\Traits\ApiResponseTrait;
-use Illuminate\Support\Facades\Request;
 
 class SupervisorService {
     //trait customize the methods for successful , failed , authentecation responses.
@@ -18,7 +17,7 @@ class SupervisorService {
         try {
             $Supervisor = Supervisor::all();
             return $Supervisor;
-        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('Something went wrong with fetche Supervisors', 400);}
+        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('حدث خطأ أثناء محاولة الوصول إلى المشرف', 400);}
     }
     //========================================================================================================================
     /**
@@ -38,7 +37,7 @@ class SupervisorService {
             $Supervisor->save(); 
     
             return $Supervisor; 
-        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('Something went wrong with create Supervisor', 400);}
+        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('حدث خطأ أثناء محاولة إضافة مشرف جديد', 400);}
     }    
     //========================================================================================================================
     /**
@@ -51,7 +50,7 @@ class SupervisorService {
         try {  
             $Supervisor = Supervisor::find($Supervisor_id);
             if(!$Supervisor){
-                throw new \Exception('Supervisor not found');
+                throw new \Exception('المشرف المطلوب غير موجود');
             }
             if (isset($data['first_name']) && isset($data['last_name'])) {
                 $Supervisor->name = ['first_name' => $data['first_name'], 'last_name' => $data['last_name']];
@@ -64,7 +63,7 @@ class SupervisorService {
             $Supervisor->save();  
             return $Supervisor;
         } catch (\Exception $e) { Log::error($e->getMessage()); return $this->failed_Response($e->getMessage(), 404);
-        }catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('Something went wrong with view supervisor', 400);}
+        }catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('حدث خطأ أثناء محاولة التعديل على المشرف', 400);}
     }
     //========================================================================================================================
     /**
@@ -76,11 +75,11 @@ class SupervisorService {
         try {    
             $Supervisor = Supervisor::find($Supervisor_id);
             if(!$Supervisor){
-                throw new \Exception('Supervisor not found');
+                throw new \Exception('المشرف المطلوب غير موجود');
             }
             return $Supervisor;
         } catch (\Exception $e) { Log::error($e->getMessage()); return $this->failed_Response($e->getMessage(), 404);
-        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('Something went wrong with update Supervisor', 400);}
+        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('حدث خطأ أثناء محاولة عرض المشرف', 400);}
     }
     //========================================================================================================================
     /**
@@ -93,13 +92,13 @@ class SupervisorService {
         try {  
             $Supervisor = Supervisor::find($Supervisor_id);
             if(!$Supervisor){
-                throw new \Exception('Supervisor not found');
+                throw new \Exception('المشرف المطلوب غير موجود');
             }
 
             $Supervisor->delete();
             return true;
         }catch (\Exception $e) { Log::error($e->getMessage()); return $this->failed_Response($e->getMessage(), 400);
-        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('Something went wrong with deleting Supervisor', 400);}
+        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('حدث خطأ أثناء محاولة حذف المشرف', 400);}
     }
     //========================================================================================================================
     /**
@@ -111,7 +110,7 @@ class SupervisorService {
         try {  
             $Supervisors = Supervisor::onlyTrashed()->get();
             return $Supervisors;
-        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('Something went wrong with view trashed Supervisor', 400);}
+        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('حدث خطأ أثناء محاولة الوصول إلى أرشيف المشرفين', 400);}
     }
     //========================================================================================================================
     /**
@@ -124,11 +123,11 @@ class SupervisorService {
         try {
             $Supervisor = Supervisor::onlyTrashed()->find($Supervisor_id);
             if(!$Supervisor){
-                throw new \Exception('Supervisor not found');
+                throw new \Exception('المشرف المطلوب غير موجود');
             }
             return $Supervisor->restore();
         }catch (\Exception $e) { Log::error($e->getMessage()); return $this->failed_Response($e->getMessage(), 400);   
-        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('Something went wrong with restore Supervisor', 400);
+        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('حدث خطأ أثناء محاولة إستعادة المشرف', 400);
         }
     }
     //========================================================================================================================
@@ -142,12 +141,12 @@ class SupervisorService {
         try {
             $Supervisor = Supervisor::onlyTrashed()->find($Supervisor_id);
             if(!$Supervisor){
-                throw new \Exception('Supervisor not found');
+                throw new \Exception('المشرف المطلوب غير موجود');
             }
 
             return $Supervisor->forceDelete();
         }catch (\Exception $e) { Log::error($e->getMessage()); return $this->failed_Response($e->getMessage(), 400);   
-        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('Something went wrong with deleting Supervisor', 400);}
+        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('حدث خطأ أثناء محاولة حذف أرشيف المشرف', 400);}
     }
     //========================================================================================================================
 

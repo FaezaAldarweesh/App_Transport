@@ -34,7 +34,7 @@ class UserController extends Controller
     public function index(Request $request)
     {  
         $users = $this->userservices->get_all_Users($request->input('role'));
-        return $this->success_Response(UserResources::collection($users), "All users fetched successfully", 200);
+        return $this->success_Response(UserResources::collection($users), "تمت عملية الوصول للمستخدميين بنجاح", 200);
     }
     //===========================================================================================================================
     /**
@@ -45,7 +45,7 @@ class UserController extends Controller
     public function store(Store_User_Request $request)
     {
         $user = $this->userservices->create_User($request->validated());
-        return $this->success_Response(new UserResources($user), "User created successfully.", 201);
+        return $this->success_Response(new UserResources($user), "تمت عملية إضافة مستخدم جديد بنجاح", 201);
     }
     
     //===========================================================================================================================
@@ -62,7 +62,7 @@ class UserController extends Controller
         if ($user instanceof \Illuminate\Http\JsonResponse) {
             return $user;
         }
-            return $this->success_Response(new UserResources($user), "User viewed successfully", 200);
+            return $this->success_Response(new UserResources($user), "تمت عملية عرض المستخدم بنجاح", 200);
     }
     //===========================================================================================================================
     /**
@@ -79,7 +79,7 @@ class UserController extends Controller
         if ($user instanceof \Illuminate\Http\JsonResponse) {
             return $user;
         }
-            return $this->success_Response(new UserResources($user), "User updated successfully", 200);
+            return $this->success_Response(new UserResources($user), "تمت عملية التعديل على المستخدم بنجاح", 200);
     }
     //===========================================================================================================================
     /**
@@ -95,7 +95,7 @@ class UserController extends Controller
         if ($user instanceof \Illuminate\Http\JsonResponse) {
             return $user;
         }
-            return $this->success_Response(null, "user soft deleted successfully", 200);
+            return $this->success_Response(null, "تمت عملية إضافة المستخدم إلى الأرشيف بنجاح", 200);
     }
     //========================================================================================================================
     /**
@@ -105,7 +105,7 @@ class UserController extends Controller
     public function all_trashed_user()
     {
         $users = $this->userservices->all_trashed_user();
-        return $this->success_Response(UserResources::collection($users), "All trashed users fetched successfully", 200);
+        return $this->success_Response(UserResources::collection($users), "تمت عملية الوصول إلى أرشيف المستخدميين بنجاح", 200);
     }
     //========================================================================================================================
     /**
@@ -121,7 +121,7 @@ class UserController extends Controller
         if ($delete instanceof \Illuminate\Http\JsonResponse) {
             return $delete;
         }
-            return $this->success_Response(null, "user restored successfully", 200);
+            return $this->success_Response(null, "تمت عملية استعادة المستخدم بنجاح", 200);
     }
     //========================================================================================================================
     /**
@@ -137,7 +137,7 @@ class UserController extends Controller
         if ($delete instanceof \Illuminate\Http\JsonResponse) {
             return $delete;
         }
-            return $this->success_Response(null, "user force deleted successfully", 200);
+            return $this->success_Response(null, "تمت عملية حذف المستخدم بنجاح", 200);
     }
         
     //========================================================================================================================

@@ -2,8 +2,6 @@
 
 namespace App\Services;
 
-
-use App\Models\Trip;
 use App\Models\Student;
 use Illuminate\Support\Facades\Log;
 use App\Http\Traits\ApiResponseTrait;
@@ -14,14 +12,13 @@ class StudentService {
     use ApiResponseTrait;
     /**
      * method to view all students 
-     * @param   Request $request
      * @return /Illuminate\Http\JsonResponse if have an error
      */
     public function get_all_Students(){
         try {
             $student = Student::all();
             return $student;
-        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('Something went wrong with fetche students', 400);}
+        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('حدث خطأ أثناء محاولة الوصول إلى الطلاب', 400);}
     }
     //========================================================================================================================
     /**
@@ -39,12 +36,11 @@ class StudentService {
             $student->latitude = $data['latitude'];
             $student->class_room_id = $data['class_room_id'];
             $student->user_id = $data['user_id'];
-            $student->status = 1;
 
             $student->save(); 
     
             return $student; 
-        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('Something went wrong with create student', 400);}
+        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('حدث خطأ أثناء محاولة إضافة طالب جديد', 400);}
     }    
     //========================================================================================================================
     /**
@@ -57,7 +53,7 @@ class StudentService {
         try {  
             $student = Student::find($student_id);
             if(!$student){
-                throw new \Exception('student not found');
+                throw new \Exception('الطالب المطلوب غير موجود');
             }
             if (isset($data['first_name']) && isset($data['last_name'])) {
                 $student->name = ['first_name' => $data['first_name'], 'last_name' => $data['last_name']];
@@ -73,7 +69,7 @@ class StudentService {
             $student->save(); 
             return $student;
         }catch (\Exception $e) { Log::error($e->getMessage()); return $this->failed_Response($e->getMessage(), 400);   
-        }catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('Something went wrong with view student', 400);}
+        }catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('حدث خطأ أثناء محاولة التعديل على الطالب', 400);}
     }
     //========================================================================================================================
     /**
@@ -85,11 +81,11 @@ class StudentService {
         try {    
             $studen = Student::find($studen_id);
             if(!$studen){
-                throw new \Exception('student not found');
+                throw new \Exception('الطالب المطلوب غير موجود');
             }
             return $studen;
         } catch (\Exception $e) { Log::error($e->getMessage()); return $this->failed_Response($e->getMessage(), 404);
-        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('Something went wrong with update student', 400);}
+        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('حدث خطأ أثناء محاولة عرض الطالب', 400);}
     }
     //========================================================================================================================
     /**
@@ -102,13 +98,13 @@ class StudentService {
         try {  
             $student = Student::find($student_id);
             if(!$student){
-                throw new \Exception('student not found');
+                throw new \Exception('الطالب المطلوب غير موجود');
             }
 
             $student->delete();
             return true;
         }catch (\Exception $e) { Log::error($e->getMessage()); return $this->failed_Response($e->getMessage(), 400);
-        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('Something went wrong with deleting student', 400);}
+        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('حدث خطأ أثناء محاولة حذف الطالب', 400);}
     }
     //========================================================================================================================
     /**
@@ -120,7 +116,7 @@ class StudentService {
         try {  
             $students = Student::onlyTrashed()->get();
             return $students;
-        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('Something went wrong with view trashed student', 400);}
+        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('حدث خطأ أثناء محاولة الوصول إلى أرشيف الطلاب', 400);}
     }
     //========================================================================================================================
     /**
@@ -133,11 +129,11 @@ class StudentService {
         try {
             $student = Student::onlyTrashed()->find($student_id);
             if(!$student){
-                throw new \Exception('student not found');
+                throw new \Exception('الطالب المطلوب غير موجود');
             }
             return $student->restore();
         }catch (\Exception $e) { Log::error($e->getMessage()); return $this->failed_Response($e->getMessage(), 400);      
-        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('Something went wrong with restore student', 400);
+        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('حدث خطأ أثناء محاولة إستعادة الطالب', 400);
         }
     }
     //========================================================================================================================
@@ -151,12 +147,12 @@ class StudentService {
         try {
             $student = Student::onlyTrashed()->find($student_id);
             if(!$student){
-                throw new \Exception('student not found');
+                throw new \Exception('الطالب المطلوب غير موجود');
             }
  
             return $student->forceDelete();
         }catch (\Exception $e) { Log::error($e->getMessage()); return $this->failed_Response($e->getMessage(), 400);   
-        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('Something went wrong with deleting student', 400);}
+        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('حدث خطأ أثناء محاولة حذف أرشيف الطالب', 400);}
     }
     //========================================================================================================================
 }

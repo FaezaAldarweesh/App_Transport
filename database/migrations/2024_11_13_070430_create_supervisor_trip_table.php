@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('bus_driver', function (Blueprint $table) {
+        Schema::create('supervisor_trip', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('bus_id')->constrained()->onDelete('cascade');
-            $table->foreignId('driver_id')->constrained()->onDelete('cascade');
+            $table->foreignId('supervisor_id')->constrained()->onDelete('cascade');
+            $table->foreignId('trip_id')->constrained()->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('bus_driver');
+        Schema::dropIfExists('bus_supervisor');
     }
 };

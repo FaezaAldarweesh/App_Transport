@@ -11,12 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('trips', function (Blueprint $table) {
+        Schema::create('student_trip', function (Blueprint $table) {
             $table->id();
-            $table->enum('name',['delivery','school'])->default('delivery');
-            $table->enum('type',['go','back'])->default('go');
-            $table->foreignId('path_id')->constrained()->onDelete('cascade');
-            $table->boolean('status')->default(0);
+            $table->foreignId('student_id')->constrained()->onDelete('cascade');
+            $table->foreignId('trip_id')->constrained()->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -27,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('trips');
+        Schema::dropIfExists('bus_student');
     }
 };

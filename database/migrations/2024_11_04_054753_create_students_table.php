@@ -20,7 +20,7 @@ return new class extends Migration
             $table->decimal('latitude', 10, 8);
             $table->foreignId('class_room_id')->constrained()->onDelete('cascade');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->boolean('status')->default(1);
+            $table->enum('status',['attendee','absent_all','absent_go','absent_back','transported'])->default('attendee');
             $table->timestamps();
             $table->softDeletes();
         });

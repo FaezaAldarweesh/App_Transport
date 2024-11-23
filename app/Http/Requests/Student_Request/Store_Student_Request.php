@@ -33,7 +33,7 @@ class Store_Student_Request extends FormRequest
             'latitude'    => 'required|numeric|between:-90,90',
             'class_room_id' => 'required|integer|exists:class_rooms,id',
             'user_id' => 'required|integer|exists:users,id',
-            'status' => 'sometimes|nullable|boolean'
+            'status' => 'required|string|in:attendee,absent_all,absent_go,absent_back,transported',
         ];
     }
     //===========================================================================================================================
@@ -83,7 +83,7 @@ class Store_Student_Request extends FormRequest
             'numeric' => 'يجب أن يكون :attribute رقماً',
             'latitude.between'  => ':attribute يجب أن يكون بين -90 و 90',
             'longitude.between'  => ':attribute يجب أن يكون بين -180 و 180',
-            'boolean' => ' يجب أن تكون :attribute  قيمتها إما 1 أو 0',
+            'in' => 'يجب أن تكون قيمة الحقل :attribute إحدى القيم التالية : attendee,absent_all,absent_go,absent_back,transported',
         ];
     }
 }

@@ -35,7 +35,7 @@ class GradeController extends Controller
     public function index(Request $request)
     {  
         $grades = $this->gradeservices->get_all_Grades($request->input('name'));
-        return $this->success_Response(GradeResources::collection($grades), "All grades fetched successfully", 200);
+        return $this->success_Response(GradeResources::collection($grades), "تمت عملية الوصول للصفوف بنجاح", 200);
     }
     //===========================================================================================================================
     /**
@@ -46,7 +46,7 @@ class GradeController extends Controller
     public function store(Store_Grade_Request $request)
     {
         $grade = $this->gradeservices->create_Grade($request->validated());
-        return $this->success_Response(new GradeResources($grade), "Grade created successfully.", 201);
+        return $this->success_Response(new GradeResources($grade), "تمت عملية إضافة الصف بنجاح", 201);
     }
     
     //===========================================================================================================================
@@ -63,7 +63,7 @@ class GradeController extends Controller
         if ($grade instanceof \Illuminate\Http\JsonResponse) {
             return $grade;
         }
-            return $this->success_Response(new GradeResources($grade), "grade viewed successfully", 200);
+            return $this->success_Response(new GradeResources($grade), "تمت عملية عرض الصف بنجاح", 200);
     }
     //===========================================================================================================================
     /**
@@ -75,7 +75,7 @@ class GradeController extends Controller
     public function update(Update_Grade_Request $request, Grade $grade)
     {
         $grade = $this->gradeservices->update_Grade($request->validated(), $grade);
-        return $this->success_Response(new GradeResources($grade), "Grade updated successfully", 200);
+        return $this->success_Response(new GradeResources($grade), "تمت عملية التعديل على الصف بنجاح", 200);
     }
     //===========================================================================================================================
     /**
@@ -91,7 +91,7 @@ class GradeController extends Controller
         if ($grade instanceof \Illuminate\Http\JsonResponse) {
             return $grade;
         }
-            return $this->success_Response(null, "grade soft deleted successfully", 200);
+            return $this->success_Response(null, "تمت عملية إضافة الصف للأرشيف بنجاح", 200);
     }
     //========================================================================================================================
     /**
@@ -101,7 +101,7 @@ class GradeController extends Controller
     public function all_trashed_grade()
     {
         $grades = $this->gradeservices->all_trashed_grade();
-        return $this->success_Response(GradeResources::collection($grades), "All trashed grades fetched successfully", 200);
+        return $this->success_Response(GradeResources::collection($grades), "تمت عملية الوصول لأرشيف الصفوف بنجاح", 200);
     }
     //========================================================================================================================
     /**
@@ -117,7 +117,7 @@ class GradeController extends Controller
         if ($restore instanceof \Illuminate\Http\JsonResponse) {
             return $restore;
         }
-            return $this->success_Response(null, "grade restored successfully", 200);
+            return $this->success_Response(null, "تمت عملية استعادة الصف بنجاح", 200);
     }
     //========================================================================================================================
     /**
@@ -133,7 +133,7 @@ class GradeController extends Controller
         if ($delete instanceof \Illuminate\Http\JsonResponse) {
             return $delete;
         }
-            return $this->success_Response(null, "grade force deleted successfully", 200);
+            return $this->success_Response(null, "تمت عملية حذف الصف بنجاح", 200);
     }
         
     //========================================================================================================================

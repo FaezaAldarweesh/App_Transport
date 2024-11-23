@@ -18,7 +18,8 @@ class UserResources extends JsonResource
             'user id' => $this->id,
             'user name' => $this->name, 
             'user username' => $this->username, 
-            'user role' => $this->role ?? 'parent', 
+            'user role' => $this->role ?? 'user', 
+            //'user status' => $this->status == 0 ? 'غير فعّال' : 'فعّال'
         ];
     }
 }

@@ -19,7 +19,7 @@ class UserService {
         try {
             $user = User::filter($role)->get();
             return $user;
-        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('Something went wrong with fetche users', 400);}
+        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('حدث خطأ أثناء محاولة الوصول إلى المستخدمين', 400);}
     }
     //========================================================================================================================
     /**
@@ -37,7 +37,7 @@ class UserService {
             $user->save(); 
     
             return $user; 
-        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('Something went wrong with create user', 400);}
+        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('حدث خطأ أثناء محاولة إضافة مستخدم جديد', 400);}
     }    
     //========================================================================================================================
     /**
@@ -50,7 +50,7 @@ class UserService {
         try {  
             $user = User::find($user_id);
             if(!$user){
-                throw new \Exception('user not found');
+                throw new \Exception('المستخدم المطلوب غير موجود');
             }
 
             if (isset($data['first_name']) && isset($data['last_name'])) {
@@ -63,7 +63,7 @@ class UserService {
             $user->save();  
             return $user;
         } catch (\Exception $e) { Log::error($e->getMessage()); return $this->failed_Response($e->getMessage(), 404);
-        }catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('Something went wrong with view user', 400);}
+        }catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('حدث خطأ أثناء محاولة التعديل على المستخدم', 400);}
     }
     //========================================================================================================================
     /**
@@ -75,11 +75,11 @@ class UserService {
         try {    
             $user = User::find($user_id);
             if(!$user){
-                throw new \Exception('user not found');
+                throw new \Exception('المستخدم المطلوب غير موجود');
             }
             return $user;
         } catch (\Exception $e) { Log::error($e->getMessage()); return $this->failed_Response($e->getMessage(), 404);
-        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('Something went wrong with update user', 400);}
+        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('حدث خطأ أثناء محاولة عرض المستخدم', 400);}
     }
     //========================================================================================================================
     /**
@@ -92,16 +92,16 @@ class UserService {
         try {  
             $user = User::find($user_id);
             if(!$user){
-                throw new \Exception('user not found');
+                throw new \Exception('المستخدم المطلوب غير موجود');
             }
              //منع الأدمن من إزالة حسابه
              if ($user->role == 'admin') {
-                throw new \Exception('You cannot soft delete admin account');
+                throw new \Exception('لا يمكنك إجراء حذف على حساب الأدمن');
             }
             $user->delete();
             return true;
         }catch (\Exception $e) { Log::error($e->getMessage()); return $this->failed_Response($e->getMessage(), 400);
-        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('Something went wrong with deleting user', 400);}
+        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('حدث خطأ أثناء محاولة حذف المستخدم', 400);}
     }
     //========================================================================================================================
     /**
@@ -113,7 +113,7 @@ class UserService {
         try {  
             $users = User::onlyTrashed()->get();
             return $users;
-        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('Something went wrong with view trashed user', 400);}
+        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('حدث خطأ أثناء محاولة الوصول إلى أرشيف المستخدميين', 400);}
     }
     //========================================================================================================================
     /**
@@ -126,11 +126,11 @@ class UserService {
         try {
             $user = User::withTrashed()->find($user_id);
             if(!$user){
-                throw new \Exception('user not found');
+                throw new \Exception('المستخدم المطلوب غير موجود');
             }
             return $user->restore();
         }catch (\Exception $e) { Log::error($e->getMessage()); return $this->failed_Response($e->getMessage(), 400);   
-        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('Something went wrong with restore user', 400);
+        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('حدث خطأ أثناء محاولة إستعادة المستخدميين', 400);
         }
     }
     //========================================================================================================================
@@ -144,15 +144,16 @@ class UserService {
         try {
             $user = User::onlyTrashed()->find($user_id);
             if(!$user){
-                throw new \Exception('user not found');
+                throw new \Exception('المستخدم المطلوب غير موجود');
             }
-             //منع الأدمن من إزالة حسابه
-             else if ($user->role == 'admin') {
-                throw new \Exception('You cannot delete admin account');
+            
+            //منع الأدمن من إزالة حسابه
+            else if ($user->role == 'admin') {
+                throw new \Exception('لا يمكنك إجراء حذف على حساب الأدمن');
             }
             return $user->forceDelete();
         }catch (\Exception $e) { Log::error($e->getMessage()); return $this->failed_Response($e->getMessage(), 400);   
-        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('Something went wrong with deleting user', 400);}
+        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('حدث خطأ أثناء محاولة حذف أرشيف المستخدميين', 400);}
     }
     //========================================================================================================================
 

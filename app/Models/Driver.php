@@ -22,8 +22,8 @@ class Driver extends Model
     {
         $this->attributes['name'] = $value['first_name'] . ' ' . $value['last_name'];
     }
-    public function buses (){
+    public function trips (){
         
-        return $this->belongsToMany(Bus::class);
+        return $this->belongsToMany(Trip::class);
     }
 }

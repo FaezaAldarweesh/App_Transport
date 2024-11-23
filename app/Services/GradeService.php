@@ -2,9 +2,7 @@
 
 namespace App\Services;
 
-
 use App\Models\Grade;
-use NotFoundHttpException;
 use Illuminate\Support\Facades\Log;
 use App\Http\Traits\ApiResponseTrait;
 use Illuminate\Support\Facades\Request;
@@ -21,7 +19,7 @@ class GradeService {
         try {
             $grade = Grade::filter($name)->get();
             return $grade;
-        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('Something went wrong with fetche grades', 400);}
+        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('حدث خطأ أثناء محاولة الوصول إلى الصفوف', 400);}
     }
     //========================================================================================================================
     /**
@@ -37,7 +35,7 @@ class GradeService {
             $grade->save(); 
     
             return $grade; 
-        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('Something went wrong with create grade', 400);}
+        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('حدث خطأ أثناء محاولة إضافة صف جديد', 400);}
     }    
     //========================================================================================================================
     /**
@@ -53,7 +51,7 @@ class GradeService {
             $grade->save(); 
             return $grade;
 
-        }catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('Something went wrong with view grade', 400);}
+        }catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('حدث خطأ أثناء محاولة التعديل على الصف', 400);}
     }
     //========================================================================================================================
     /**
@@ -65,11 +63,11 @@ class GradeService {
         try {    
             $grade = Grade::find($grade_id);
             if(!$grade){
-                throw new \Exception('grade not found');
+                throw new \Exception('الصف المطلوب غير موجود');
             }
             return $grade;
         } catch (\Exception $e) { Log::error($e->getMessage()); return $this->failed_Response($e->getMessage(), 404);
-        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('Something went wrong with update grade', 400);}
+        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('حدث خطأ أثناء محاولة عرض الصف', 400);}
     }
     //========================================================================================================================
     /**
@@ -82,13 +80,13 @@ class GradeService {
         try {  
             $grade = Grade::find($grade_id);
             if(!$grade){
-                throw new \Exception('grade not found');
+                throw new \Exception('الصف المطلوب غير موجود');
             }
 
             $grade->delete();
             return true;
         }catch (\Exception $e) { Log::error($e->getMessage()); return $this->failed_Response($e->getMessage(), 400);
-        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('Something went wrong with deleting grade', 400);}
+        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('حدث خطأ أثناء محاولة حذف الصف', 400);}
     }
     //========================================================================================================================
     /**
@@ -100,7 +98,7 @@ class GradeService {
         try {  
             $grades = Grade::onlyTrashed()->get();
             return $grades;
-        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('Something went wrong with view trashed grade', 400);}
+        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('حدث خطأ أثناء محاولة الوصول إلى أرشيف الصفوف', 400);}
     }
     //========================================================================================================================
     /**
@@ -113,11 +111,11 @@ class GradeService {
         try {
             $grade = Grade::onlyTrashed()->find($grade_id);
             if(!$grade){
-                throw new \Exception('grade not found');
+                throw new \Exception('الصف المطلوب غير موجود');
             }
             return $grade->restore();
         }catch (\Exception $e) { Log::error($e->getMessage()); return $this->failed_Response($e->getMessage(), 400);      
-        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('Something went wrong with restore grade', 400);
+        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('حدث خطأ أثناء محاولة إستعادة الصف', 400);
         }
     }
     //========================================================================================================================
@@ -131,12 +129,12 @@ class GradeService {
         try {
             $grade = Grade::onlyTrashed()->find($grade_id);
             if(!$grade){
-                throw new \Exception('grade not found');
+                throw new \Exception('الصف المطلوب غير موجود');
             }
  
             return $grade->forceDelete();
         }catch (\Exception $e) { Log::error($e->getMessage()); return $this->failed_Response($e->getMessage(), 400);   
-        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('Something went wrong with deleting grade', 400);}
+        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('حدث خطأ أثناء محاولة حذف أرشيف الصفوف', 400);}
     }
     //========================================================================================================================
 

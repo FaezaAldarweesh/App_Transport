@@ -17,28 +17,31 @@ class Trip extends Model
         'name',
         'type',
         'path_id',
+        'bus_id',
         'status',
     ];
-
-    public function buses (){
-        
-        return $this->belongsToMany(Bus::class);
-    }
 
     public function path (){
         
         return $this->belongsTo(Path::class);
     }
-
     public function students (){
+        
+        return $this->belongsToMany(Student::class);
+    }
 
-        return $this->hasManyThrough(
-            BusStudent::class,
-            BusTrip::class,
-            'trip_id',
-            'bus_id',
-            'id',
-            'bus_id'
-        );
+    public function supervisors (){
+        
+        return $this->belongsToMany(Supervisor::class);
+    }
+
+    public function drivers (){
+        
+        return $this->belongsToMany(Driver::class);
+    }
+
+    public function bus (){
+        
+        return $this->belongsTo(Bus::class);
     }
 }

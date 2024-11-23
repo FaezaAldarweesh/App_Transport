@@ -22,11 +22,11 @@ class ClassService {
         try {
             $class = ClassRoom::all();
             return $class;
-        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('Something went wrong with fetche classes', 400);}
+        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('حدث خطأ أثناء محاولة الوصول إلى الشعب', 400);}
     }
     //========================================================================================================================
     /**
-     * method to store a new class
+     * method to store a new class room
      * @param   $data
      * @return /Illuminate\Http\JsonResponse ig have an errorc
      */
@@ -39,7 +39,7 @@ class ClassService {
             $class->save(); 
     
             return $class; 
-        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('Something went wrong with create class', 400);}
+        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('حدث خطأ أثناء محاولة إضافة شعبة جديدة', 400);}
     }    
     //========================================================================================================================
     /**
@@ -57,7 +57,7 @@ class ClassService {
             $classRoom->save(); 
             return $classRoom;
 
-        }catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('Something went wrong with view class', 400);}
+        }catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('حدث خطأ أثناء محاولة التعديل على الشعبة', 400);}
     }
     //========================================================================================================================
     /**
@@ -69,11 +69,11 @@ class ClassService {
         try {    
             $class = ClassRoom::find($class_id);
             if(!$class){
-                throw new \Exception('class not found');
+                throw new \Exception('الشعبة المطلوبة غير موجودة');
             }
             return $class;
         } catch (\Exception $e) { Log::error($e->getMessage()); return $this->failed_Response($e->getMessage(), 404);
-        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('Something went wrong with update class', 400);}
+        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('حدث خطأ أثناء محاولة عرض الشعبة', 400);}
     }
     //========================================================================================================================
     /**
@@ -86,13 +86,13 @@ class ClassService {
         try {  
             $class = ClassRoom::find($class_id);
             if(!$class){
-                throw new \Exception('class not found');
+                throw new \Exception('الشعبة المطلوبة غير موجودة');
             }
 
             $class->delete();
             return true;
         }catch (\Exception $e) { Log::error($e->getMessage()); return $this->failed_Response($e->getMessage(), 400);
-        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('Something went wrong with deleting class', 400);}
+        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('حدث خطأ أثناء محاولة حذف الشعبة', 400);}
     }
     //========================================================================================================================
     /**
@@ -104,7 +104,7 @@ class ClassService {
         try {  
             $classes = ClassRoom::onlyTrashed()->get();
             return $classes;
-        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('Something went wrong with view trashed class', 400);}
+        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('حدث خطأ أثناء محاولة الوصول إلى أرشيف الشعب', 400);}
     }
     //========================================================================================================================
     /**
@@ -117,11 +117,11 @@ class ClassService {
         try {
             $class = ClassRoom::onlyTrashed()->find($class_id);
             if(!$class){
-                throw new \Exception('class not found');
+                throw new \Exception('الشعبة المطلوبة غير موجودة');
             }
             return $class->restore();
         }catch (\Exception $e) { Log::error($e->getMessage()); return $this->failed_Response($e->getMessage(), 400);      
-        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('Something went wrong with restore class', 400);
+        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('حدث خطأ أثناء محاولة إستعادة الشعبة', 400);
         }
     }
     //========================================================================================================================
@@ -135,12 +135,12 @@ class ClassService {
         try {
             $class = ClassRoom::onlyTrashed()->find($class_id);
             if(!$class){
-                throw new \Exception('class not found');
+                throw new \Exception('الشعبة المطلوبة غير موجودة');
             }
  
             return $class->forceDelete();
         }catch (\Exception $e) { Log::error($e->getMessage()); return $this->failed_Response($e->getMessage(), 400);   
-        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('Something went wrong with deleting class', 400);}
+        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('حدث خطأ أثناء محاولة حذف أرشيف الشعبة', 400);}
     }
     //========================================================================================================================
 
