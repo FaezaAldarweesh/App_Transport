@@ -26,14 +26,14 @@ class PathController extends Controller
     }
     //===========================================================================================================================
     /**
-     * method to view all paths with a filter on name
+     * method to view all paths 
      * @return /Illuminate\Http\JsonResponse
      * PathResources to customize the return responses.
      */
     public function index()
     {  
         $paths = $this->pathservices->get_all_Paths();
-        return $this->success_Response(PathResources::collection($paths), "All paths fetched successfully", 200);
+        return $this->success_Response(PathResources::collection($paths), "تمت عملية الوصول للمسارات بنجاح", 200);
     }
     //===========================================================================================================================
     /**
@@ -44,7 +44,7 @@ class PathController extends Controller
     public function store(Store_Path_Request $request)
     {
         $path = $this->pathservices->create_Path($request->validated());
-        return $this->success_Response(new PathResources($path), "Path created successfully.", 201);
+        return $this->success_Response(new PathResources($path), "تمت عملية إضافة المسار بنجاح", 201);
     }
     
     //===========================================================================================================================
@@ -61,7 +61,7 @@ class PathController extends Controller
         if ($path instanceof \Illuminate\Http\JsonResponse) {
             return $path;
         }
-            return $this->success_Response(new PathResources($path), "path viewed successfully", 200);
+            return $this->success_Response(new PathResources($path), "تمت عملية عرض المسار بنجاح", 200);
     }
     //===========================================================================================================================
     /**
@@ -78,7 +78,7 @@ class PathController extends Controller
         if ($path instanceof \Illuminate\Http\JsonResponse) {
             return $path;
         }
-            return $this->success_Response(new PathResources($path), "Path updated successfully", 200);
+            return $this->success_Response(new PathResources($path), "تمت عملية التعديل على المسار بنجاح", 200);
     }
     //===========================================================================================================================
     /**
@@ -94,7 +94,7 @@ class PathController extends Controller
         if ($path instanceof \Illuminate\Http\JsonResponse) {
             return $path;
         }
-            return $this->success_Response(null, "path soft deleted successfully", 200);
+            return $this->success_Response(null, "تمت عملية إضافة المسار للأرشيف بنجاح", 200);
     }
     //========================================================================================================================
     /**
@@ -104,7 +104,7 @@ class PathController extends Controller
     public function all_trashed_path()
     {
         $paths = $this->pathservices->all_trashed_path();
-        return $this->success_Response(PathResources::collection($paths), "All trashed paths fetched successfully", 200);
+        return $this->success_Response(PathResources::collection($paths), "تمت عملية الوصول لأرشيف المسارات بنجاح", 200);
     }
     //========================================================================================================================
     /**
@@ -120,7 +120,7 @@ class PathController extends Controller
         if ($restore instanceof \Illuminate\Http\JsonResponse) {
             return $restore;
         }
-            return $this->success_Response(null, "path restored successfully", 200);
+            return $this->success_Response(null, "تمت عملية استعادة المسار بنجاح", 200);
     }
     //========================================================================================================================
     /**
@@ -136,7 +136,7 @@ class PathController extends Controller
         if ($delete instanceof \Illuminate\Http\JsonResponse) {
             return $delete;
         }
-            return $this->success_Response(null, "path force deleted successfully", 200);
+            return $this->success_Response(null, "تمت عملية حذف المسار بنجاح", 200);
     }
         
     //========================================================================================================================

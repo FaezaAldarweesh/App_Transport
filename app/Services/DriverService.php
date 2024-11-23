@@ -19,13 +19,13 @@ class DriverService {
         try {
             $driver = Driver::all();
             return $driver;
-        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('Something went wrong with fetche drivers', 400);}
+        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('حدث خطأ أثناء محاولة الوصول إلى السائقين', 400);}
     }
     //========================================================================================================================
     /**
      * method to store a new driver
      * @param   $data
-     * @return /Illuminate\Http\JsonResponse ig have an errorc
+     * @return /Illuminate\Http\JsonResponse ig have an error
      */
     public function create_Driver($data) {
         try {
@@ -37,7 +37,7 @@ class DriverService {
             $driver->save(); 
     
             return $driver; 
-        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('Something went wrong with create driver', 400);}
+        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('حدث خطأ أثناء محاولة إضافة سائق جديد', 400);}
     }    
     //========================================================================================================================
     /**
@@ -50,7 +50,7 @@ class DriverService {
         try {  
             $driver = Driver::find($driver_id);
             if(!$driver){
-                throw new \Exception('driver not found');
+                throw new \Exception('السائق المطلوب غير موجود');
             }
             if (isset($data['first_name']) && isset($data['last_name'])) {
                 $driver->name = ['first_name' => $data['first_name'], 'last_name' => $data['last_name']];
@@ -62,7 +62,7 @@ class DriverService {
             return $driver;
 
         } catch (\Exception $e) { Log::error($e->getMessage()); return $this->failed_Response($e->getMessage(), 404);
-        }catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('Something went wrong with view driver', 400);}
+        }catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('حدث خطأ أثناء محاولة التعديل على السائق', 400);}
     }
     //========================================================================================================================
     /**
@@ -74,11 +74,11 @@ class DriverService {
         try {    
             $driver = Driver::find($driver_id);
             if(!$driver){
-                throw new \Exception('driver not found');
+                throw new \Exception('السائق المطلوب غير موجود');
             }
             return $driver;
         } catch (\Exception $e) { Log::error($e->getMessage()); return $this->failed_Response($e->getMessage(), 404);
-        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('Something went wrong with update driver', 400);}
+        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('حدث خطأ أثناء محاولة عرض السائق', 400);}
     }
     //========================================================================================================================
     /**
@@ -91,13 +91,13 @@ class DriverService {
         try {  
             $driver = Driver::find($driver_id);
             if(!$driver){
-                throw new \Exception('driver not found');
+                throw new \Exception('السائق المطلوب غير موجود');
             }
 
             $driver->delete();
             return true;
         }catch (\Exception $e) { Log::error($e->getMessage()); return $this->failed_Response($e->getMessage(), 400);
-        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('Something went wrong with deleting driver', 400);}
+        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('حدث خطأ أثناء محاولة حذف السائق', 400);}
     }
     //========================================================================================================================
     /**
@@ -109,7 +109,7 @@ class DriverService {
         try {  
             $drivers = Driver::onlyTrashed()->get();
             return $drivers;
-        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('Something went wrong with view trashed driver', 400);}
+        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('حدث خطأ أثناء محاولة الوصول إلى أرشيف السائقين', 400);}
     }
     //========================================================================================================================
     /**
@@ -122,11 +122,11 @@ class DriverService {
         try {
             $driver = Driver::onlyTrashed()->find($driver_id);
             if(!$driver){
-                throw new \Exception('driver not found');
+                throw new \Exception('السائق المطلوب غير موجود');
             }
             return $driver->restore();
         }catch (\Exception $e) { Log::error($e->getMessage()); return $this->failed_Response($e->getMessage(), 400);      
-        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('Something went wrong with restore driver', 400);
+        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('حدث خطأ أثناء محاولة إستعادة السائق', 400);
         }
     }
     //========================================================================================================================
@@ -140,12 +140,12 @@ class DriverService {
         try {
             $driver = Driver::onlyTrashed()->find($driver_id);
             if(!$driver){
-                throw new \Exception('driver not found');
+                throw new \Exception('السائق المطلوب غير موجود');
             }
  
             return $driver->forceDelete();
         }catch (\Exception $e) { Log::error($e->getMessage()); return $this->failed_Response($e->getMessage(), 400);   
-        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('Something went wrong with deleting driver', 400);}
+        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('حدث خطأ أثناء محاولة حذف أرشيف السائق', 400);}
     }
     //========================================================================================================================
 

@@ -28,6 +28,7 @@ class Store_Trip_Request extends FormRequest
             'name' => 'required|string|in:delivery,school',
             'type' => 'required|string|in:go,back',
             'path_id' => 'required|integer|exists:paths,id',
+            'bus_id' => 'required|integer|exists:buses,id',
             'status' => 'required|boolean'
         ];
     }
@@ -53,6 +54,7 @@ class Store_Trip_Request extends FormRequest
             'name' => 'اسم الرحلة',
             'type' => 'نوع الرحلة',
             'path_id' => 'اسم المسار',
+            'bus_id' => 'اسم الباص',
             'status'=> 'حالة الرحلة',
         ];
     }
@@ -65,7 +67,8 @@ class Store_Trip_Request extends FormRequest
             'name.in' => 'يأخذ الحقل :attribute فقط القيم إما ( delivery أو school )',
             'type.in' => 'يأخذ الحقل :attribute فقط القيم إما ( go أو back )',
             'integer' => 'يجب أن يكون الحقل :attribute من نمط int',
-            'exists' => ':attribute غير موجود , يجب أن يكون :attribute موجود ضمن المسارات المخزنة سابقا',
+            'path_id.exists' => ':attribute غير موجود , يجب أن يكون :attribute موجود ضمن المسارات المخزنة سابقا',
+            'bus_id.exists' => ':attribute غير موجود , يجب أن يكون :attribute موجود ضمن الباصات المخزنة سابقا',
             'boolean' => ' يجب أن تكون :attribute  قيمتها إما 1 أو 0',
         ];
     }

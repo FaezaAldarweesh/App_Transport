@@ -2,15 +2,9 @@
 
 namespace App\Services;
 
-
 use App\Models\Bus;
-use App\Models\Driver;
-use App\Models\Student;
-use App\Models\BusStudent;
-use App\Models\Supervisor;
 use Illuminate\Support\Facades\Log;
 use App\Http\Traits\ApiResponseTrait;
-use Illuminate\Support\Facades\Request;
 
 class BusService {
     //trait customize the methods for successful , failed , authentecation responses.
@@ -21,9 +15,9 @@ class BusService {
      */
     public function get_all_Bus(){
         try {
-            $bus = Bus::with('students','supervisors','drivers')->get();
+            $bus = Bus::all();
             return $bus;
-        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('Something went wrong with fetche bus', 400);}
+        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('حدث خطأ أثناء محاولة الوصول إلى الباصات', 400);}
     }
     //========================================================================================================================
     /**
@@ -35,34 +29,13 @@ class BusService {
         try {
             $bus = new Bus(); 
 
-            // if (count($data['students']) > $data['number_of_seats']) {
-            //     throw new \Exception('عدد الطلاب يجب أن يساوي عدد المقاعد المدخل');
-            // }
-
             $bus->name = $data['name'];
             $bus->number_of_seats = $data['number_of_seats'];
             $bus->save();
-
-            // foreach ($data['students'] as $student) {
-            //     $student = Student::findOrFail($student['id']);
-            //     $bus->students()->attach($student->id);
-            // }
-            
-            // foreach ($data['supervisors'] as $supervisor) {
-            //     $supervisor = Supervisor::findOrFail($supervisor['id']);
-            //     $bus->supervisors()->attach($supervisor->id);
-            // }
-
-            // foreach ($data['drivers'] as $driver) {
-            //     $driver = Driver::findOrFail($driver['id']);
-            //     $bus->drivers()->attach($driver->id);
-            // }
-
-            //$bus->save(); 
     
             return $bus; 
         } catch (\Exception $e) { Log::error($e->getMessage()); return $this->failed_Response($e->getMessage(), 404);
-        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('Something went wrong with create bus', 400);}
+        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('حدث خطأ أثناء محاولة إضافة باص جديد', 400);}
     }    
     //========================================================================================================================
     /**
@@ -75,24 +48,17 @@ class BusService {
         try {  
             $bus = Bus::find($bus_id);
             if(!$bus){
-                throw new \Exception('bus not found');
-            }
-
-            if (count($data['students']) != ($data['number_of_seats'] ?? $bus->number_of_seats)) {
-                throw new \Exception('عدد الطلاب يجب أن يساوي عدد المقاعد المدخل');
+                throw new \Exception('الباص المطلوب غير موجود');
             }
 
             $bus->name = $data['name'] ?? $bus->name;
             $bus->number_of_seats = $data['number_of_seats'] ?? $bus->number_of_seats;
-            // $bus->students()->sync(array_column($data['students'], 'id'));
-            // $bus->supervisors()->sync(array_column($data['supervisors'], 'id'));
-            // $bus->drivers()->sync(array_column($data['drivers'], 'id'));
 
             $bus->save(); 
             return $bus;
 
         } catch (\Exception $e) { Log::error($e->getMessage()); return $this->failed_Response($e->getMessage(), 404);
-        }catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('Something went wrong with view bus', 400);}
+        }catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('حدث خطأ أثناء محاولة التعديل على الباص', 400);}
     }
     //========================================================================================================================
     /**
@@ -104,14 +70,12 @@ class BusService {
         try {    
             $bus = Bus::find($bus_id);
             if(!$bus){
-                throw new \Exception('bus not found');
+                throw new \Exception('الباص المطلوب غير موجود');
             }
-
-            $bus->load('students', 'supervisors', 'drivers');
 
             return $bus;
         } catch (\Exception $e) { Log::error($e->getMessage()); return $this->failed_Response($e->getMessage(), 404);
-        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('Something went wrong with update bus', 400);}
+        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('حدث خطأ أثناء محاولة عرض الباص', 400);}
     }
     //========================================================================================================================
     /**
@@ -124,17 +88,13 @@ class BusService {
         try {  
             $bus = Bus::find($bus_id);
             if(!$bus){
-                throw new \Exception('bus not found');
+                throw new \Exception('الباص المطلوب غير موجود');
             }
-
-            $bus->students()->updateExistingPivot($bus->students->pluck('id'), ['deleted_at' => now()]);    
-            $bus->supervisors()->updateExistingPivot($bus->supervisors->pluck('id'), ['deleted_at' => now()]);    
-            $bus->drivers()->updateExistingPivot($bus->drivers->pluck('id'), ['deleted_at' => now()]); 
 
             $bus->delete();
             return true;
         }catch (\Exception $e) { Log::error($e->getMessage()); return $this->failed_Response($e->getMessage(), 400);
-        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('Something went wrong with deleting bus', 400);}
+        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('حدث خطأ أثناء محاولة حذف الباص', 400);}
     }
     //========================================================================================================================
     /**
@@ -146,7 +106,7 @@ class BusService {
         try {  
             $bus = Bus::onlyTrashed()->get();
             return $bus;
-        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('Something went wrong with view trashed bus', 400);}
+        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('حدث خطأ أثناء محاولة الوصول إلى أرشيف الباصات', 400);}
     }
     //========================================================================================================================
     /**
@@ -159,16 +119,13 @@ class BusService {
         try {
             $bus = Bus::onlyTrashed()->find($bus_id);
             if(!$bus){
-                throw new \Exception('bus not found');
+                throw new \Exception('الباص المطلوب غير موجود');
             }
             $bus->restore();
-            $bus->students()->withTrashed()->updateExistingPivot($bus->students->pluck('id'), ['deleted_at' => null]);
-            $bus->supervisors()->withTrashed()->updateExistingPivot($bus->supervisors->pluck('id'), ['deleted_at' => null]);
-            $bus->drivers()->withTrashed()->updateExistingPivot($bus->drivers->pluck('id'), ['deleted_at' => null]);
 
             return true;
         }catch (\Exception $e) { Log::error($e->getMessage()); return $this->failed_Response($e->getMessage(), 400);      
-        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('Something went wrong with restore bus', 400);
+        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('حدث خطأ أثناء محاولة إستعادة الباص', 400);
         }
     }
     //========================================================================================================================
@@ -182,12 +139,12 @@ class BusService {
         try {
             $bus = Bus::onlyTrashed()->find($bus_id);
             if(!$bus){
-                throw new \Exception('bus not found');
+                throw new \Exception('الباص المطلوب غير موجود');
             }
  
             return $bus->forceDelete();
         }catch (\Exception $e) { Log::error($e->getMessage()); return $this->failed_Response($e->getMessage(), 400);   
-        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('Something went wrong with deleting bus', 400);}
+        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('حدث خطأ أثناء محاولة حذف أرشيف الباص', 400);}
     }
     //========================================================================================================================
 

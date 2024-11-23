@@ -33,7 +33,7 @@ class StationController extends Controller
     public function index()
     {  
         $Stationes = $this->stationservices->get_all_Stations();
-        return $this->success_Response(StationResources::collection($Stationes), "All Stationes fetched successfully", 200);
+        return $this->success_Response(StationResources::collection($Stationes), "تمت عملية الوصول للمحطات بنجاح", 200);
     }
     //===========================================================================================================================
     /**
@@ -44,7 +44,7 @@ class StationController extends Controller
     public function store(Store_Station_Request $request)
     {
         $station = $this->stationservices->create_Station($request->validated());
-        return $this->success_Response(new StationResources($station), "Station created successfully.", 201);
+        return $this->success_Response(new StationResources($station), "تمت عملية إضافة المحطة بنجاح", 201);
     }
     
     //===========================================================================================================================
@@ -61,7 +61,7 @@ class StationController extends Controller
         if ($stations instanceof \Illuminate\Http\JsonResponse) {
             return $stations;
         }
-            return $this->success_Response(new StationResources($stations), "stations viewed successfully", 200);
+            return $this->success_Response(new StationResources($stations), "تمت عملية عرض المحطة بنجاح", 200);
     }
     //===========================================================================================================================
     /**
@@ -78,7 +78,7 @@ class StationController extends Controller
         if ($station instanceof \Illuminate\Http\JsonResponse) {
             return $station;
         }
-            return $this->success_Response(new StationResources($station), "station updated successfully", 200);
+            return $this->success_Response(new StationResources($station), "تمت عملية التعديل على المحطة بنجاح", 200);
     }    
     //===========================================================================================================================
     /**
@@ -94,7 +94,7 @@ class StationController extends Controller
         if ($station instanceof \Illuminate\Http\JsonResponse) {
             return $station;
         }
-            return $this->success_Response(null, "station soft deleted successfully", 200);
+            return $this->success_Response(null, "تمت عملية إضافة المحطة للأرشيف بنجاح", 200);
     }
     //========================================================================================================================
     /**
@@ -104,7 +104,7 @@ class StationController extends Controller
     public function all_trashed_station()
     {
         $stationes = $this->stationservices->all_trashed_station();
-        return $this->success_Response(StationResources::collection($stationes), "All trashed stationes fetched successfully", 200);
+        return $this->success_Response(StationResources::collection($stationes), "تمت عملية الوصول لأرشيف المحطات بنجاح", 200);
     }
     //========================================================================================================================
     /**
@@ -120,7 +120,7 @@ class StationController extends Controller
         if ($restore instanceof \Illuminate\Http\JsonResponse) {
             return $restore;
         }
-            return $this->success_Response(null, "station restored successfully", 200);
+            return $this->success_Response(null, "تمت عملية استعادة المحطة بنجاح", 200);
     }
     //========================================================================================================================
     /**
@@ -136,7 +136,7 @@ class StationController extends Controller
         if ($delete instanceof \Illuminate\Http\JsonResponse) {
             return $delete;
         }
-            return $this->success_Response(null, "station force deleted successfully", 200);
+            return $this->success_Response(null, "تمت عملية حذف المحطة بنجاح", 200);
     }
         
     //========================================================================================================================

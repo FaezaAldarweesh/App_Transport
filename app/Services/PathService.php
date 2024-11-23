@@ -20,7 +20,7 @@ class PathService {
         try {
             $path = Path::all();
             return $path;
-        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('Something went wrong with fetche paths', 400);}
+        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('حدث خطأ أثناء محاولة الوصول إلى المسارات', 400);}
     }
     //========================================================================================================================
     /**
@@ -36,7 +36,7 @@ class PathService {
             $path->save(); 
     
             return $path; 
-        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('Something went wrong with create path', 400);}
+        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('حدث خطأ أثناء محاولة إضافة مسار جديد', 400);}
     }    
     //========================================================================================================================
     /**
@@ -49,7 +49,7 @@ class PathService {
         try {  
             $path = Path::find($path_id);
             if(!$path){
-                throw new \Exception('path not found');
+                throw new \Exception('المسار المطلوب غير موجود');
             }
             $path->name = $data['name'] ?? $path->name;
 
@@ -57,7 +57,7 @@ class PathService {
             return $path;
 
         } catch (\Exception $e) { Log::error($e->getMessage()); return $this->failed_Response($e->getMessage(), 404);
-        }catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('Something went wrong with view path', 400);}
+        }catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('حدث خطأ أثناء محاولة التعديل على المسار', 400);}
     }
     //========================================================================================================================
     /**
@@ -69,11 +69,11 @@ class PathService {
         try {    
             $path = Path::find($path_id);
             if(!$path){
-                throw new \Exception('path not found');
+                throw new \Exception('المسار المطلوب غير موجود');
             }
             return $path;
         } catch (\Exception $e) { Log::error($e->getMessage()); return $this->failed_Response($e->getMessage(), 404);
-        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('Something went wrong with update path', 400);}
+        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('حدث خطأ أثناء محاولة عرض المسار', 400);}
     }
     //========================================================================================================================
     /**
@@ -86,13 +86,13 @@ class PathService {
         try {  
             $path = Path::find($path_id);
             if(!$path){
-                throw new \Exception('path not found');
+                throw new \Exception('المسار المطلوب غير موجود');
             }
 
             $path->delete();
             return true;
         }catch (\Exception $e) { Log::error($e->getMessage()); return $this->failed_Response($e->getMessage(), 400);
-        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('Something went wrong with deleting path', 400);}
+        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('حدث خطأ أثناء محاولة حذف المسار', 400);}
     }
     //========================================================================================================================
     /**
@@ -104,7 +104,7 @@ class PathService {
         try {  
             $paths = Path::onlyTrashed()->get();
             return $paths;
-        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('Something went wrong with view trashed path', 400);}
+        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('حدث خطأ أثناء محاولة الوصول إلى أرشيف المسارات', 400);}
     }
     //========================================================================================================================
     /**
@@ -117,11 +117,11 @@ class PathService {
         try {
             $path = Path::onlyTrashed()->find($path_id);
             if(!$path){
-                throw new \Exception('path not found');
+                throw new \Exception('المسار المطلوب غير موجود');
             }
             return $path->restore();
         }catch (\Exception $e) { Log::error($e->getMessage()); return $this->failed_Response($e->getMessage(), 400);      
-        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('Something went wrong with restore path', 400);
+        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('حدث خطأ أثناء محاولة إستعادة المسار', 400);
         }
     }
     //========================================================================================================================
@@ -135,12 +135,12 @@ class PathService {
         try {
             $path = Path::onlyTrashed()->find($path_id);
             if(!$path){
-                throw new \Exception('path not found');
+                throw new \Exception('المسار المطلوب غير موجود');
             }
  
             return $path->forceDelete();
         }catch (\Exception $e) { Log::error($e->getMessage()); return $this->failed_Response($e->getMessage(), 400);   
-        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('Something went wrong with deleting path', 400);}
+        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('حدث خطأ أثناء محاولة حذف أرشيف المسار', 400);}
     }
     //========================================================================================================================
 

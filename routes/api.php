@@ -54,6 +54,16 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::get('restore_student/{student_id}', [StudentController::class, 'restore']);
     Route::delete('forceDelete_student/{student_id}', [StudentController::class, 'forceDelete']);
 
+    Route::apiResource('supervisor',SupervisorController::class); 
+    Route::get('all_trashed_supervisor', [SupervisorController::class, 'all_trashed_supervisor']);
+    Route::get('restore_supervisor/{supervisor_id}', [SupervisorController::class, 'restore']);
+    Route::delete('forceDelete_supervisor/{supervisor_id}', [SupervisorController::class, 'forceDelete']);
+
+    Route::apiResource('driver',DriverController::class); 
+    Route::get('all_trashed_driver', [DriverController::class, 'all_trashed_driver']);
+    Route::get('restore_driver/{driver_id}', [DriverController::class, 'restore']);
+    Route::delete('forceDelete_driver/{driver_id}', [DriverController::class, 'forceDelete']);
+
     Route::apiResource('path',PathController::class); 
     Route::get('all_trashed_path', [PathController::class, 'all_trashed_path']);
     Route::get('restore_path/{path_id}', [PathController::class, 'restore']);
@@ -68,30 +78,16 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::get('all_trashed_bus', [BusController::class, 'all_trashed_bus']);
     Route::get('restore_bus/{bus_id}', [BusController::class, 'restore']);
     Route::delete('forceDelete_bus/{bus_id}', [BusController::class, 'forceDelete']);
-    
-    Route::apiResource('driver',DriverController::class); 
-    Route::get('all_trashed_driver', [DriverController::class, 'all_trashed_driver']);
-    Route::get('restore_driver/{driver_id}', [DriverController::class, 'restore']);
-    Route::delete('forceDelete_driver/{driver_id}', [DriverController::class, 'forceDelete']);
-
-    Route::apiResource('supervisor',SupervisorController::class); 
-    Route::get('all_trashed_supervisor', [SupervisorController::class, 'all_trashed_supervisor']);
-    Route::get('restore_supervisor/{supervisor_id}', [SupervisorController::class, 'restore']);
-    Route::delete('forceDelete_supervisor/{supervisor_id}', [SupervisorController::class, 'forceDelete']);
 
     Route::apiResource('trip',TripController::class); 
     Route::get('all_trashed_trip', [TripController::class, 'all_trashed_trip']);
     Route::get('restore_trip/{trip_id}', [TripController::class, 'restore']);
     Route::delete('forceDelete_trip/{trip_id}', [TripController::class, 'forceDelete']);
 
+
+
     Route::get('list_of_students/{trip_id}/{latitude}/{longitude}', [TripController::class, 'list_of_students']);
     Route::patch('update_trip_status/{trip_id}', [TripController::class, 'update_trip_status']);
     Route::get('All_students_belong_to_specific_trip/{trip_id}', [TripController::class, 'All_students_belong_to_specific_trip']);
-
     Route::post('bind', [TripController::class, 'bind']);
-
-    Route::apiResource('check_out',controller: CheckOutController::class); 
-    Route::get('all_trashed_check_out', [CheckOutController::class, 'all_trashed_check_out']);
-    Route::get('restore_check_out/{check_out_id}', [CheckOutController::class, 'restore']);
-    Route::delete('forceDelete_check_out/{check_out_id}', [CheckOutController::class, 'forceDelete']);
 });

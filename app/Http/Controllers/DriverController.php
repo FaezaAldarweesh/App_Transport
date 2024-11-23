@@ -32,7 +32,7 @@ class DriverController extends Controller
     public function index()
     {  
         $drivers = $this->driverservices->get_all_Drivers();
-        return $this->success_Response(DriverResources::collection($drivers),"drivers fetched successfully", 200);
+        return $this->success_Response(DriverResources::collection($drivers),"تمت عملية الوصول للسائقين بنجا", 200);
     }
     //===========================================================================================================================
     /**
@@ -43,7 +43,7 @@ class DriverController extends Controller
     public function store(Store_Driver_Request $request)
     {
         $driver = $this->driverservices->create_Driver($request->validated());
-        return $this->success_Response(new DriverResources($driver), "driver created successfully.", 201);
+        return $this->success_Response(new DriverResources($driver), "تمت عملية إضافة السائق بنجاح", 201);
     }
     
     //===========================================================================================================================
@@ -60,7 +60,7 @@ class DriverController extends Controller
         if ($drivers instanceof \Illuminate\Http\JsonResponse) {
             return $drivers;
         }
-            return $this->success_Response(new DriverResources($drivers), "drivers viewed successfully", 200);
+            return $this->success_Response(new DriverResources($drivers), "تمت عملية عرض السائق بنجاح", 200);
     }
     //===========================================================================================================================
     /**
@@ -77,7 +77,7 @@ class DriverController extends Controller
         if ($driver instanceof \Illuminate\Http\JsonResponse) {
             return $driver;
         }
-            return $this->success_Response(new DriverResources($driver), "driver updated successfully", 200);
+            return $this->success_Response(new DriverResources($driver), "تمت عملية التعديل على السائق بنجاح", 200);
     }    
     //===========================================================================================================================
     /**
@@ -93,7 +93,7 @@ class DriverController extends Controller
         if ($driver instanceof \Illuminate\Http\JsonResponse) {
             return $driver;
         }
-            return $this->success_Response(null, "driver soft deleted successfully", 200);
+            return $this->success_Response(null, "تمت عملية إضافة السائق للأرشيف بنجاح", 200);
     }
     //========================================================================================================================
     /**
@@ -103,7 +103,7 @@ class DriverController extends Controller
     public function all_trashed_driver()
     {
         $drivers = $this->driverservices->all_trashed_driver();
-        return $this->success_Response(DriverResources::collection($drivers), "All trashed drivers fetched successfully", 200);
+        return $this->success_Response(DriverResources::collection($drivers), "تمت عملية الوصول لأرشيف السائقين بنجاح", 200);
     }
     //========================================================================================================================
     /**
@@ -119,7 +119,7 @@ class DriverController extends Controller
         if ($restore instanceof \Illuminate\Http\JsonResponse) {
             return $restore;
         }
-            return $this->success_Response(null, "driver restored successfully", 200);
+            return $this->success_Response(null, "تمت عملية استعادة السائق بنجاح", 200);
     }
     //========================================================================================================================
     /**
@@ -135,7 +135,7 @@ class DriverController extends Controller
         if ($delete instanceof \Illuminate\Http\JsonResponse) {
             return $delete;
         }
-            return $this->success_Response(null, "driver force deleted successfully", 200);
+            return $this->success_Response(null, "تمت عملية حذف السائق بنجاح", 200);
     }
         
     //========================================================================================================================

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Bus;
 use App\Services\BusService;
 use App\Http\Resources\BusResources;
 use App\Http\Traits\ApiResponseTrait;
@@ -26,18 +25,18 @@ class BusController extends Controller
     }
     //===========================================================================================================================
     /**
-     * method to view all bus with a filter on name
+     * method to view all buses
      * @return /Illuminate\Http\JsonResponse
      * busResources to customize the return responses.
      */
     public function index()
     {  
         $bus = $this->busservices->get_all_Bus();
-        return $this->success_Response(BusResources::collection($bus), "All bus fetched successfully", 200);
+        return $this->success_Response(BusResources::collection($bus), "تمت عملية الوصول للباصات بنجاح", 200);
     }
     //===========================================================================================================================
     /**
-     * method to store a new Patth
+     * method to store a new bus
      * @param   Store_Bus_Request $request
      * @return /Illuminate\Http\JsonResponse
      */
@@ -49,7 +48,7 @@ class BusController extends Controller
         if ($bus instanceof \Illuminate\Http\JsonResponse) {
             return $bus;
         }
-        return $this->success_Response(new BusResources($bus), "bus created successfully.", 201);
+        return $this->success_Response(new BusResources($bus), "تمت عملية إضافة الباص بنجاح", 201);
     }
     
     //===========================================================================================================================
@@ -66,7 +65,7 @@ class BusController extends Controller
         if ($bus instanceof \Illuminate\Http\JsonResponse) {
             return $bus;
         }
-            return $this->success_Response(new BusResources($bus), "bus viewed successfully", 200);
+            return $this->success_Response(new BusResources($bus), "تمت عملية عرض الباص بنجاح", 200);
     }
     //===========================================================================================================================
     /**
@@ -83,7 +82,7 @@ class BusController extends Controller
         if ($bus instanceof \Illuminate\Http\JsonResponse) {
             return $bus;
         }
-            return $this->success_Response(new BusResources($bus), "bus updated successfully", 200);
+            return $this->success_Response(new BusResources($bus), "تمت عملية التعديل على الباص بنجاح", 200);
     }
     //===========================================================================================================================
     /**
@@ -99,7 +98,7 @@ class BusController extends Controller
         if ($bus instanceof \Illuminate\Http\JsonResponse) {
             return $bus;
         }
-            return $this->success_Response(null, "bus soft deleted successfully", 200);
+            return $this->success_Response(null, "تمت عملية إضافة الباص للأرشيف بنجاح", 200);
     }
     //========================================================================================================================
     /**
@@ -109,7 +108,7 @@ class BusController extends Controller
     public function all_trashed_bus()
     {
         $bus = $this->busservices->all_trashed_bus();
-        return $this->success_Response(BusResources::collection($bus), "All trashed bus fetched successfully", 200);
+        return $this->success_Response(BusResources::collection($bus), "تمت عملية الوصول لأرشيف الباصات بنجاح", 200);
     }
     //========================================================================================================================
     /**
@@ -125,7 +124,7 @@ class BusController extends Controller
         if ($restore instanceof \Illuminate\Http\JsonResponse) {
             return $restore;
         }
-            return $this->success_Response(null, "bus restored successfully", 200);
+            return $this->success_Response(null, "تمت عملية استعادة الباص بنجاح", 200);
     }
     //========================================================================================================================
     /**
@@ -141,7 +140,7 @@ class BusController extends Controller
         if ($delete instanceof \Illuminate\Http\JsonResponse) {
             return $delete;
         }
-            return $this->success_Response(null, "bus force deleted successfully", 200);
+            return $this->success_Response(null, "تمت عملية حذف الباص بنجاح", 200);
     }
         
     //========================================================================================================================

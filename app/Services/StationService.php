@@ -19,7 +19,7 @@ class StationService {
         try {
             $station = Station::all();
             return $station;
-        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('Something went wrong with fetche stations', 400);}
+        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('حدث خطأ أثناء محاولة الوصول إلى المحطة', 400);}
     }
     //========================================================================================================================
     /**
@@ -36,7 +36,7 @@ class StationService {
             $station->save(); 
     
             return $station; 
-        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('Something went wrong with create station', 400);}
+        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('حدث خطأ أثناء محاولة إضافة محطة جديدة', 400);}
     }    
     //========================================================================================================================
     /**
@@ -49,7 +49,7 @@ class StationService {
         try {  
             $station = Station::find($station_id);
             if(!$station){
-                throw new \Exception('station not found');
+                throw new \Exception('المحطة المطلوبة غير موجودة');
             }
             $station->name = $data['name'] ?? $station->name;
             $station->path_id = $data['path_id'] ?? $station->path_id;
@@ -58,7 +58,7 @@ class StationService {
             return $station;
 
         } catch (\Exception $e) { Log::error($e->getMessage()); return $this->failed_Response($e->getMessage(), 404);
-        }catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('Something went wrong with view station', 400);}
+        }catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('حدث خطأ أثناء محاولة التعديل على المحطة', 400);}
     }
     //========================================================================================================================
     /**
@@ -70,11 +70,11 @@ class StationService {
         try {    
             $station = Station::find($station_id);
             if(!$station){
-                throw new \Exception('station not found');
+                throw new \Exception('المحطة المطلوبة غير موجودة');
             }
             return $station;
         } catch (\Exception $e) { Log::error($e->getMessage()); return $this->failed_Response($e->getMessage(), 404);
-        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('Something went wrong with update station', 400);}
+        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('حدث خطأ أثناء محاولة عرض المحطة', 400);}
     }
     //========================================================================================================================
     /**
@@ -87,13 +87,13 @@ class StationService {
         try {  
             $station = Station::find($station_id);
             if(!$station){
-                throw new \Exception('station not found');
+                throw new \Exception('المحطة المطلوبة غير موجودة');
             }
 
             $station->delete();
             return true;
         }catch (\Exception $e) { Log::error($e->getMessage()); return $this->failed_Response($e->getMessage(), 400);
-        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('Something went wrong with deleting station', 400);}
+        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('حدث خطأ أثناء محاولة حذف المحطة', 400);}
     }
     //========================================================================================================================
     /**
@@ -105,7 +105,7 @@ class StationService {
         try {  
             $stations = Station::onlyTrashed()->get();
             return $stations;
-        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('Something went wrong with view trashed station', 400);}
+        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('حدث خطأ أثناء محاولة الوصول إلى المحطات', 400);}
     }
     //========================================================================================================================
     /**
@@ -118,11 +118,11 @@ class StationService {
         try {
             $station = Station::onlyTrashed()->find($station_id);
             if(!$station){
-                throw new \Exception('station not found');
+                throw new \Exception('المحطة المطلوبة غير موجودة');
             }
             return $station->restore();
         }catch (\Exception $e) { Log::error($e->getMessage()); return $this->failed_Response($e->getMessage(), 400);      
-        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('Something went wrong with restore station', 400);
+        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('حدث خطأ أثناء محاولة إستعادة المحطة', 400);
         }
     }
     //========================================================================================================================
@@ -136,12 +136,12 @@ class StationService {
         try {
             $station = Station::onlyTrashed()->find($station_id);
             if(!$station){
-                throw new \Exception('station not found');
+                throw new \Exception('المحطة المطلوبة غير موجودة');
             }
  
             return $station->forceDelete();
         }catch (\Exception $e) { Log::error($e->getMessage()); return $this->failed_Response($e->getMessage(), 400);   
-        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('Something went wrong with deleting station', 400);}
+        } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('حدث خطأ أثناء محاولة حذف أرشيف المحطات', 400);}
     }
     //========================================================================================================================
 
