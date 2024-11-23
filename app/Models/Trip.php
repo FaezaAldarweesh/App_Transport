@@ -14,11 +14,11 @@ class Trip extends Model
     * @var array<int, string>
     */
     protected $fillable = [
-        'name',
-        'type',
-        'path_id',
-        'bus_id',
-        'status',
+            'name',
+            'type',
+            'path_id',
+            'bus_id',
+            'status',
     ];
 
     public function path (){

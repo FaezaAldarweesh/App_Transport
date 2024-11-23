@@ -24,7 +24,7 @@ class StudentResources extends JsonResource
             'student grade' => $this->classRoom->grade->name,
             'student class' => $this->classRoom->name,
             'student parent' => $this->user->name,
-            'student status' => $this->status,
+            'student status' => $this->status ?? 'attendee',
         ];
     }
 }

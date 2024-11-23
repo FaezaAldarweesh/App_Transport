@@ -30,7 +30,13 @@ class Update_Trip_Request extends FormRequest
             'type' => 'sometimes|nullable|string|in:go,back',
             'path_id' => 'sometimes|nullable|integer|exists:paths,id',
             'bus_id' => 'sometimes|nullable|integer|exists:buses,id',
-            'status' => 'sometimes|nullable|boolean'
+            'status' => 'sometimes|nullable|boolean',
+            'students' => 'sometimes|nullable|array',
+            'students.*.id' => 'sometimes|nullable|integer|exists:students,id',
+            'supervisors' => 'sometimes|nullable|array',
+            'supervisors.*.id' => 'sometimes|nullable|integer|exists:supervisors,id',
+            'drivers' => 'sometimes|nullable|array',
+            'drivers.*.id' => 'sometimes|nullable|integer|exists:drivers,id',
         ];
     }
     //===========================================================================================================================
@@ -57,6 +63,9 @@ class Update_Trip_Request extends FormRequest
             'path_id' => 'اسم المسار',
             'bus_id' => 'اسم الباص',
             'status'=> 'حالة الرحلة',
+            'student' => 'اسم الطالب',
+            'supervisor' => 'اسم المشرفة',
+            'driver' => 'اسم السائق',
         ];
     }
     //===========================================================================================================================
@@ -65,11 +74,17 @@ class Update_Trip_Request extends FormRequest
     {
         return [ 
             'name.in' => 'يأخذ الحقل :attribute فقط القيم إما ( delivery أو school )',
+            'type.in' => 'يأخذ الحقل :attribute فقط القيم إما ( go أو back )',
             'integer' => 'يجب أن يكون الحقل :attribute من نمط int',
             'path_id.exists' => ':attribute غير موجود , يجب أن يكون :attribute موجود ضمن المسارات المخزنة سابقا',
-            'bus_id.exists' => ':attribute غير موجود , يجب أن يكون :attribute موجود ضمن الباص المخزنة سابقا',
-            'type.in' => 'يأخذ الحقل :attribute فقط القيم إما ( go أو back )',
-            'boolean' => ' يجي أن تكون :attribute  قيمتها إما 1 أو 0',
+            'bus_id.exists' => ':attribute غير موجود , يجب أن يكون :attribute موجود ضمن الباصات المخزنة سابقا',
+            'boolean' => ' يجب أن تكون :attribute  قيمتها إما 1 أو 0',
+            'array' => 'يجب أن يكون :attribute من نمط مصفوفة',
+            'trip.exists' => 'يجب أن يكون :attribute موجودا مسبقا',
+            'buses.*.id.exists' => 'يجب أن يكون :attribute موجودا مسبقا',
+            'students.*.id.exists' => 'يجب أن يكون :attribute موجودا مسبقا',
+            'supervisors.*.id.exists' => 'يجب أن يكون :attribute موجودا مسبقا',
+            'drivers.*.id.exists' => 'يجب أن يكون :attribute موجودا مسبقا',
         ];
     }
 }

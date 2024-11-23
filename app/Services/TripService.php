@@ -2,13 +2,16 @@
 
 namespace App\Services;
 
-use App\Http\Traits\AllStudentsByTripTrait;
 use App\Models\Bus;
 use App\Models\Trip;
+use App\Models\Driver;
+use App\Models\BusTrip;
 use App\Models\Student;
+use App\Models\Supervisor;
+use App\Models\StudentTrip;
 use Illuminate\Support\Facades\Log;
 use App\Http\Traits\ApiResponseTrait;
-use App\Models\BusTrip;
+use App\Http\Traits\AllStudentsByTripTrait;
 
 class TripService {
     //trait customize the methods for successful , failed , authentecation responses.
@@ -31,7 +34,7 @@ class TripService {
      */
     public function create_Trip($data) {
         try {
-            
+
             if ($data['name'] == 'delivery' && $data['type'] == 'go') {
                 $existingTrip = Trip::where('name', 'delivery')
                                     ->where('type', 'go')
@@ -39,28 +42,58 @@ class TripService {
                                     ->exists();
         
                 if ($existingTrip) {
-                    throw new \Exception('هذا المسار مرتبط برحلة توصيل أخرى من نمط ذهاب.');
+                    throw new \Exception('هذا المسار مرتبط برحلة توصيل أخرى.');
                 }
 
-            }else if ($data['name'] == 'delivery' && $data['type'] == 'back') {
+            } 
+            if ($data['name'] == 'delivery' && $data['type'] == 'go') {
                 $existingTrip = Trip::where('name', 'delivery')
-                                    ->where('type', 'back')
-                                    ->where('path_id', $data['path_id'])
+                                    ->where('type', 'go')
+                                    ->where('bus_id', $data['bus_id'])
                                     ->exists();
         
                 if ($existingTrip) {
-                    throw new \Exception('هذا المسار مرتبط برحلة توصيل أخرى من نمط إياب.');
+                    throw new \Exception('هذا الباص مرتبط برحلة توصيل أخرى.');
                 }
 
             }
+            if ($data['name'] == 'delivery' && $data['type'] == 'go') {
+                $existingTrips = Trip::where('name', 'delivery')
+                                        ->where('type', 'go')
+                                        ->pluck('id'); 
             
+                $existingBusLink = StudentTrip::whereIn('trip_id', $existingTrips)
+                                            ->where('student_id', $data['students']) 
+                                            ->exists();
+            
+                    if ($existingBusLink) {
+                        throw new \Exception('تم إضافة هذا الطالب إلى رحلة توصيل أخرى');
+                    }            
+            }
+
             $Trip = new Trip();
             $Trip->name = $data['name'];
             $Trip->type = $data['type'];
             $Trip->path_id = $data['path_id'];
+            $Trip->bus_id = $data['bus_id'];
             $Trip->status = $data['status'];
             $Trip->save();
+
+            foreach ($data['students'] as $student) {
+                $student = Student::findOrFail($student['id']);
+                $Trip->students()->attach($student->id);
+            }
             
+            foreach ($data['supervisors'] as $supervisor) {
+                $supervisor = Supervisor::findOrFail($supervisor['id']);
+                $Trip->supervisors()->attach($supervisor->id);
+            }
+
+            foreach ($data['drivers'] as $driver) {
+                $driver = Driver::findOrFail($driver['id']);
+                $Trip->drivers()->attach($driver->id);
+            }
+            $Trip->save();
 
             return $Trip; 
         } catch (\Exception $e) { Log::error($e->getMessage()); return $this->failed_Response($e->getMessage(), 404);

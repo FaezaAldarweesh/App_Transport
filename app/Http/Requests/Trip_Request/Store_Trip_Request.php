@@ -29,7 +29,13 @@ class Store_Trip_Request extends FormRequest
             'type' => 'required|string|in:go,back',
             'path_id' => 'required|integer|exists:paths,id',
             'bus_id' => 'required|integer|exists:buses,id',
-            'status' => 'required|boolean'
+            'status' => 'required|boolean',
+            'students' => 'required|array',
+            'students.*.id' => 'required|integer|exists:students,id',
+            'supervisors' => 'required|array',
+            'supervisors.*.id' => 'required|integer|exists:supervisors,id',
+            'drivers' => 'required|array',
+            'drivers.*.id' => 'required|integer|exists:drivers,id',
         ];
     }
     //===========================================================================================================================
@@ -56,6 +62,9 @@ class Store_Trip_Request extends FormRequest
             'path_id' => 'اسم المسار',
             'bus_id' => 'اسم الباص',
             'status'=> 'حالة الرحلة',
+            'student' => 'اسم الطالب',
+            'supervisor' => 'اسم المشرفة',
+            'driver' => 'اسم السائق',
         ];
     }
     //===========================================================================================================================
@@ -70,6 +79,12 @@ class Store_Trip_Request extends FormRequest
             'path_id.exists' => ':attribute غير موجود , يجب أن يكون :attribute موجود ضمن المسارات المخزنة سابقا',
             'bus_id.exists' => ':attribute غير موجود , يجب أن يكون :attribute موجود ضمن الباصات المخزنة سابقا',
             'boolean' => ' يجب أن تكون :attribute  قيمتها إما 1 أو 0',
+            'array' => 'يجب أن يكون :attribute من نمط مصفوفة',
+            'trip.exists' => 'يجب أن يكون :attribute موجودا مسبقا',
+            'buses.*.id.exists' => 'يجب أن يكون :attribute موجودا مسبقا',
+            'students.*.id.exists' => 'يجب أن يكون :attribute موجودا مسبقا',
+            'supervisors.*.id.exists' => 'يجب أن يكون :attribute موجودا مسبقا',
+            'drivers.*.id.exists' => 'يجب أن يكون :attribute موجودا مسبقا',
         ];
     }
 }

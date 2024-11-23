@@ -33,7 +33,7 @@ class Store_Student_Request extends FormRequest
             'latitude'    => 'required|numeric|between:-90,90',
             'class_room_id' => 'required|integer|exists:class_rooms,id',
             'user_id' => 'required|integer|exists:users,id',
-            'status' => 'required|string|in:attendee,absent_all,absent_go,absent_back,transported',
+           // 'status' => 'required|string|in:attendee,absent_all,absent_go,absent_back,transported',
         ];
     }
     //===========================================================================================================================
