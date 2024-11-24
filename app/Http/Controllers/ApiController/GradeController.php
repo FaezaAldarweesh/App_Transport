@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\ApiController;
 
 use App\Models\Grade;
 use Illuminate\Http\Request;
 use App\Services\GradeService;
+use App\Http\Controllers\Controller;
 use App\Http\Resources\GradeResources;
 use App\Http\Traits\ApiResponseTrait;
 use App\Http\Requests\Grade_Request\Store_Grade_Request;

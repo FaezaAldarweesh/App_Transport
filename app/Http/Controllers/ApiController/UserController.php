@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\ApiController;
 
 use Illuminate\Http\Request;
 use App\Services\UserService;
+use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResources;
 use App\Http\Traits\ApiResponseTrait;
 use App\Http\Requests\User_Rqeuests\Store_User_Request;

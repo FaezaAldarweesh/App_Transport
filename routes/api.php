@@ -1,18 +1,17 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\BusController;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\CheckOutController;
-use App\Http\Controllers\PathController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\GradeController;
-use App\Http\Controllers\StationController;
-use App\Http\Controllers\StudentController;
-use App\Http\Controllers\ClassRoomController;
-use App\Http\Controllers\DriverController;
-use App\Http\Controllers\SupervisorController;
-use App\Http\Controllers\TripController;
+use App\Http\Controllers\ApiController\BusController;
+use App\Http\Controllers\ApiController\AuthController;
+use App\Http\Controllers\ApiController\PathController;
+use App\Http\Controllers\ApiController\UserController;
+use App\Http\Controllers\ApiController\GradeController;
+use App\Http\Controllers\ApiController\StationController;
+use App\Http\Controllers\ApiController\StudentController;
+use App\Http\Controllers\ApiController\ClassRoomController;
+use App\Http\Controllers\ApiController\DriverController;
+use App\Http\Controllers\ApiController\SupervisorController;
+use App\Http\Controllers\ApiController\TripController;
 
 /*
 |--------------------------------------------------------------------------
@@ -85,9 +84,8 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::delete('forceDelete_trip/{trip_id}', [TripController::class, 'forceDelete']);
 
 
-
-    Route::get('list_of_students/{trip_id}/{latitude}/{longitude}', [TripController::class, 'list_of_students']);
-    Route::patch('update_trip_status/{trip_id}', [TripController::class, 'update_trip_status']);
-    Route::get('All_students_belong_to_specific_trip/{trip_id}', [TripController::class, 'All_students_belong_to_specific_trip']);
-    Route::post('bind', [TripController::class, 'bind']);
+    // Route::get('list_of_students/{trip_id}/{latitude}/{longitude}', [TripController::class, 'list_of_students']);
+    // Route::patch('update_trip_status/{trip_id}', [TripController::class, 'update_trip_status']);
+    // Route::get('All_students_belong_to_specific_trip/{trip_id}', [TripController::class, 'All_students_belong_to_specific_trip']);
+    // Route::post('bind', [TripController::class, 'bind']);
 });

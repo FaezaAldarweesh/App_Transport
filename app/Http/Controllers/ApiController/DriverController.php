@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\ApiController;
 
 use App\Services\DriverService;
+use App\Http\Controllers\Controller;
 use App\Http\Traits\ApiResponseTrait;
 use App\Http\Resources\DriverResources;
 use App\Http\Requests\Driver_Request\Store_Driver_Request;

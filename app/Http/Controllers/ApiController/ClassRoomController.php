@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\ApiController;
 
-use App\Models\ClassRoom;
 use App\Services\ClassService;
+use App\Http\Controllers\Controller;
 use App\Http\Resources\ClassResources;
 use App\Http\Traits\ApiResponseTrait;
 use App\Http\Requests\class_Request\Store_Class_Request;
