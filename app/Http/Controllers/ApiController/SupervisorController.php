@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\ApiController;
 
 use App\Services\SupervisorService;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\ApiController\Controller;
 use App\Http\Traits\ApiResponseTrait;
 use App\Http\Resources\SupervisorResources;
 use App\Http\Requests\Supervisor_Rqeuests\Store_Supervisor_Request;

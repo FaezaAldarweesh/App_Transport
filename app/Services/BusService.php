@@ -90,7 +90,7 @@ class BusService {
             if(!$bus){
                 throw new \Exception('الباص المطلوب غير موجود');
             }
-
+            $bus->trips()->delete();
             $bus->delete();
             return true;
         }catch (\Exception $e) { Log::error($e->getMessage()); return $this->failed_Response($e->getMessage(), 400);
@@ -121,8 +121,8 @@ class BusService {
             if(!$bus){
                 throw new \Exception('الباص المطلوب غير موجود');
             }
+            $bus->trips()->restore();
             $bus->restore();
-
             return true;
         }catch (\Exception $e) { Log::error($e->getMessage()); return $this->failed_Response($e->getMessage(), 400);      
         } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('حدث خطأ أثناء محاولة إستعادة الباص', 400);
@@ -141,7 +141,7 @@ class BusService {
             if(!$bus){
                 throw new \Exception('الباص المطلوب غير موجود');
             }
- 
+            $bus->trips()->forceDelete();
             return $bus->forceDelete();
         }catch (\Exception $e) { Log::error($e->getMessage()); return $this->failed_Response($e->getMessage(), 400);   
         } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('حدث خطأ أثناء محاولة حذف أرشيف الباص', 400);}

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\ApiController;
 
 use App\Services\BusService;
 use App\Http\Resources\BusResources;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\ApiController\Controller;
 use App\Http\Traits\ApiResponseTrait;
 use App\Http\Requests\Bus_Request\Store_Bus_Request;
 use App\Http\Requests\Bus_Request\Update_Bus_Request;

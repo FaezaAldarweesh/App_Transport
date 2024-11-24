@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\ApiController;
 
 use App\Services\ClassService;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\ApiController\Controller;
 use App\Http\Resources\ClassResources;
 use App\Http\Traits\ApiResponseTrait;
 use App\Http\Requests\class_Request\Store_Class_Request;

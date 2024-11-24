@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\ApiController;
 
 use App\Services\StationService;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\ApiController\Controller;
 use App\Http\Traits\ApiResponseTrait;
 use App\Http\Resources\StationResources;
 use App\Http\Requests\Station_Request\Store_Station_Request;

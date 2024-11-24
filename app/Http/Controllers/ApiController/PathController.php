@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\ApiController;
 
 use App\Services\PathService;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\ApiController\Controller;
 use App\Http\Resources\PathResources;
 use App\Http\Traits\ApiResponseTrait;
 use App\Http\Requests\Path_Request\Store_Path_Request;

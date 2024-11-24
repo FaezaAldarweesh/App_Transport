@@ -4,14 +4,14 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ApiController\BusController;
 use App\Http\Controllers\ApiController\AuthController;
 use App\Http\Controllers\ApiController\PathController;
+use App\Http\Controllers\ApiController\TripController;
 use App\Http\Controllers\ApiController\UserController;
 use App\Http\Controllers\ApiController\GradeController;
+use App\Http\Controllers\ApiController\DriverController;
 use App\Http\Controllers\ApiController\StationController;
 use App\Http\Controllers\ApiController\StudentController;
 use App\Http\Controllers\ApiController\ClassRoomController;
-use App\Http\Controllers\ApiController\DriverController;
 use App\Http\Controllers\ApiController\SupervisorController;
-use App\Http\Controllers\ApiController\TripController;
 
 /*
 |--------------------------------------------------------------------------

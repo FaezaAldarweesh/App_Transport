@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\ApiController;
 
 use App\Services\AuthService;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\ApiController\Controller;
 use App\Http\Traits\ApiResponseTrait;
 use App\Http\Resources\registerResource;
 use App\Http\Requests\Auth_Requests\loginRequest;

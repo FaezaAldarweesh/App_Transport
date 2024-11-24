@@ -7,8 +7,10 @@ use App\Models\Trip;
 use App\Models\Driver;
 use App\Models\BusTrip;
 use App\Models\Student;
+use App\Models\DriverTrip;
 use App\Models\Supervisor;
 use App\Models\StudentTrip;
+use App\Models\SupervisorTrip;
 use Illuminate\Support\Facades\Log;
 use App\Http\Traits\ApiResponseTrait;
 use App\Http\Traits\AllStudentsByTripTrait;
@@ -42,10 +44,14 @@ class TripService {
                                     ->exists();
         
                 if ($existingTrip) {
-                    throw new \Exception('هذا المسار مرتبط برحلة توصيل أخرى.');
+                    throw new \Exception('هذا المسار مرتبط برحلة توصيل أخرى مسبقاً');
                 }
 
             } 
+
+            //---------------------------------------------------------------------------------------------
+
+
             if ($data['name'] == 'delivery' && $data['type'] == 'go') {
                 $existingTrip = Trip::where('name', 'delivery')
                                     ->where('type', 'go')
@@ -53,21 +59,61 @@ class TripService {
                                     ->exists();
         
                 if ($existingTrip) {
-                    throw new \Exception('هذا الباص مرتبط برحلة توصيل أخرى.');
+                    throw new \Exception('هذا الباص مرتبط برحلة توصيل أخرى مسبقاً');
                 }
 
             }
+            
+            //---------------------------------------------------------------------------------------------
+
+            
             if ($data['name'] == 'delivery' && $data['type'] == 'go') {
                 $existingTrips = Trip::where('name', 'delivery')
                                         ->where('type', 'go')
                                         ->pluck('id'); 
             
-                $existingBusLink = StudentTrip::whereIn('trip_id', $existingTrips)
+                $existingStudent = StudentTrip::whereIn('trip_id', $existingTrips)
                                             ->where('student_id', $data['students']) 
                                             ->exists();
             
-                    if ($existingBusLink) {
-                        throw new \Exception('تم إضافة هذا الطالب إلى رحلة توصيل أخرى');
+                    if ($existingStudent) {
+                        throw new \Exception('تم إضافة هذا الطالب إلى رحلة توصيل أخرى مسبقاً');
+                    }            
+            }
+
+
+            //---------------------------------------------------------------------------------------------
+
+            
+            if ($data['name'] == 'delivery' && $data['type'] == 'go') {
+                $existingTrips = Trip::where('name', 'delivery')
+                                        ->where('type', 'go')
+                                        ->pluck('id'); 
+            
+                $existingSupervisor = SupervisorTrip::whereIn('trip_id', $existingTrips)
+                                            ->where('supervisor_id', $data['supervisors']) 
+                                            ->exists();
+            
+                    if ($existingSupervisor) {
+                        throw new \Exception('تم إضافة هذا المشرف إلى رحلة توصيل أخرى مسبقاً');
+                    }            
+            }
+
+            
+            //---------------------------------------------------------------------------------------------
+
+
+            if ($data['name'] == 'delivery' && $data['type'] == 'go') {
+                $existingTrips = Trip::where('name', 'delivery')
+                                        ->where('type', 'go')
+                                        ->pluck('id'); 
+            
+                $existingDriver = DriverTrip::whereIn('trip_id', $existingTrips)
+                                            ->where('driver_id', $data['drivers']) 
+                                            ->exists();
+            
+                    if ($existingDriver) {
+                        throw new \Exception('تم إضافة هذا السائق إلى رحلة توصيل أخرى مسبقاً');
                     }            
             }
 

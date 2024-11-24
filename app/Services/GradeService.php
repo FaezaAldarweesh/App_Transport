@@ -83,7 +83,9 @@ class GradeService {
                 throw new \Exception('الصف المطلوب غير موجود');
             }
 
+            $grade->classRooms()->delete();
             $grade->delete();
+
             return true;
         }catch (\Exception $e) { Log::error($e->getMessage()); return $this->failed_Response($e->getMessage(), 400);
         } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('حدث خطأ أثناء محاولة حذف الصف', 400);}
@@ -113,7 +115,10 @@ class GradeService {
             if(!$grade){
                 throw new \Exception('الصف المطلوب غير موجود');
             }
+
+            $grade->classRooms()->restore();
             return $grade->restore();
+
         }catch (\Exception $e) { Log::error($e->getMessage()); return $this->failed_Response($e->getMessage(), 400);      
         } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('حدث خطأ أثناء محاولة إستعادة الصف', 400);
         }
@@ -131,8 +136,10 @@ class GradeService {
             if(!$grade){
                 throw new \Exception('الصف المطلوب غير موجود');
             }
- 
+
+            $grade->classRooms()->forceDelete();
             return $grade->forceDelete();
+
         }catch (\Exception $e) { Log::error($e->getMessage()); return $this->failed_Response($e->getMessage(), 400);   
         } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('حدث خطأ أثناء محاولة حذف أرشيف الصفوف', 400);}
     }

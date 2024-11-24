@@ -88,7 +88,7 @@ class ClassService {
             if(!$class){
                 throw new \Exception('الشعبة المطلوبة غير موجودة');
             }
-
+            $class->students()->delete();
             $class->delete();
             return true;
         }catch (\Exception $e) { Log::error($e->getMessage()); return $this->failed_Response($e->getMessage(), 400);
@@ -119,7 +119,10 @@ class ClassService {
             if(!$class){
                 throw new \Exception('الشعبة المطلوبة غير موجودة');
             }
+
+            $class->students()->restore();
             return $class->restore();
+            
         }catch (\Exception $e) { Log::error($e->getMessage()); return $this->failed_Response($e->getMessage(), 400);      
         } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('حدث خطأ أثناء محاولة إستعادة الشعبة', 400);
         }
@@ -137,8 +140,10 @@ class ClassService {
             if(!$class){
                 throw new \Exception('الشعبة المطلوبة غير موجودة');
             }
- 
+
+            $class->students()->forceDelete();
             return $class->forceDelete();
+
         }catch (\Exception $e) { Log::error($e->getMessage()); return $this->failed_Response($e->getMessage(), 400);   
         } catch (\Throwable $th) { Log::error($th->getMessage()); return $this->failed_Response('حدث خطأ أثناء محاولة حذف أرشيف الشعبة', 400);}
     }
