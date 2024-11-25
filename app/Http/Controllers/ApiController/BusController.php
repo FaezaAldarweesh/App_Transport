@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\ApiController;
 
-use App\Services\BusService;
+use App\Services\ApiServices\BusService;
 use App\Http\Resources\BusResources;
 use App\Http\Controllers\ApiController\Controller;
 use App\Http\Traits\ApiResponseTrait;

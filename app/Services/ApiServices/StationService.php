@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\ApiServices;
 
 use Illuminate\Support\Facades\Log;
 use App\Http\Traits\ApiResponseTrait;

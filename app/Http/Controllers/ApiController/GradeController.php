@@ -4,7 +4,7 @@ namespace App\Http\Controllers\ApiController;
 
 use App\Models\Grade;
 use Illuminate\Http\Request;
-use App\Services\GradeService;
+use App\Services\ApiServices\GradeService;
 use App\Http\Controllers\ApiController\Controller;
 use App\Http\Traits\ApiResponseTrait;
 use App\Http\Resources\GradeResources;

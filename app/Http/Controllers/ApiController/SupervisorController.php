@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\ApiController;
 
-use App\Services\SupervisorService;
+use App\Services\ApiServices\SupervisorService;
 use App\Http\Controllers\ApiController\Controller;
 use App\Http\Traits\ApiResponseTrait;
 use App\Http\Resources\SupervisorResources;

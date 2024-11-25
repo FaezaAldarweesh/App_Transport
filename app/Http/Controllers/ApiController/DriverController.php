@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\ApiController;
 
-use App\Services\DriverService;
+use App\Services\ApiServices\DriverService;
 use App\Http\Controllers\ApiController\Controller;
 use App\Http\Traits\ApiResponseTrait;
 use App\Http\Resources\DriverResources;

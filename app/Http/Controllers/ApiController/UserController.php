@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\ApiController;
 
 use Illuminate\Http\Request;
-use App\Services\UserService;
+use App\Services\ApiServices\UserService;
 use App\Http\Controllers\ApiController\Controller;
 use App\Http\Resources\UserResources;
 use App\Http\Traits\ApiResponseTrait;

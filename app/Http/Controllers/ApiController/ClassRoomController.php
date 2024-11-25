@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\ApiController;
 
-use App\Services\ClassService;
+use App\Services\ApiServices\ClassService;
 use App\Http\Controllers\ApiController\Controller;
 use App\Http\Resources\ClassResources;
 use App\Http\Traits\ApiResponseTrait;

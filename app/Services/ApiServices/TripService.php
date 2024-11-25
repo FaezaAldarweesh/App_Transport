@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\ApiServices;
 
 use App\Models\Bus;
 use App\Models\Trip;

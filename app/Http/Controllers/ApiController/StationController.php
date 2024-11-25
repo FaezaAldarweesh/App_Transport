@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\ApiController;
 
-use App\Services\StationService;
+use App\Services\ApiServices\StationService;
 use App\Http\Controllers\ApiController\Controller;
 use App\Http\Traits\ApiResponseTrait;
 use App\Http\Resources\StationResources;
