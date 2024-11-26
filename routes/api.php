@@ -6,11 +6,9 @@ use App\Http\Controllers\ApiController\AuthController;
 use App\Http\Controllers\ApiController\PathController;
 use App\Http\Controllers\ApiController\TripController;
 use App\Http\Controllers\ApiController\UserController;
-use App\Http\Controllers\ApiController\GradeController;
 use App\Http\Controllers\ApiController\DriverController;
 use App\Http\Controllers\ApiController\StationController;
 use App\Http\Controllers\ApiController\StudentController;
-use App\Http\Controllers\ApiController\ClassRoomController;
 use App\Http\Controllers\ApiController\SupervisorController;
 
 /*
@@ -33,15 +31,6 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::post('logout',[AuthController::class ,'logout']); 
     Route::post('refresh', [AuthController::class ,'refresh']);
     
-    Route::apiResource('grade',GradeController::class); 
-    Route::get('all_trashed_grade', [GradeController::class, 'all_trashed_grade']);
-    Route::get('restore_grade/{grade_id}', [GradeController::class, 'restore']);
-    Route::delete('forceDelete_grade/{grade_id}', [GradeController::class, 'forceDelete']);
-
-    Route::apiResource('class',ClassRoomController::class); 
-    Route::get('all_trashed_class', [ClassRoomController::class, 'all_trashed_class']);
-    Route::get('restore_class/{class_id}', [ClassRoomController::class, 'restore']);
-    Route::delete('forceDelete_class/{class_id}', [ClassRoomController::class, 'forceDelete']);
 
     Route::apiResource('user',UserController::class); 
     Route::get('all_trashed_user', [UserController::class, 'all_trashed_user']);
