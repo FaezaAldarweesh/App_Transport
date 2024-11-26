@@ -22,7 +22,7 @@ class AdminSeeder extends Seeder
             'first_name' => 'admin',
             'last_name' => '',
              ],
-            'username' => 'admin@95514',
+            'email' => 'admin@95514',
             'password' => '11223344',
             'role' => 'admin',
         ]);

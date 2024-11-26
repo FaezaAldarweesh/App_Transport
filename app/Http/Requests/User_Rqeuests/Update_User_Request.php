@@ -30,7 +30,7 @@ class Update_User_Request extends FormRequest
         return [
             'first_name' => 'sometimes|nullable|regex:/^[\p{L}\s]+$/u|min:2|max:50',
             'last_name' => 'sometimes|nullable|regex:/^[\p{L}\s]+$/u|min:2|max:50',
-            'username' => ['sometimes','nullable', 'min:2','max:50', Rule::unique('users', 'username')->ignore($user_id)],
+            'email' => ['sometimes','nullable', 'min:2','max:50', Rule::unique('users', 'username')->ignore($user_id)],
             'password' => 'sometimes|nullable|string|min:8',
         ];
     }

@@ -27,7 +27,7 @@ class Store_User_Request extends FormRequest
         return [
             'first_name' => 'required|regex:/^[\p{L}\s]+$/u|min:2|max:50',
             'last_name' => 'required|regex:/^[\p{L}\s]+$/u|min:2|max:50',
-            'username' => 'required|min:6|max:50|unique:users,username',
+            'email' => 'required|min:6|max:50|unique:users,username',
             'password' => 'required|string|min:8',
         ];
     }
