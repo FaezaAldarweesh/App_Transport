@@ -5,7 +5,7 @@ namespace App\Services\ApiServices;
 use App\Models\Student;
 use Illuminate\Support\Facades\Log;
 use App\Http\Traits\ApiResponseTrait;
-use Illuminate\Support\Facades\Request;
+use App\Models\User;
 
 class StudentService {
     //trait customize the methods for successful , failed , authentecation responses.

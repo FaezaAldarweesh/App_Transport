@@ -19,48 +19,76 @@
                         </div>
                     @endif
 
-                    <form action="{{ route('task.store') }}" method="POST">
+                    <form action="{{ route('student.store') }}" method="POST">
                         @csrf
 
                         <div class="mb-3">
-                            <label for="title" class="form-label">Title</label>
-                            <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title">
-                            @error('title')
+                            <label for="first_name" class="form-label">First name</label>
+                            <input type="text" class="form-control @error('first_name') is-invalid @enderror" id="first_name" name="first_name">
+                            @error('first_name')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
 
                         <div class="mb-3">
-                            <label for="description" class="form-label">Description</label>
-                            <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description" rows="4"></textarea>
-                            @error('description')
+                            <label for="last_name" class="form-label">Last name</label>
+                            <input type="text" class="form-control @error('last_name') is-invalid @enderror" id="last_name" name="last_name">
+                            @error('last_name')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <input type="hidden" class="form-control @error('last_name') is-invalid @enderror" id="last_name" name="last_name">
+
+
+                        <div class="mb-3">
+                            <label for="father_phone" class="form-label">father_phone</label>
+                            <input type="text" class="form-control @error('father_phone') is-invalid @enderror" id="father_phone" name="father_phone">
+                            @error('father_phone')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
 
                         <div class="mb-3">
-                            <label for="due_date" class="form-label">Due Date</label>
-                            <input type="date" class="form-control @error('due_date') is-invalid @enderror" id="due_date" name="due_date">
-                            @error('due_date')
+                            <label for="mather_phone" class="form-label">mather_phone</label>
+                            <input type="text" class="form-control @error('mather_phone') is-invalid @enderror" id="mather_phone" name="mather_phone">
+                            @error('mather_phone')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
 
                         <div class="mb-3">
-                            <label for="status" class="form-label">Status</label>
-                            <select class="form-select @error('status') is-invalid @enderror" id="status" name="status">
-                                <option value="">Select Status</option>
-                                <option value="Pending">Pending</option>
-                                <option value="Completed">Completed</option>
-                            </select>
-                            @error('status')
+                            <label for="longitude" class="form-label">longitude</label>
+                            <input type="text" class="form-control @error('longitude') is-invalid @enderror" id="longitude" name="longitude">
+                            @error('longitude')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="latitude" class="form-label">latitude</label>
+                            <input type="text" class="form-control @error('latitude') is-invalid @enderror" id="latitude" name="latitude">
+                            @error('latitude')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1">parent</label>
+                                    <select id="user_id" name="user_id" class="form-control" required>
+                                        <option value="" disabled selected>Select Parent</option>
+                                        @foreach($users as $user)
+                                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                        @endforeach
+                                    </select>
+                            @error('latitude')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
 
                         <div class="d-flex justify-content-end mt-4">
-                            <button type="submit" class="btn btn-primary">Add Task</button>
-                            <a href="{{ route('task.index') }}" class="btn btn-secondary ms-2">Back</a>
+                            <button type="submit" class="btn btn-primary">Add Student</button>
+                            <a href="{{ route('student.index') }}" class="btn btn-secondary ms-2">Back</a>
                         </div>
                     </form>
                 </div>

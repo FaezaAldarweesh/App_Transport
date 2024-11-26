@@ -26,7 +26,13 @@ class Student extends Model
 
     public function setNameAttribute($value)
     {
-        $this->attributes['name'] = $value['first_name'] . ' ' . $value['last_name'];
+        if (is_array($value)) {
+            // إذا كانت القيمة مصفوفة (API)
+            $this->attributes['name'] = $value['first_name'] . ' ' . $value['last_name'];
+        } else {
+            // إذا كانت القيمة نصًا (Blade)
+            $this->attributes['name'] = $value;
+        }
     }
     public function user (){
         

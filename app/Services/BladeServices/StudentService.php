@@ -21,7 +21,9 @@ class StudentService
     {
         try {
             $student = new Student();
-            $student->name = ['first_name' => $data['first_name'], 'last_name' => $data['last_name']];
+//            $student->name =  ['first_name' => $data['first_name'], 'last_name' => $data['last_name']];
+            $student->name = $data['first_name'] . ' ' . $data['last_name'];
+
             $student->father_phone = $data['father_phone'];
             $student->mather_phone = $data['mather_phone'];
             $student->longitude = $data['longitude'];
@@ -29,7 +31,6 @@ class StudentService
             $student->user_id = $data['user_id'];
             $student->save();
 
-            return $student;
         } catch (\Exception $e) {
             Log::error('Error creating student: ' . $e->getMessage());
             throw new \Exception('حدث خطأ أثناء محاولة إضافة طالب جديد');

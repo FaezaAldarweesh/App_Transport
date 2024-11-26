@@ -7,6 +7,7 @@ use App\Services\BladeServices\StudentService;
 use App\Http\Requests\Student_Request\Store_Student_Request;
 use App\Http\Requests\Student_Request\Update_Student_Request;
 use App\Models\Student;
+use App\Models\User;
 
 class StudentController extends Controller
 {
@@ -18,7 +19,7 @@ class StudentController extends Controller
     public function __construct(StudentService $studentservices)
     {
         //security middleware
-        $this->middleware('security');
+        //$this->middleware('security');
         $this->studentservices = $studentservices;
     }
     //===========================================================================================================================
@@ -38,7 +39,8 @@ class StudentController extends Controller
      * method header to student create page 
      */
     public function create(){
-        return view('students.create');
+        $users = User::all();
+        return view('students.create', compact('users'));
     }
     //===========================================================================================================================
     /**

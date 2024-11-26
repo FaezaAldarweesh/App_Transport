@@ -49,7 +49,7 @@
                                     <td>{{ $student->mather_phone }}</td>
                                     <td>{{ $student->longitude }}</td>
                                     <td>{{ $student->latitude }}</td>
-                                    <td>{{ $student->user_id }}</td>
+                                    <td>{{ $student->user->name }}</td>
                                     <td>
                                         <span class="badge 
                                             {{ $student->status == 'Completed' ? 'bg-success' : 'bg-warning text-dark' }}">
