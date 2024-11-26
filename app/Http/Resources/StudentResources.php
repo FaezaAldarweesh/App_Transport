@@ -21,8 +21,6 @@ class StudentResources extends JsonResource
             'student mather phone' => $this->mather_phone,
             'student longitude' => $this->longitude,
             'student latitude' => $this->latitude,
-            'student grade' => $this->classRoom->grade->name,
-            'student class' => $this->classRoom->name,
             'student parent' => $this->user->name,
             'student status' => $this->status ?? 'attendee',
         ];

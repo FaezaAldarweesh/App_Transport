@@ -34,7 +34,6 @@ class StudentService {
             $student->mather_phone = $data['mather_phone'];
             $student->longitude = $data['longitude'];
             $student->latitude = $data['latitude'];
-            $student->class_room_id = $data['class_room_id'];
             $student->user_id = $data['user_id'];
 
             $student->save(); 
@@ -62,7 +61,6 @@ class StudentService {
             $student->mather_phone = $data['mather_phone'] ?? $student->mather_phone;
             $student->longitude = $data['longitude'] ?? $student->longitude;
             $student->latitude = $data['latitude'] ?? $student->latitude;
-            $student->class_room_id = $data['class_room_id'] ?? $student->class_room_id;
             $student->user_id = $data['user_id'] ?? $student->user_id;
             $student->status = $data['status'] ?? $student->status;
 

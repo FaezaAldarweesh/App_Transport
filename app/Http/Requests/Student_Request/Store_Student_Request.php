@@ -31,7 +31,6 @@ class Store_Student_Request extends FormRequest
             'mather_phone' => 'required|min:10|max:10|regex:/^([0-9\s\-\+\(\)]*)$/',
             'longitude'   => 'required|numeric|between:-180,180',
             'latitude'    => 'required|numeric|between:-90,90',
-            'class_room_id' => 'required|integer|exists:class_rooms,id',
             'user_id' => 'required|integer|exists:users,id',
            // 'status' => 'required|string|in:attendee,absent_all,absent_go,absent_back,transported',
         ];
@@ -60,7 +59,6 @@ class Store_Student_Request extends FormRequest
             'mather_phone' => 'رقم الأم',
             'longitude' => 'خط الطول',
             'latitude' => 'خط العرض',
-            'class_room_id' => 'الشعبة',
             'user_id' => 'اسم الأب',
             'status'=> 'حالة الطالب',
         ];

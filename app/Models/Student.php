@@ -20,7 +20,6 @@ class Student extends Model
         'mather_phone',
         'longitude',
         'latitude',
-        'class_room_id',
         'user_id',
         'status',
     ];
@@ -32,12 +31,6 @@ class Student extends Model
     public function user (){
         
         return $this->belongsTo(User::class,'user_id','id');
-
-    }
-
-    public function classRoom (){
-        
-        return $this->belongsTo(ClassRoom::class,'class_room_id','id');
 
     }
 
