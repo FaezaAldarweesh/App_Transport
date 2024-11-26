@@ -20,7 +20,7 @@ class AuthService {
         //When a user is successfully authenticated, the Auth facade attempt() method returns the JWT token. 
         //The generated token is retrieved and returned as JSON with the user object
         try {
-            $token = Auth::attempt($credentials);
+            $token = Auth::guard('api')->attempt($credentials);
             if (!$token) {
                 //throw new(, 401);
                 throw new \Exception('The email or password is not correct' , 401);

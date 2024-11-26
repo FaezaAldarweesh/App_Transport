@@ -3,18 +3,23 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
+        <div class="col-md-10">
+            <div class="card shadow-sm">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5>{{ __('Dashboard') }}</h5>
+
+                    <a href="{{ route('home') }}" class="btn btn-link">
+                        <i class="bi bi-house-door">Home</i>
+                    </a>
+                </div>
 
                 <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+                    <div class="d-flex justify-content-between">
+                        <a href="{{ route('student.index') }}" class="btn btn-primary me-2">
+                            <i class="bi bi-list-student me-1"></i> student
+                        </a>
 
-                    {{ __('You are logged in!') }}
+                    </div>
                 </div>
             </div>
         </div>
