@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('username')->unique();
             $table->string('password');
             $table->string('location');
-            $table->integer('phone');
+            $table->string('phone');
             $table->timestamps();
             $table->softDeletes();
         });

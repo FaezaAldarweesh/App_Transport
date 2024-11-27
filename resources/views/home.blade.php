@@ -19,6 +19,10 @@
                             <i class="bi bi-list-student me-1"></i> student
                         </a>
 
+                        <a href="{{ route('supervisor.index') }}" class="btn btn-primary me-2">
+                            <i class="bi bi-list-student me-1"></i> supervisor
+                        </a>
+
                     </div>
                 </div>
             </div>

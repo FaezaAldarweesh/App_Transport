@@ -17,7 +17,7 @@
                 @endif
 
                 <div class="card-body">
-                    <h2 class="mb-4 text-center text-secondary">Trashed Task List</h2>
+                    <h2 class="mb-4 text-center text-secondary">Trashed Students List</h2>
 
                     <div class="d-flex justify-content-end mb-3">
                          <a href="{{ route('student.index') }}" class="btn btn-secondary ms-2">Back</a>

@@ -25,8 +25,7 @@ class Store_Supervisor_Request extends FormRequest
     public function rules(): array
     {
         return [
-            'first_name' => 'required|regex:/^[\p{L}\s]+$/u|min:2|max:50|unique:supervisors,name',
-            'last_name' => 'required|regex:/^[\p{L}\s]+$/u|min:2|max:50|unique:supervisors,name',
+            'name' => 'required|regex:/^[\p{L}\s]+$/u|min:2|max:50|unique:supervisors,name',
             'username' => 'required|min:6|max:50|unique:supervisors,username',
             'password' => 'required|string|min:8',
             'location' => 'required|string|min:5',
@@ -34,13 +33,13 @@ class Store_Supervisor_Request extends FormRequest
         ];
     }
     //===========================================================================================================================
-    protected function failedValidation(Validator $validator){
-        throw new HttpResponseException(response()->json([
-            'status' => 'error 422',
-            'message' => 'فشل التحقق يرجى التأكد من المدخلات',
-            'errors' => $validator->errors(),
-        ]));
-    }
+    // protected function failedValidation(Validator $validator){
+    //     throw new HttpResponseException(response()->json([
+    //         'status' => 'error 422',
+    //         'message' => 'فشل التحقق يرجى التأكد من المدخلات',
+    //         'errors' => $validator->errors(),
+    //     ]));
+    // }
     //===========================================================================================================================
     protected function passedValidation()
     {

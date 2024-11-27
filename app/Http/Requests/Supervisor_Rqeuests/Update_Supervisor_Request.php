@@ -28,8 +28,7 @@ class Update_Supervisor_Request extends FormRequest
         $supervisor_id = $this->route('supervisor');
 
         return [
-            'first_name' => ['sometimes','nullable','regex:/^[\p{L}\s]+$/u','min:2','max:50 ',Rule::unique('supervisors', 'name')->ignore($supervisor_id)],
-            'last_name' => ['sometimes','nullable','regex:/^[\p{L}\s]+$/u','min:2','max:50 ',Rule::unique('supervisors', 'name')->ignore($supervisor_id)],
+            'name' => ['sometimes','nullable','regex:/^[\p{L}\s]+$/u','min:2','max:50 ',Rule::unique('supervisors', 'name')->ignore($supervisor_id)],
             'username' => ['sometimes','nullable','min:6','max:50',Rule::unique('supervisors', 'username')->ignore($supervisor_id)],
             'password' => 'sometimes|nullable|string|min:8',
             'location' => 'sometimes|nullable|string|min:5',
@@ -37,13 +36,13 @@ class Update_Supervisor_Request extends FormRequest
         ];
     }
     //===========================================================================================================================
-    protected function failedValidation(Validator $validator){
-        throw new HttpResponseException(response()->json([
-            'status' => 'error 422',
-            'message' => 'فشل التحقق يرجى التأكد من المدخلات',
-            'errors' => $validator->errors(),
-        ]));
-    }
+    // protected function failedValidation(Validator $validator){
+    //     throw new HttpResponseException(response()->json([
+    //         'status' => 'error 422',
+    //         'message' => 'فشل التحقق يرجى التأكد من المدخلات',
+    //         'errors' => $validator->errors(),
+    //     ]));
+    // }
     //===========================================================================================================================
     protected function passedValidation()
     {

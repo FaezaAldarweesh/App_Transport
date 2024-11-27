@@ -36,10 +36,10 @@ class Supervisor extends Model
         'password' => 'hashed'
     ];
 
-    public function setNameAttribute($value)
-    {
-        $this->attributes['name'] = $value['first_name'] . ' ' . $value['last_name'];
-    }
+    // public function setNameAttribute($value)
+    // {
+    //     $this->attributes['name'] = $value['first_name'] . ' ' . $value['last_name'];
+    // }
 
     public function trips (){
         

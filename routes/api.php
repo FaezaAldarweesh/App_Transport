@@ -31,16 +31,16 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::post('logout',[AuthController::class ,'logout']); 
     Route::post('refresh', [AuthController::class ,'refresh']);
     
+    Route::apiResource('student',StudentController::class); 
+    Route::get('all_trashed_student', [StudentController::class, 'all_trashed_student']);
+    Route::get('restore_student/{student_id}', [StudentController::class, 'restore']);
+    Route::delete('forceDelete_student/{student_id}', [StudentController::class, 'forceDelete']);
 
     Route::apiResource('user',UserController::class); 
     Route::get('all_trashed_user', [UserController::class, 'all_trashed_user']);
     Route::get('restore_user/{user_id}', [UserController::class, 'restore']);
     Route::delete('forceDelete_user/{user_id}', [UserController::class, 'forceDelete']);
     
-    Route::apiResource('student',StudentController::class); 
-    Route::get('all_trashed_student', [StudentController::class, 'all_trashed_student']);
-    Route::get('restore_student/{student_id}', [StudentController::class, 'restore']);
-    Route::delete('forceDelete_student/{student_id}', [StudentController::class, 'forceDelete']);
 
     Route::apiResource('supervisor',SupervisorController::class); 
     Route::get('all_trashed_supervisor', [SupervisorController::class, 'all_trashed_supervisor']);

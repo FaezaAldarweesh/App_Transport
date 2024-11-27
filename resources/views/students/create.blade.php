@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card shadow-sm">
-                <div class="card-header">{{ __('Add New Task') }}</div>
+                <div class="card-header">{{ __('Add New Student') }}</div>
 
                 <div class="card-body">
 

@@ -32,7 +32,7 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="father_phone" class="form-label">father_phone</label>
+                            <label for="father_phone" class="form-label">father's phone</label>
                             <input type="text" class="form-control @error('father_phone') is-invalid @enderror" id="father_phone" name="father_phone" value="{{ old('father_phone', $student->father_phone) }}">
                             @error('father_phone')
                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -40,7 +40,7 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="mather_phone" class="form-label">mather_phone</label>
+                            <label for="mather_phone" class="form-label">mather's phone</label>
                             <input type="text" class="form-control @error('mather_phone') is-invalid @enderror" id="mather_phone" name="mather_phone" value="{{ old('mather_phone', $student->mather_phone) }}">
                             @error('mather_phone')
                                 <div class="invalid-feedback">{{ $message }}</div>
