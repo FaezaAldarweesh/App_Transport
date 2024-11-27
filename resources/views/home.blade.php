@@ -23,6 +23,10 @@
                             <i class="bi bi-list-student me-1"></i> supervisor
                         </a>
 
+                        <a href="{{ route('driver.index') }}" class="btn btn-primary me-2">
+                            <i class="bi bi-list-student me-1"></i> driver
+                        </a>
+
                     </div>
                 </div>
             </div>

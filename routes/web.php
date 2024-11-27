@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BladeController\DriverController;
 use App\Http\Controllers\BladeController\StudentController;
 use App\Http\Controllers\BladeController\SupervisorController;
 
@@ -33,3 +34,8 @@ Route::resource('supervisor',SupervisorController::class);
 Route::get('all_trashed_supervisor', [SupervisorController::class, 'all_trashed_supervisor'])->name('all_trashed_supervisor');
 Route::get('restore_supervisor/{supervisor_id}', [SupervisorController::class, 'restore'])->name('restore');
 Route::delete('forceDelete_supervisor/{supervisor_id}', [SupervisorController::class, 'forceDelete'])->name('forceDelete');
+
+Route::Resource('driver',DriverController::class); 
+Route::get('all_trashed_driver', [DriverController::class, 'all_trashed_driver'])->name('all_trashed_driver');
+Route::get('restore_driver/{driver_id}', [DriverController::class, 'restore'])->name('restore');
+Route::delete('forceDelete_driver/{driver_id}', [DriverController::class, 'forceDelete'])->name('forceDelete');

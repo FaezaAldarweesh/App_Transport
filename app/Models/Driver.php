@@ -18,10 +18,10 @@ class Driver extends Model
         'phone',
         'location',
     ];
-    public function setNameAttribute($value)
-    {
-        $this->attributes['name'] = $value['first_name'] . ' ' . $value['last_name'];
-    }
+    // public function setNameAttribute($value)
+    // {
+    //     $this->attributes['name'] = $value['first_name'] . ' ' . $value['last_name'];
+    // }
     public function trips (){
         
         return $this->belongsToMany(Trip::class);

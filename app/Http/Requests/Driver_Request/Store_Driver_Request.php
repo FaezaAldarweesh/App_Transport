@@ -25,20 +25,19 @@ class Store_Driver_Request extends FormRequest
     public function rules(): array
     {
         return [
-            'first_name' => 'required||regex:/^[\p{L}\s]+$/u|min:4|max:50|unique:drivers,name',
-            'last_name' => 'required||regex:/^[\p{L}\s]+$/u|min:4|max:50|unique:drivers,name',
+            'name' => 'required||regex:/^[\p{L}\s]+$/u|min:4|max:50|unique:drivers,name',
             'phone' => 'required|min:10|max:10|regex:/^([0-9\s\-\+\(\)]*)$/|unique:drivers,phone',
             'location' => 'required|string|min:5',
         ];
     }
     //===========================================================================================================================
-    protected function failedValidation(Validator $validator){
-        throw new HttpResponseException(response()->json([
-            'status' => 'error 422',
-            'message' => 'فشل التحقق يرجى التأكد من المدخلات',
-            'errors' => $validator->errors(),
-        ]));
-    }
+    // protected function failedValidation(Validator $validator){
+    //     throw new HttpResponseException(response()->json([
+    //         'status' => 'error 422',
+    //         'message' => 'فشل التحقق يرجى التأكد من المدخلات',
+    //         'errors' => $validator->errors(),
+    //     ]));
+    // }
     //===========================================================================================================================
     protected function passedValidation()
     {

@@ -28,20 +28,19 @@ class Update_Driver_Request extends FormRequest
         $driver_id = $this->route(param: 'driver');
 
         return [
-            'first_name' => ['sometimes','nullable','string','min:4','max:50',Rule::unique('drivers', 'name')->ignore($driver_id)],
-            'last_name' => ['sometimes','nullable','string','min:4','max:50',Rule::unique('drivers', 'name')->ignore($driver_id)],
+            'name' => ['sometimes','nullable','string','min:4','max:50',Rule::unique('drivers', 'name')->ignore($driver_id)],
             'phone' => ['sometimes','nullable','min:10','max:10','regex:/^([0-9\s\-\+\(\)]*)$/',Rule::unique('drivers', 'phone')->ignore($driver_id)],
             'location' => 'sometimes|nullable|string|min:5',
         ];
     }
     //===========================================================================================================================
-    protected function failedValidation(Validator $validator){
-        throw new HttpResponseException(response()->json([
-            'status' => 'error 422',
-            'message' => 'فشل التحقق يرجى التأكد من المدخلات',
-            'errors' => $validator->errors(),
-        ]));
-    }
+    // protected function failedValidation(Validator $validator){
+    //     throw new HttpResponseException(response()->json([
+    //         'status' => 'error 422',
+    //         'message' => 'فشل التحقق يرجى التأكد من المدخلات',
+    //         'errors' => $validator->errors(),
+    //     ]));
+    // }
     //===========================================================================================================================
     protected function passedValidation()
     {

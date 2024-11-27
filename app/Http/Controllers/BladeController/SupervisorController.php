@@ -38,8 +38,7 @@ class SupervisorController extends Controller
      * method header to supervisor create page 
      */
     public function create(){
-        $supervisors = Supervisor::all();
-        return view('supervisors.create', compact('supervisors'));
+        return view('supervisors.create');
     }
     //===========================================================================================================================
     /**
