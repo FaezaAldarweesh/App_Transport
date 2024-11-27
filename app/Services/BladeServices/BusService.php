@@ -17,7 +17,7 @@ class BusService {
         try {
             $bus = Bus::all();
             return $bus;
-        }catch (\Exception $e) {
+        } catch (\Exception $e) {
             Log::error('Error fetching bus: ' . $e->getMessage());
             throw new \Exception('حدث خطأ أثناء محاولة الوصول إلى الباصات');
         } 
@@ -108,7 +108,7 @@ class BusService {
             $bus->trips()->restore();
             $bus->restore();
             return true;
-        }catch (\Exception $e) {
+        } catch (\Exception $e) {
             Log::error('Error restoring bus: ' . $e->getMessage());
             throw new \Exception('حدث خطأ أثناء محاولة إستعادة الباص');
         }

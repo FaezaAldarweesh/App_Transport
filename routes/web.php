@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BladeController\BusController;
+use App\Http\Controllers\BladeController\PathController;
 use App\Http\Controllers\BladeController\DriverController;
 use App\Http\Controllers\BladeController\StudentController;
 use App\Http\Controllers\BladeController\SupervisorController;
@@ -45,3 +46,8 @@ Route::Resource('bus',BusController::class);
 Route::get('all_trashed_bus', [BusController::class, 'all_trashed_bus'])->name('all_trashed_bus');
 Route::get('restore_bus/{bus_id}', [BusController::class, 'restore'])->name('restore');
 Route::delete('forceDelete_bus/{bus_id}', [BusController::class, 'forceDelete'])->name('forceDelete');
+
+Route::Resource('path',PathController::class); 
+Route::get('all_trashed_path', [PathController::class, 'all_trashed_path'])->name('all_trashed_path');
+Route::get('restore_path/{path_id}', [PathController::class, 'restore'])->name('restore');
+Route::delete('forceDelete_path/{path_id}', [PathController::class, 'forceDelete'])->name('forceDelete');
