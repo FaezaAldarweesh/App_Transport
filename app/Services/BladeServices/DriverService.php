@@ -79,7 +79,7 @@ class DriverService {
             $driver = Driver::findOrFail($driver_id);
             $driver->delete();
             return true;
-        }catch (\Exception $e) {
+        } catch (\Exception $e) {
             Log::error('Error Deleting driver: ' . $e->getMessage());
             throw new \Exception('حدث خطأ أثناء محاولة حذف السائق');
         }
