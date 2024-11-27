@@ -4,11 +4,8 @@ namespace App\Services\BladeServices;
 
 use App\Models\Bus;
 use Illuminate\Support\Facades\Log;
-use App\Http\Traits\ApiResponseTrait;
 
 class BusService {
-    //trait customize the methods for successful , failed , authentecation responses.
-    use ApiResponseTrait;
     /**
      * method to view all buses 
      * @return /Illuminate\Http\JsonResponse if have an error

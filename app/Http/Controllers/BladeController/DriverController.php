@@ -3,8 +3,6 @@
 namespace App\Http\Controllers\BladeController;
 
 use App\Models\Driver;
-use App\Http\Traits\ApiResponseTrait;
-use App\Http\Resources\DriverResources;
 use App\Services\BladeServices\DriverService;
 use App\Http\Controllers\ApiController\Controller;
 use App\Http\Requests\Driver_Request\Store_Driver_Request;
@@ -12,8 +10,6 @@ use App\Http\Requests\Driver_Request\Update_Driver_Request;
 
 class DriverController extends Controller
 {
-    //trait customize the methods for successful , failed , authentecation responses.
-    use ApiResponseTrait;
     protected $driverservices;
     /**
      * construct to inject driver Services 

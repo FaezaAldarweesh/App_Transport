@@ -3,13 +3,10 @@
 namespace App\Services\BladeServices;
 
 use Illuminate\Support\Facades\Log;
-use App\Http\Traits\ApiResponseTrait;
 use App\Models\driver;
 use Illuminate\Support\Facades\Request;
 
 class DriverService {
-    //trait customize the methods for successful , failed , authentecation responses.
-    use ApiResponseTrait;
     /**
      * method to view all drivers 
      * @param   Request $request

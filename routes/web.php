@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BladeController\BusController;
 use App\Http\Controllers\BladeController\PathController;
 use App\Http\Controllers\BladeController\DriverController;
+use App\Http\Controllers\BladeController\StationController;
 use App\Http\Controllers\BladeController\StudentController;
 use App\Http\Controllers\BladeController\SupervisorController;
 
@@ -51,3 +52,8 @@ Route::Resource('path',PathController::class);
 Route::get('all_trashed_path', [PathController::class, 'all_trashed_path'])->name('all_trashed_path');
 Route::get('restore_path/{path_id}', [PathController::class, 'restore'])->name('restore');
 Route::delete('forceDelete_path/{path_id}', [PathController::class, 'forceDelete'])->name('forceDelete');
+
+Route::Resource('station',StationController::class); 
+Route::get('all_trashed_station', [StationController::class, 'all_trashed_station'])->name('all_trashed_station');
+Route::get('restore_station/{station_id}', [StationController::class, 'restore'])->name('restore');
+Route::delete('forceDelete_station/{station_id}', [StationController::class, 'forceDelete'])->name('forceDelete');

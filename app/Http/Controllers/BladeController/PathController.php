@@ -4,16 +4,12 @@ namespace App\Http\Controllers\BladeController;
 
 use App\Services\BladeServices\PathService;
 use App\Http\Controllers\ApiController\Controller;
-use App\Http\Resources\PathResources;
-use App\Http\Traits\ApiResponseTrait;
 use App\Http\Requests\Path_Request\Store_Path_Request;
 use App\Http\Requests\Path_Request\Update_Path_Request;
 use App\Models\Path;
 
 class PathController extends Controller
 {
-    //trait customize the methods for successful , failed , authentecation responses.
-    use ApiResponseTrait;
     protected $pathservices;
     /**
      * construct to inject Path Services 

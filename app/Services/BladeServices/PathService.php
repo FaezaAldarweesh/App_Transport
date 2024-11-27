@@ -4,13 +4,9 @@ namespace App\Services\BladeServices;
 
 
 use App\Models\Path;
-use NotFoundHttpException;
 use Illuminate\Support\Facades\Log;
-use App\Http\Traits\ApiResponseTrait;
 
 class PathService {
-    //trait customize the methods for successful , failed , authentecation responses.
-    use ApiResponseTrait;
     /**
      * method to view all paths 
      * @return /view

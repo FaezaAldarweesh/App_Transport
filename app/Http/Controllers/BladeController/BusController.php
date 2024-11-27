@@ -3,8 +3,6 @@
 namespace App\Http\Controllers\BladeController;
 
 use App\Models\Bus;
-use App\Http\Resources\BusResources;
-use App\Http\Traits\ApiResponseTrait;
 use App\Services\BladeServices\BusService;
 use App\Http\Controllers\ApiController\Controller;
 use App\Http\Requests\Bus_Request\Store_Bus_Request;
@@ -12,8 +10,6 @@ use App\Http\Requests\Bus_Request\Update_Bus_Request;
 
 class BusController extends Controller
 {
-    //trait customize the methods for successful , failed , authentecation responses.
-    use ApiResponseTrait;
     protected $busservices;
     /**
      * construct to inject bus Services 
