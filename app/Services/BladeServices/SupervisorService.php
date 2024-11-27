@@ -52,13 +52,8 @@ class SupervisorService {
      */
     public function update_Supervisor($data,$Supervisor_id){
         try {  
-            $Supervisor = Supervisor::find($Supervisor_id);
-            if(!$Supervisor){
-                throw new \Exception('المشرف المطلوب غير موجود');
-            }
-            if (isset($data['first_name']) && isset($data['last_name'])) {
-                $Supervisor->name = ['first_name' => $data['first_name'], 'last_name' => $data['last_name']];
-            }
+            $Supervisor = Supervisor::findOrFail($Supervisor_id);
+            $Supervisor->name = $data['name'] ?? $Supervisor->name;
             $Supervisor->username = $data['username'] ?? $Supervisor->username;
             $Supervisor->password = $data['password'] ?? $Supervisor->password;  
             $Supervisor->location = $data['location'] ?? $Supervisor->location;  

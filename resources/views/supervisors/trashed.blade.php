@@ -29,7 +29,6 @@
                                 <th>#</th>
                                 <th>name</th>
                                 <th>username</th>
-                                <th>password</th>
                                 <th>location</th>
                                 <th>phone</th>
                                 <th>Tools</th>
@@ -41,7 +40,6 @@
                                     <td class="text-center">{{ $loop->iteration }}</td>
                                     <td>{{ $supervisor->name }}</td>
                                     <td>{{ $supervisor->username }}</td>
-                                    <td>{{ $supervisor->password }}</td>
                                     <td>{{ $supervisor->location }}</td>
                                     <td>{{ $supervisor->phone }}</td>
                                    

@@ -94,7 +94,7 @@ class SupervisorController extends Controller
     public function all_trashed_supervisor()
     {
         $supervisors = $this->supervisorservices->all_trashed_supervisor();
-        return view('supervisors.trashed', compact('students'));
+        return view('supervisors.trashed', compact('supervisors'));
     }
     //========================================================================================================================
     /**
