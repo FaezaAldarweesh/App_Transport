@@ -21,9 +21,7 @@ class StudentService
     {
         try {
             $student = new Student();
-//            $student->name =  ['first_name' => $data['first_name'], 'last_name' => $data['last_name']];
-            $student->name = $data['first_name'] . ' ' . $data['last_name'];
-
+            $student->name = $data['name'];
             $student->father_phone = $data['father_phone'];
             $student->mather_phone = $data['mather_phone'];
             $student->longitude = $data['longitude'];
@@ -41,9 +39,7 @@ class StudentService
     {
         try {
             $student = Student::findOrFail($student_id);
-            if (isset($data['first_name']) && isset($data['last_name'])) {
-                $student->name = ['first_name' => $data['first_name'], 'last_name' => $data['last_name']];
-            }
+            $student->name = $data['name'] ?? $student->name;
             $student->father_phone = $data['father_phone'] ?? $student->father_phone;
             $student->mather_phone = $data['mather_phone'] ?? $student->mather_phone;
             $student->longitude = $data['longitude'] ?? $student->longitude;
@@ -56,17 +52,7 @@ class StudentService
             return $student;
         } catch (\Exception $e) {
             Log::error('Error updating student: ' . $e->getMessage());
-            throw new \Exception('حدث خطأ أثناء محاولة التعديل على الطالب');
-        }
-    }
-//===========================================================================================================================
-    public function view_Student($student_id)
-    {
-        try {
-            return Student::findOrFail($student_id);
-        } catch (\Exception $e) {
-            Log::error('Error viewing student: ' . $e->getMessage());
-            throw new \Exception('الطالب المطلوب غير موجود');
+            throw new \Exception( 'حدث خطأ أثناء محاولة التعديل على طالب ');
         }
     }
 //===========================================================================================================================

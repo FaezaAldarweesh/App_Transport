@@ -20,41 +20,57 @@
                     <h2 class="mb-4 text-center text-secondary">Trashed Task List</h2>
 
                     <div class="d-flex justify-content-end mb-3">
-                         <a href="{{ route('home') }}" class="btn btn-secondary ms-2">Back</a>
+                         <a href="{{ route('student.index') }}" class="btn btn-secondary ms-2">Back</a>
                     </div>
 
                     <table class="table table-hover table-bordered">
                         <thead class="table-primary text-center">
                             <tr>
                                 <th>#</th>
-                                <th>Title</th>
-                                <th>Description</th>
-                                <th>Due Date</th>
-                                <th>Status</th>
-                                <th>Actions</th>
+                                <th>name</th>
+                                <th>father_phone</th>
+                                <th>mather_phone</th>
+                                <th>longitude</th>
+                                <th>latitude</th>
+                                <th>parent</th>
+                                <th>status</th>
+                                <th>Tools</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse($tasks as $task)
+                            @forelse($students as $student)
                                 <tr>
                                     <td class="text-center">{{ $loop->iteration }}</td>
-                                    <td>{{ $task->title }}</td>
-                                    <td>{{ Str::limit($task->description, 50) }}</td>
-                                    <td>{{ \Carbon\Carbon::parse($task->due_date)->format('d-m-Y') }}</td>
+                                    <td>{{ $student->name }}</td>
+                                    <td>{{ $student->father_phone }}</td>
+                                    <td>{{ $student->mather_phone }}</td>
+                                    <td>{{ $student->longitude }}</td>
+                                    <td>{{ $student->latitude }}</td>
+                                    <td>{{ $student->user->name }}</td>
+                                    @php
+                                        $translations = [
+                                            'attendee' => 'موجود',
+                                            'absent_all' => 'غائب تمامًا',
+                                            'absent_go' => 'غائب عن الذهاب',
+                                            'absent_back' => 'غائب عن العودة',
+                                            'transported' => 'تم نقله',
+                                        ];
+                                    @endphp
+
                                     <td>
                                         <span class="badge 
-                                            {{ $task->status == 'Completed' ? 'bg-success' : 'bg-warning text-dark' }}">
-                                            {{ ucfirst($task->status) }}
+                                            {{ $student->status == 'attendee' ? 'bg-success' : 'bg-warning text-dark' }}">
+                                            {{ $translations[$student->status] ?? $student->status }}
                                         </span>
                                     </td>
                                     <td class="text-center">
-                                        <form action="{{ route('task.restore', $task->id) }}" method="POST" class="d-inline-block" onsubmit="return confirm('Are you sure you want to restore this task?');">
+                                        <form action="{{ route('restore', $student->id) }}" method="GET" class="d-inline-block" onsubmit="return confirm('Are you sure you want to restore this student?');">
                                             @csrf
                                             <button type="submit" class="btn btn-warning btn-sm text-white">
                                                 <i class="bi bi-arrow-clockwise"></i> Restore
                                             </button>
                                         </form>
-                                        <form action="{{ route('task.forceDelete', $task->id) }}" method="POST" class="d-inline-block ms-2" onsubmit="return confirm('Are you sure you want to permanently delete this task?');">
+                                        <form action="{{ route('forceDelete', $student->id) }}" method="POST" class="d-inline-block ms-2" onsubmit="return confirm('Are you sure you want to permanently delete this student?');">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-danger btn-sm">
@@ -65,9 +81,10 @@
                                 </tr>  
                             @empty
                                 <tr>
-                                    <td colspan="6" class="text-center text-muted">No tasks available.</td>
+                                    <td colspan="6" class="text-center text-muted">No students available.</td>
                                 </tr>
                             @endforelse
+
                         </tbody>
                     </table>
                 </div>

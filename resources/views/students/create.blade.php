@@ -23,23 +23,12 @@
                         @csrf
 
                         <div class="mb-3">
-                            <label for="first_name" class="form-label">First name</label>
-                            <input type="text" class="form-control @error('first_name') is-invalid @enderror" id="first_name" name="first_name">
-                            @error('first_name')
+                            <label for="name" class="form-label">Name</label>
+                            <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name">
+                            @error('name')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
-
-                        <div class="mb-3">
-                            <label for="last_name" class="form-label">Last name</label>
-                            <input type="text" class="form-control @error('last_name') is-invalid @enderror" id="last_name" name="last_name">
-                            @error('last_name')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <input type="hidden" class="form-control @error('last_name') is-invalid @enderror" id="last_name" name="last_name">
-
 
                         <div class="mb-3">
                             <label for="father_phone" class="form-label">father_phone</label>

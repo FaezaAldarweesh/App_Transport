@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('students', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->integer('father_phone');
-            $table->integer('mather_phone');
+            $table->string('father_phone');
+            $table->string('mather_phone');
             $table->decimal('longitude', 10, 8);
             $table->decimal('latitude', 10, 8);
             $table->foreignId('user_id')->constrained()->onDelete('cascade');

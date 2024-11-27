@@ -26,10 +26,9 @@ class Update_Student_Request extends FormRequest
     public function rules(): array
     {
         return [
-            'first_name' => 'sometimes|nullable|unique:students,name,' . $this->route('student') . '|regex:/^[\p{L}\s]+$/u|min:2|max:50',
-            'last_name' => 'sometimes|nullable|unique:students,name,' . $this->route('student') . '|regex:/^[\p{L}\s]+$/u|min:2|max:50',
-            'father_phone' => 'sometimes|nullable|min:10|max:10|regex:/^([0-9\s\-\+\(\)]*)$/',
-            'mather_phone' => 'sometimes|nullable|min:10|max:10|regex:/^([0-9\s\-\+\(\)]*)$/',
+            'name' => 'sometimes|nullable|unique:students,name,' . $this->route('student') . '|regex:/^[\p{L}\s]+$/u|min:2|max:50',
+            'father_phone' => 'sometimes|nullable|min:10|max:10|string',
+            'mather_phone' => 'sometimes|nullable|min:10|max:10|string',
             'longitude'   => 'sometimes|nullable|numeric|between:-180,180',
             'latitude'    => 'sometimes|nullable|numeric|between:-90,90',
             'user_id' => 'sometimes|nullable|integer|exists:users,id',
@@ -37,13 +36,13 @@ class Update_Student_Request extends FormRequest
         ];
     }
     //===========================================================================================================================
-    protected function failedValidation(Validator $validator){
-        throw new HttpResponseException(response()->json([
-            'status' => 'error 422',
-            'message' => 'فشل التحقق يرجى التأكد من المدخلات',
-            'errors' => $validator->errors(),
-        ]));
-    }
+    // protected function failedValidation(Validator $validator){
+    //     throw new HttpResponseException(response()->json([
+    //         'status' => 'error 422',
+    //         'message' => 'فشل التحقق يرجى التأكد من المدخلات',
+    //         'errors' => $validator->errors(),
+    //     ]));
+    // }
     //===========================================================================================================================
     protected function passedValidation()
     {
@@ -73,7 +72,6 @@ class Update_Student_Request extends FormRequest
             'name.regex' => 'يجب أن يحوي  :attribute على أحرف فقط',
             'name.max' => 'الحد الأقصى لطول  :attribute هو 50 حرف',
             'name.min' => 'الحد الأدنى لطول :attribute على الأقل هو 2 حرف',
-            'regex' => 'يجب أن يحوي  :attribute على أرقام فقط',
             'max' => 'الحد الأقصى لطول  :attribute هو 10 حرف',
             'min' => 'الحد الأدنى لطول :attribute على الأقل هو 10 حرف',
             'integer' => 'يجب أن يكون الحقل :attribute من نمط int',

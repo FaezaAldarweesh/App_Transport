@@ -23,6 +23,7 @@
                         <a href="{{ route('student.create') }}" class="btn btn-success text-white">
                             <i class="bi bi-plus-circle"></i> Create New Student
                         </a>
+                        
                         <a href="{{ route('home') }}" class="btn btn-secondary">Back</a>
                     </div>
 
@@ -35,7 +36,7 @@
                                 <th>mather_phone</th>
                                 <th>longitude</th>
                                 <th>latitude</th>
-                                <th>user_id</th>
+                                <th>parent</th>
                                 <th>status</th>
                                 <th>Tools</th>
                             </tr>
@@ -50,10 +51,20 @@
                                     <td>{{ $student->longitude }}</td>
                                     <td>{{ $student->latitude }}</td>
                                     <td>{{ $student->user->name }}</td>
+                                    @php
+                                        $translations = [
+                                            'attendee' => 'موجود',
+                                            'absent_all' => 'غائب تمامًا',
+                                            'absent_go' => 'غائب عن الذهاب',
+                                            'absent_back' => 'غائب عن العودة',
+                                            'transported' => 'تم نقله',
+                                        ];
+                                    @endphp
+
                                     <td>
                                         <span class="badge 
-                                            {{ $student->status == 'Completed' ? 'bg-success' : 'bg-warning text-dark' }}">
-                                            {{ ucfirst($student->status) }}
+                                            {{ $student->status == 'attendee' ? 'bg-success' : 'bg-warning text-dark' }}">
+                                            {{ $translations[$student->status] ?? $student->status }}
                                         </span>
                                     </td>
                                     <td class="text-center">
@@ -61,25 +72,27 @@
                                             <i class="bi bi-pencil-square"></i> Edit
                                         </a>
 
-                                        <form action="{{ route('student.destroy', $student->id) }}" method="POST" class="d-inline-block" onsubmit="return confirm('Are you sure you want to delete this task?');">
+                                        <form action="{{ route('student.destroy', $student->id) }}" method="POST" class="d-inline-block" onsubmit="return confirm('Are you sure you want to delete this student?');">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-danger btn-sm">
                                                 <i class="bi bi-trash"></i> Delete
                                             </button>
                                         </form>
-
-                                        <a href="{{ route('student.show', $student->id) }}" class="btn btn-info btn-sm">
-                                            <i class="bi bi-eye"></i> View
-                                        </a>
                                 </tr>  
                             @empty
                                 <tr>
                                     <td colspan="6" class="text-center text-muted">No students available.</td>
                                 </tr>
                             @endforelse
+
                         </tbody>
                     </table>
+
+                    <a href="{{ route('all_trashed_student') }}" class="btn btn-danger">
+                        <i class="bi bi-trash me-1"></i> Trashed Student
+                    </a>
+
                 </div>
             </div>
         </div>

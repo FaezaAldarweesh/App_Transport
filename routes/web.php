@@ -24,4 +24,7 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::resource('student', controller: StudentController::class);
+Route::get('all_trashed_student', [StudentController::class, 'all_trashed_student'])->name('all_trashed_student');
+Route::get('restore_student/{student_id}', [StudentController::class, 'restore'])->name('restore');
+Route::delete('forceDelete_student/{student_id}', [StudentController::class, 'forceDelete'])->name('forceDelete');
 

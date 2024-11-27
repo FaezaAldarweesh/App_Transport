@@ -25,14 +25,12 @@ class Store_Student_Request extends FormRequest
     public function rules(): array
     {
         return [
-            'first_name' => 'required|unique:students,name|regex:/^[\p{L}\s]+$/u|min:2|max:50',
-            'last_name' => 'required|unique:students,name|regex:/^[\p{L}\s]+$/u|min:2|max:50',
-            'father_phone' => 'required|min:10|max:10|regex:/^([0-9\s\-\+\(\)]*)$/',
-            'mather_phone' => 'required|min:10|max:10|regex:/^([0-9\s\-\+\(\)]*)$/',
+            'name' => 'required|unique:students,name|regex:/^[\p{L}\s]+$/u|min:2|max:50',
+            'father_phone' => 'required|min:10|max:10|string',
+            'mather_phone' => 'required|min:10|max:10|string',
             'longitude'   => 'required|numeric|between:-180,180',
             'latitude'    => 'required|numeric|between:-90,90',
             'user_id' => 'required|integer|exists:users,id',
-           // 'status' => 'required|string|in:attendee,absent_all,absent_go,absent_back,transported',
         ];
     }
     //===========================================================================================================================
@@ -60,7 +58,6 @@ class Store_Student_Request extends FormRequest
             'longitude' => 'خط الطول',
             'latitude' => 'خط العرض',
             'user_id' => 'اسم الأب',
-            'status'=> 'حالة الطالب',
         ];
     }
     //===========================================================================================================================
@@ -73,7 +70,6 @@ class Store_Student_Request extends FormRequest
             'name.regex' => 'يجب أن يحوي  :attribute على أحرف فقط',
             'name.max' => 'الحد الأقصى لطول  :attribute هو 50 حرف',
             'name.min' => 'الحد الأدنى لطول :attribute على الأقل هو 2 حرف',
-            'regex' => 'يجب أن يحوي  :attribute على أرقام فقط',
             'max' => 'الحد الأقصى لطول  :attribute هو 10 حرف',
             'min' => 'الحد الأدنى لطول :attribute على الأقل هو 10 حرف',
             'integer' => 'يجب أن يكون الحقل :attribute من نمط int',
@@ -81,7 +77,6 @@ class Store_Student_Request extends FormRequest
             'numeric' => 'يجب أن يكون :attribute رقماً',
             'latitude.between'  => ':attribute يجب أن يكون بين -90 و 90',
             'longitude.between'  => ':attribute يجب أن يكون بين -180 و 180',
-            'in' => 'يجب أن تكون قيمة الحقل :attribute إحدى القيم التالية : attendee,absent_all,absent_go,absent_back,transported',
         ];
     }
 }

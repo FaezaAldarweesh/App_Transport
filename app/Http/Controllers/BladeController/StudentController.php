@@ -39,7 +39,7 @@ class StudentController extends Controller
      * method header to student create page 
      */
     public function create(){
-        $users = User::all();
+        $users = User::where('role', '=','user')->get();
         return view('students.create', compact('users'));
     }
     //===========================================================================================================================
@@ -56,22 +56,12 @@ class StudentController extends Controller
     }
     //===========================================================================================================================
     /**
-     * method to show student alraedy exist
-     * @param  $student_id
-     * @return /view
-     */
-    public function show($student_id)
-    {
-        $student = $this->studentservices->view_student($student_id);
-        return view('students.show', compact('student'));
-    }
-    //===========================================================================================================================
-    /**
     * method header user to edit page
     */
     public function edit($student_id){
         $student = Student::find($student_id);
-        return view('students.update' , compact('student'));
+        $users = User::where('role', '=','user')->get();
+        return view('students.update' , compact('student' , 'users'));
     }
     //===========================================================================================================================
     /**
