@@ -64,13 +64,13 @@
                                         </span>
                                     </td>
                                     <td class="text-center">
-                                        <form action="{{ route('restore', $student->id) }}" method="GET" class="d-inline-block" onsubmit="return confirm('Are you sure you want to restore this student?');">
+                                        <form action="{{ route('restore_student', $student->id) }}" method="GET" class="d-inline-block" onsubmit="return confirm('Are you sure you want to restore this student?');">
                                             @csrf
                                             <button type="submit" class="btn btn-warning btn-sm text-white">
                                                 <i class="bi bi-arrow-clockwise"></i> Restore
                                             </button>
                                         </form>
-                                        <form action="{{ route('forceDelete', $student->id) }}" method="POST" class="d-inline-block ms-2" onsubmit="return confirm('Are you sure you want to permanently delete this student?');">
+                                        <form action="{{ route('forceDelete_student', $student->id) }}" method="POST" class="d-inline-block ms-2" onsubmit="return confirm('Are you sure you want to permanently delete this student?');">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-danger btn-sm">

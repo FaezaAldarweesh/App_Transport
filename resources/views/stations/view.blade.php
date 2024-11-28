@@ -9,7 +9,7 @@
 
                 @if (session('success'))
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <strong>{{ session('success') }}</strong>
+                        <strong>{{ session('success') }}</strong> 
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -17,10 +17,14 @@
                 @endif
 
                 <div class="card-body">
-                    <h2 class="mb-4 text-center text-secondary">Trashed Supervisor List</h2>
+                    <h2 class="mb-4 text-center text-secondary">Station List</h2>
 
-                    <div class="d-flex justify-content-end mb-3">
-                         <a href="{{ route('supervisor.index') }}" class="btn btn-secondary ms-2">Back</a>
+                    <div class="d-flex justify-content-between mb-3">
+                        <a href="{{ route('station.create') }}" class="btn btn-success text-white">
+                            <i class="bi bi-plus-circle"></i> Create New Station
+                        </a>
+                        
+                        <a href="{{ route('home') }}" class="btn btn-secondary">Back</a>
                     </div>
 
                     <table class="table table-hover table-bordered">
@@ -28,45 +32,42 @@
                             <tr>
                                 <th>#</th>
                                 <th>name</th>
-                                <th>username</th>
-                                <th>location</th>
-                                <th>phone</th>
+                                <th>path</th>
                                 <th>Tools</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse($supervisors as $supervisor)
+                            @forelse($stations as $station)
                                 <tr>
                                     <td class="text-center">{{ $loop->iteration }}</td>
-                                    <td>{{ $supervisor->name }}</td>
-                                    <td>{{ $supervisor->username }}</td>
-                                    <td>{{ $supervisor->location }}</td>
-                                    <td>{{ $supervisor->phone }}</td>
-                                   
+                                    <td>{{ $station->name }}</td>
+                                    <td>{{ $station->path->name }}</td>
                                     <td class="text-center">
-                                        <form action="{{ route('restore_supervisor', $supervisor->id) }}" method="GET" class="d-inline-block" onsubmit="return confirm('Are you sure you want to restore this supervisor?');">
-                                            @csrf
-                                            <button type="submit" class="btn btn-warning btn-sm text-white">
-                                                <i class="bi bi-arrow-clockwise"></i> Restore
-                                            </button>
-                                        </form>
-                                        <form action="{{ route('forceDelete_supervisor', $supervisor->id) }}" method="POST" class="d-inline-block ms-2" onsubmit="return confirm('Are you sure you want to permanently delete this supervisor?');">
+                                        <a href="{{ route('station.edit', $station->id) }}" class="btn btn-warning btn-sm text-white">
+                                            <i class="bi bi-pencil-square"></i> Edit
+                                        </a>
+
+                                        <form action="{{ route('station.destroy', $station->id) }}" method="POST" class="d-inline-block" onsubmit="return confirm('Are you sure you want to delete this station?');">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-danger btn-sm">
-                                                <i class="bi bi-trash"></i> Force Delete
+                                                <i class="bi bi-trash"></i> Delete
                                             </button>
                                         </form>
-                                    </td>
                                 </tr>  
                             @empty
                                 <tr>
-                                    <td colspan="6" class="text-center text-muted">No supervisors available.</td>
+                                    <td colspan="6" class="text-center text-muted">No Station available.</td>
                                 </tr>
                             @endforelse
 
                         </tbody>
                     </table>
+
+                    <a href="{{ route('all_trashed_station') }}" class="btn btn-danger">
+                        <i class="bi bi-trash me-1"></i> Trashed Station
+                    </a>
+
                 </div>
             </div>
         </div>

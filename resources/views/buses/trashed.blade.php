@@ -39,13 +39,13 @@
                                     <td>{{ $bus->name }}</td>
                                     <td>{{ $bus->number_of_seats }}</td>                                   
                                     <td class="text-center">
-                                        <form action="{{ route('restore', $bus->id) }}" method="GET" class="d-inline-block" onsubmit="return confirm('Are you sure you want to restore this bus?');">
+                                        <form action="{{ route('restore_bus', $bus->id) }}" method="GET" class="d-inline-block" onsubmit="return confirm('Are you sure you want to restore this bus?');">
                                             @csrf
                                             <button type="submit" class="btn btn-warning btn-sm text-white">
                                                 <i class="bi bi-arrow-clockwise"></i> Restore
                                             </button>
                                         </form>
-                                        <form action="{{ route('forceDelete', $bus->id) }}" method="POST" class="d-inline-block ms-2" onsubmit="return confirm('Are you sure you want to permanently delete this bus?');">
+                                        <form action="{{ route('forceDelete_bus', $bus->id) }}" method="POST" class="d-inline-block ms-2" onsubmit="return confirm('Are you sure you want to permanently delete this bus?');">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-danger btn-sm">

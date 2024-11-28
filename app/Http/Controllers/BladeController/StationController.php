@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\BladeController;
 
+use App\Models\Path;
+use App\Models\Station;
 use App\Services\BladeServices\StationService;
 use App\Http\Controllers\ApiController\Controller;
 use App\Http\Requests\Station_Request\Store_Station_Request;
 use App\Http\Requests\Station_Request\Update_Station_Request;
-use App\Models\Station;
 
 class StationController extends Controller
 {
@@ -28,7 +29,7 @@ class StationController extends Controller
      */
     public function index()
     {  
-        $Stationes = $this->stationservices->get_all_Stations();
+        $stations = $this->stationservices->get_all_Stations();
         return view('stations.view', compact('stations'));
     }
     //===========================================================================================================================
@@ -36,7 +37,8 @@ class StationController extends Controller
      * method header to station create page 
      */
     public function create(){
-        return view('stations.create');
+        $paths = Path::all();
+        return view('stations.create', compact('paths'));
     }
     //===========================================================================================================================
     /**
@@ -57,7 +59,8 @@ class StationController extends Controller
     */
     public function edit($station_id){
         $station = Station::findOrFail($station_id);
-        return view('stations.update' , compact('station'));
+        $paths = Path::all();
+        return view('stations.update' , compact('station','paths'));
     }
     //===========================================================================================================================
     /**
@@ -91,8 +94,8 @@ class StationController extends Controller
      */
     public function all_trashed_station()
     {
-        $stationes = $this->stationservices->all_trashed_station();
-        return view('stationes.trashed', compact('stationes'));
+        $stations = $this->stationservices->all_trashed_station();
+        return view('stations.trashed', compact('stations'));
     }
     //========================================================================================================================
     /**

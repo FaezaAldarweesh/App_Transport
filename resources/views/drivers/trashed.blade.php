@@ -42,13 +42,13 @@
                                     <td>{{ $driver->location }}</td>
                                    
                                     <td class="text-center">
-                                        <form action="{{ route('restore', $driver->id) }}" method="GET" class="d-inline-block" onsubmit="return confirm('Are you sure you want to restore this driver?');">
+                                        <form action="{{ route('restore_driver', $driver->id) }}" method="GET" class="d-inline-block" onsubmit="return confirm('Are you sure you want to restore this driver?');">
                                             @csrf
                                             <button type="submit" class="btn btn-warning btn-sm text-white">
                                                 <i class="bi bi-arrow-clockwise"></i> Restore
                                             </button>
                                         </form>
-                                        <form action="{{ route('forceDelete', $driver->id) }}" method="POST" class="d-inline-block ms-2" onsubmit="return confirm('Are you sure you want to permanently delete this driver?');">
+                                        <form action="{{ route('forceDelete_driver', $driver->id) }}" method="POST" class="d-inline-block ms-2" onsubmit="return confirm('Are you sure you want to permanently delete this driver?');">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-danger btn-sm">

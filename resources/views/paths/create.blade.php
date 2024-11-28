@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card shadow-sm">
-                <div class="card-header">{{ __('Add New Supervisor') }}</div>
+                <div class="card-header">{{ __('Add New Path') }}</div>
 
                 <div class="card-body">
 
