@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BladeController\BusController;
 use App\Http\Controllers\BladeController\PathController;
+use App\Http\Controllers\BladeController\TripController;
 use App\Http\Controllers\BladeController\DriverController;
 use App\Http\Controllers\BladeController\StationController;
 use App\Http\Controllers\BladeController\StudentController;
@@ -57,3 +58,8 @@ Route::Resource('station',StationController::class);
 Route::get('all_trashed_station', [StationController::class, 'all_trashed_station'])->name('all_trashed_station');
 Route::get('restore_station/{station_id}', [StationController::class, 'restore'])->name('restore_station');
 Route::delete('forceDelete_station/{station_id}', [StationController::class, 'forceDelete'])->name('forceDelete_station');
+
+Route::Resource('trip',TripController::class); 
+Route::get('all_trashed_trip', [TripController::class, 'all_trashed_trip'])->name('all_trashed_trip');
+Route::get('restore_trip/{trip_id}', [TripController::class, 'restore_trip'])->name('restore_trip');
+Route::delete('forceDelete_trip/{trip_id}', [TripController::class, 'forceDelete_trip'])->name('forceDelete_trip');

@@ -39,6 +39,10 @@
                             <i class="bi bi-list-student me-1"></i> station
                         </a>
 
+                        <a href="{{ route('trip.index') }}" class="btn btn-primary me-2">
+                            <i class="bi bi-list-student me-1"></i> trip
+                        </a>
+
                     </div>
                 </div>
             </div>
