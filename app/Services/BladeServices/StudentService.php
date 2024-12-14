@@ -31,7 +31,7 @@ class StudentService
 
         } catch (\Exception $e) {
             Log::error('Error creating student: ' . $e->getMessage());
-            throw new \Exception('حدث خطأ أثناء محاولة إضافة طالب جديد');
+            throw new \Exception($e->getMessage());
         }
     }
 //===========================================================================================================================

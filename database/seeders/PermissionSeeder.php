@@ -31,26 +31,6 @@ class PermissionSeeder extends Seeder
             'all trashed User',
             'restore user',
             'forceDelete user',
-            
-            'All tasks',
-            'View task',
-            'Add task',
-            'Edit task',
-            'soft Delete task',
-            'all trashed task',
-            'restore task',
-            'forceDelete task',
-            'update status',
-            'task assign',
-            'task reassign',
-            'task blocked',
-            
-            'add comment',
-            'update comment',
-            'all comment',
-            'delete comment',
-
-            'add_Attachment',
 
         ];
 

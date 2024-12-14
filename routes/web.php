@@ -61,5 +61,5 @@ Route::delete('forceDelete_station/{station_id}', [StationController::class, 'fo
 
 Route::Resource('trip',TripController::class); 
 Route::get('all_trashed_trip', [TripController::class, 'all_trashed_trip'])->name('all_trashed_trip');
-Route::get('restore_trip/{trip_id}', [TripController::class, 'restore_trip'])->name('restore_trip');
-Route::delete('forceDelete_trip/{trip_id}', [TripController::class, 'forceDelete_trip'])->name('forceDelete_trip');
+Route::get('restore_trip/{trip_id}', [TripController::class, 'restore'])->name('restore_trip');
+Route::delete('forceDelete_trip/{trip_id}', [TripController::class, 'forceDelete'])->name('forceDelete_trip');

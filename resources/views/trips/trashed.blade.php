@@ -17,10 +17,10 @@
                 @endif
 
                 <div class="card-body">
-                    <h2 class="mb-4 text-center text-secondary">Trashed Students List</h2>
+                    <h2 class="mb-4 text-center text-secondary">Trashed Trips List</h2>
 
                     <div class="d-flex justify-content-end mb-3">
-                         <a href="{{ route('student.index') }}" class="btn btn-secondary ms-2">Back</a>
+                         <a href="{{ route('trip.index') }}" class="btn btn-secondary ms-2">Back</a>
                     </div>
 
                     <table class="table table-hover table-bordered">
@@ -28,49 +28,42 @@
                             <tr>
                                 <th>#</th>
                                 <th>name</th>
-                                <th>father_phone</th>
-                                <th>mather_phone</th>
-                                <th>longitude</th>
-                                <th>latitude</th>
-                                <th>parent</th>
+                                <th>type</th>
+                                <th>path</th>
+                                <th>bus</th>
                                 <th>status</th>
                                 <th>Tools</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse($students as $student)
+                            @forelse($trips as $trip)
                                 <tr>
                                     <td class="text-center">{{ $loop->iteration }}</td>
-                                    <td>{{ $student->name }}</td>
-                                    <td>{{ $student->father_phone }}</td>
-                                    <td>{{ $student->mather_phone }}</td>
-                                    <td>{{ $student->longitude }}</td>
-                                    <td>{{ $student->latitude }}</td>
-                                    <td>{{ $student->user->name }}</td>
+                                    <td>{{ $trip->name }}</td>
+                                    <td>{{ $trip->type }}</td>
+                                    <td>{{ $trip->path->name }}</td>
+                                    <td>{{ $trip->bus->name }}</td>
                                     @php
                                         $translations = [
-                                            'attendee' => 'موجود',
-                                            'absent_all' => 'غائب تمامًا',
-                                            'absent_go' => 'غائب عن الذهاب',
-                                            'absent_back' => 'غائب عن العودة',
-                                            'transported' => 'تم نقله',
+                                            0 => 'منتهية',
+                                            1 => 'جارية',
                                         ];
                                     @endphp
 
                                     <td>
                                         <span class="badge 
-                                            {{ $student->status == 'attendee' ? 'bg-success' : 'bg-warning text-dark' }}">
-                                            {{ $translations[$student->status] ?? $student->status }}
+                                            {{ $trip->status == 0 ? 'bg-success' : 'bg-warning text-dark' }}">
+                                            {{ $translations[$trip->status] ?? $trip->status }}
                                         </span>
                                     </td>
                                     <td class="text-center">
-                                        <form action="{{ route('restore_student', $student->id) }}" method="GET" class="d-inline-block" onsubmit="return confirm('Are you sure you want to restore this student?');">
+                                        <form action="{{ route('restore_trip', $trip->id) }}" method="GET" class="d-inline-block" onsubmit="return confirm('Are you sure you want to restore this trip?');">
                                             @csrf
                                             <button type="submit" class="btn btn-warning btn-sm text-white">
                                                 <i class="bi bi-arrow-clockwise"></i> Restore
                                             </button>
                                         </form>
-                                        <form action="{{ route('forceDelete_student', $student->id) }}" method="POST" class="d-inline-block ms-2" onsubmit="return confirm('Are you sure you want to permanently delete this student?');">
+                                        <form action="{{ route('forceDelete_trip', $trip->id) }}" method="POST" class="d-inline-block ms-2" onsubmit="return confirm('Are you sure you want to permanently delete this trip?');">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-danger btn-sm">
@@ -81,7 +74,7 @@
                                 </tr>  
                             @empty
                                 <tr>
-                                    <td colspan="6" class="text-center text-muted">No students available.</td>
+                                    <td colspan="6" class="text-center text-muted">No trips available.</td>
                                 </tr>
                             @endforelse
 

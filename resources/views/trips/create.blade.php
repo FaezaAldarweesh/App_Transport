@@ -8,7 +8,6 @@
                 <div class="card-header">{{ __('Add New Trip') }}</div>
 
                 <div class="card-body">
-
                     @if ($errors->any())
                         <div class="alert alert-danger">
                             <ul>
@@ -31,19 +30,6 @@
                                 <option value="school">مدرسية</option>
                             </select>
                             @error('name')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <!-- Type Field -->
-                        <div class="mb-3">
-                            <label for="type">Type</label>
-                            <select id="type" name="type" class="form-control" required>
-                                <option value="" disabled selected>Select type</option>
-                                <option value="go">ذهاب</option>
-                                <option value="back">إياب</option>
-                            </select>
-                            @error('type')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
@@ -76,6 +62,45 @@
                             @enderror
                         </div>
 
+                        <!-- Students Field -->
+                        <div class="mb-3">
+                            <label for="students">Students</label>
+                            <select id="students" name="students[]" class="form-control select2" multiple="multiple" required>
+                                @foreach($students as $student)
+                                    <option value="{{ $student->id }}">{{ $student->name }}</option>
+                                @endforeach
+                            </select>
+                            @error('students')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                         <!-- Supervisors Field -->
+                         <div class="mb-3">
+                            <label for="supervisors">Supervisors</label>
+                            <select id="supervisors" name="supervisors[]" class="form-control select2" multiple="multiple" required>
+                                @foreach($supervisors as $supervisor)
+                                    <option value="{{ $supervisor->id }}">{{ $supervisor->name }}</option>
+                                @endforeach
+                            </select>
+                            @error('supervisors')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <!-- Drivers Field -->
+                        <div class="mb-3">
+                            <label for="drivers">Drivers</label>
+                            <select id="drivers" name="drivers[]" class="form-control select2" multiple="multiple" required>
+                                @foreach($drivers as $driver)
+                                    <option value="{{ $driver->id }}">{{ $driver->name }}</option>
+                                @endforeach
+                            </select>
+                            @error('drivers')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+
                         <!-- Submit Button -->
                         <div class="d-flex justify-content-end mt-4">
                             <button type="submit" class="btn btn-primary">Add Trip</button>
@@ -87,4 +112,18 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+<!-- Add Select2 CSS and JS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/css/select2.min.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/js/select2.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('.select2').select2({
+            placeholder: "Select Students",
+            allowClear: true
+        });
+    });
+</script>
 @endsection

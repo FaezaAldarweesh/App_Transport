@@ -6,6 +6,16 @@
         <div class="col-md-10">
             <div class="card shadow-lg border-0">
                 <div class="card-header bg-primary text-white">{{ __('Dashboard') }}</div>
+                
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
 
                 @if (session('success'))
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -45,7 +55,7 @@
                                     <td class="text-center">{{ $loop->iteration }}</td>
                                     <td>{{ $trip->name }}</td>
                                     <td>{{ $trip->type }}</td>
-                                    <td>{{ $trip->path_id }}</td>
+                                    <td>{{ $trip->path->name }}</td>
                                     <td>{{ $trip->bus->name }}</td>
                                     @php
                                         $translations = [
@@ -72,6 +82,10 @@
                                                 <i class="bi bi-trash"></i> Delete
                                             </button>
                                         </form>
+
+                                        <a href="{{ route('trip.show', $trip->id) }}" class="btn btn-info btn-sm">
+                                            <i class="bi bi-eye"></i> View
+                                        </a>
                                 </tr>  
                             @empty
                                 <tr>

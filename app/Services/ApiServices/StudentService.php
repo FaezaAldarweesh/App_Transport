@@ -29,7 +29,7 @@ class StudentService {
     public function create_Student($data) {
         try {
             $student = new Student();
-            $student->name = ['first_name' => $data['first_name'], 'last_name' => $data['last_name']];
+            $student->name = $data['name'];
             $student->father_phone = $data['father_phone'];
             $student->mather_phone = $data['mather_phone'];
             $student->longitude = $data['longitude'];

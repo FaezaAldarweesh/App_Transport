@@ -31,16 +31,15 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::post('logout',[AuthController::class ,'logout']); 
     Route::post('refresh', [AuthController::class ,'refresh']);
     
-    Route::apiResource('student',StudentController::class); 
-    Route::get('all_trashed_student', [StudentController::class, 'all_trashed_student']);
-    Route::get('restore_student/{student_id}', [StudentController::class, 'restore']);
-    Route::delete('forceDelete_student/{student_id}', [StudentController::class, 'forceDelete']);
-
     Route::apiResource('user',UserController::class); 
     Route::get('all_trashed_user', [UserController::class, 'all_trashed_user']);
     Route::get('restore_user/{user_id}', [UserController::class, 'restore']);
     Route::delete('forceDelete_user/{user_id}', [UserController::class, 'forceDelete']);
-    
+
+    Route::apiResource('student',StudentController::class); 
+    Route::get('all_trashed_student', [StudentController::class, 'all_trashed_student']);
+    Route::get('restore_student/{student_id}', [StudentController::class, 'restore']);
+    Route::delete('forceDelete_student/{student_id}', [StudentController::class, 'forceDelete']);
 
     Route::apiResource('supervisor',SupervisorController::class); 
     Route::get('all_trashed_supervisor', [SupervisorController::class, 'all_trashed_supervisor']);
@@ -52,6 +51,11 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::get('restore_driver/{driver_id}', [DriverController::class, 'restore']);
     Route::delete('forceDelete_driver/{driver_id}', [DriverController::class, 'forceDelete']);
 
+    Route::apiResource('bus',BusController::class); 
+    Route::get('all_trashed_bus', [BusController::class, 'all_trashed_bus']);
+    Route::get('restore_bus/{bus_id}', [BusController::class, 'restore']);
+    Route::delete('forceDelete_bus/{bus_id}', [BusController::class, 'forceDelete']);
+
     Route::apiResource('path',PathController::class); 
     Route::get('all_trashed_path', [PathController::class, 'all_trashed_path']);
     Route::get('restore_path/{path_id}', [PathController::class, 'restore']);
@@ -61,11 +65,6 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::get('all_trashed_station', [StationController::class, 'all_trashed_station']);
     Route::get('restore_station/{station_id}', [StationController::class, 'restore']);
     Route::delete('forceDelete_station/{station_id}', [StationController::class, 'forceDelete']);
-
-    Route::apiResource('bus',BusController::class); 
-    Route::get('all_trashed_bus', [BusController::class, 'all_trashed_bus']);
-    Route::get('restore_bus/{bus_id}', [BusController::class, 'restore']);
-    Route::delete('forceDelete_bus/{bus_id}', [BusController::class, 'forceDelete']);
 
     Route::apiResource('trip',TripController::class); 
     Route::get('all_trashed_trip', [TripController::class, 'all_trashed_trip']);

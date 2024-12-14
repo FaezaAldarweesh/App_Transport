@@ -8,7 +8,6 @@
                 <div class="card-header">{{ __('Edit Trip') }}</div>
 
                 <div class="card-body">
-
                     @if ($errors->any())
                         <div class="alert alert-danger">
                             <ul>
@@ -23,80 +22,90 @@
                         @csrf
                         @method('PUT')
 
+                        <!-- Name Field -->
                         <div class="mb-3">
-                            <label for="name" class="form-label">Name</label>
-                            <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name', $trip->name) }}">
+                            <label for="name">Name</label>
+                            <select id="name" name="name" class="form-control" required>
+                                <option value="" disabled>Select name</option>
+                                <option value="delivery" {{ $trip->name === 'delivery' ? 'selected' : '' }}>توصيل</option>
+                                <option value="school" {{ $trip->name === 'school' ? 'selected' : '' }}>مدرسية</option>
+                            </select>
                             @error('name')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
 
+                        <!-- Path Field -->
                         <div class="mb-3">
-                            <label for="father_phone" class="form-label">father's phone</label>
-                            <input type="text" class="form-control @error('father_phone') is-invalid @enderror" id="father_phone" name="father_phone" value="{{ old('father_phone', $trip->father_phone) }}">
-                            @error('father_phone')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="mather_phone" class="form-label">mather's phone</label>
-                            <input type="text" class="form-control @error('mather_phone') is-invalid @enderror" id="mather_phone" name="mather_phone" value="{{ old('mather_phone', $trip->mather_phone) }}">
-                            @error('mather_phone')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="longitude" class="form-label">longitude</label>
-                            <input type="text" class="form-control @error('longitude') is-invalid @enderror" id="longitude" name="longitude" value="{{ old('longitude', $trip->longitude) }}">
-                            @error('longitude')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="latitude" class="form-label">latitude</label>
-                            <input type="text" class="form-control @error('latitude') is-invalid @enderror" id="latitude" name="latitude" value="{{ old('latitude', $student->latitude) }}">
-                            @error('latitude')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="exampleInputEmail1">Parent</label>
-                            <select id="user_id" name="user_id" class="form-control" required>
-                                <option value="" disabled {{ old('user_id', $student->user_id) ? '' : 'selected' }}>Select Parent</option>
-                                @foreach($users as $user)
-                                    <option value="{{ $user->id }}" 
-                                        {{ old('user_id', $student->user_id) == $user->id ? 'selected' : '' }}>
-                                        {{ $user->name }}
-                                    </option>
+                            <label for="path_id">Path</label>
+                            <select id="path_id" name="path_id" class="form-control" required>
+                                <option value="" disabled>Select Path</option>
+                                @foreach($paths as $path)
+                                    <option value="{{ $path->id }}" {{ $trip->path_id == $path->id ? 'selected' : '' }}>{{ $path->name }}</option>
                                 @endforeach
                             </select>
-                            @error('user_id')
+                            @error('path_id')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
 
+                        <!-- Bus Field -->
                         <div class="mb-3">
-                            <label for="status" class="form-label">Status</label>
-                            <select class="form-select @error('status') is-invalid @enderror" id="status" name="status">
-                                <option value="">Select Status</option>
-                                <option value="attendee" {{ old('status', $student->status) == 'attendee' ? 'selected' : '' }}>موجود</option>
-                                <option value="absent_all" {{ old('status', $student->status) == 'absent_all' ? 'selected' : '' }}>غيائب يوم كامل</option>
-                                <option value="absent_go" {{ old('status', $student->status) == 'absent_go' ? 'selected' : '' }}>غياب رحلة ذهاب</option>
-                                <option value="absent_back" {{ old('status', $student->status) == 'absent_back' ? 'selected' : '' }}>غياب رحلة إياب</option>
-                                <option value="transported" {{ old('status', $student->status) == 'transported' ? 'selected' : '' }}>تم نقله إلى باص أخر</option>
+                            <label for="bus_id">Bus</label>
+                            <select id="bus_id" name="bus_id" class="form-control" required>
+                                <option value="" disabled>Select Bus</option>
+                                @foreach($buses as $bus)
+                                    <option value="{{ $bus->id }}" {{ $trip->bus_id == $bus->id ? 'selected' : '' }}>{{ $bus->name }}</option>
+                                @endforeach
                             </select>
-                            @error('status')
+                            @error('bus_id')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
 
+                        <!-- Students Field -->
+                        <div class="mb-3">
+                            <label for="students">Students</label>
+                            <select id="students" name="students[]" class="form-control select2" multiple="multiple" required>
+                                @foreach($students as $student)
+                                    <option value="{{ $student->id }}" {{ in_array($student->id, $trip->students->pluck('id')->toArray()) ? 'selected' : '' }}>{{ $student->name }}</option>
+                                @endforeach
+                            </select>
+                            @error('students')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                         <!-- Supervisors Field -->
+                         <div class="mb-3">
+                            <label for="supervisors">Supervisors</label>
+                            <select id="supervisors" name="supervisors[]" class="form-control select2" multiple="multiple" required>
+                                @foreach($supervisors as $supervisor)
+                                    <option value="{{ $supervisor->id }}" {{ in_array($supervisor->id, $trip->supervisors->pluck('id')->toArray()) ? 'selected' : '' }}>{{ $supervisor->name }}</option>
+                                @endforeach
+                            </select>
+                            @error('supervisors')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <!-- Drivers Field -->
+                        <div class="mb-3">
+                            <label for="drivers">Drivers</label>
+                            <select id="drivers" name="drivers[]" class="form-control select2" multiple="multiple" required>
+                                @foreach($drivers as $driver)
+                                    <option value="{{ $driver->id }}" {{ in_array($driver->id, $trip->drivers->pluck('id')->toArray()) ? 'selected' : '' }}>{{ $driver->name }}</option>
+                                @endforeach
+                            </select>
+                            @error('drivers')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <!-- Submit Button -->
                         <div class="d-flex justify-content-end mt-4">
-                            <button type="submit" class="btn btn-primary">Update Student</button>
-                            <a href="{{ route('student.index') }}" class="btn btn-secondary ms-2">Back</a>
+                            <button type="submit" class="btn btn-primary">Update Trip</button>
+                            <a href="{{ route('trip.index') }}" class="btn btn-secondary ms-2">Back</a>
                         </div>
                     </form>
                 </div>
@@ -104,4 +113,18 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+<!-- Add Select2 CSS and JS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/css/select2.min.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/js/select2.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('.select2').select2({
+            placeholder: "Select Students",
+            allowClear: true
+        });
+    });
+</script>
 @endsection

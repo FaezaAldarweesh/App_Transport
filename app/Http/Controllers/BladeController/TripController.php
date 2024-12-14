@@ -5,6 +5,9 @@ namespace App\Http\Controllers\BladeController;
 use App\Models\Bus;
 use App\Models\Path;
 use App\Models\Trip;
+use App\Models\Driver;
+use App\Models\Student;
+use App\Models\Supervisor;
 use App\Http\Traits\ApiResponseTrait;
 use App\Services\BladeServices\TripService;
 use App\Http\Controllers\ApiController\Controller;
@@ -43,7 +46,10 @@ class TripController extends Controller
     public function create(){
         $paths = Path::all();
         $buses = Bus::all();
-        return view('trips.create', compact('paths','buses'));
+        $drivers = Driver::all();
+        $supervisors = Supervisor::all();
+        $students = Student::all();
+        return view('trips.create', compact('paths','buses','drivers','supervisors','students'));
     }
     //===========================================================================================================================
     /**
@@ -59,11 +65,29 @@ class TripController extends Controller
     }
     //===========================================================================================================================
     /**
+     * method to show Trip alraedy exist
+     * @param  $Trip_id
+     * @return /Illuminate\Http\JsonResponse
+     */
+    public function show($Trip_id)
+    {
+        $trip = $this->Tripservices->view_Trip($Trip_id);
+        $paths = Path::all();
+        $buses = Bus::all();
+        return view('trips.show', compact('trip','paths','buses'));
+    }
+    //===========================================================================================================================
+    /**
     * method header trip to edit page
     */
     public function edit($trip_id){
         $trip = Trip::find($trip_id);
-        return view('trips.update' , compact('trip'));
+        $paths = Path::all();
+        $buses = Bus::all();
+        $drivers = Driver::all();
+        $supervisors = Supervisor::all();
+        $students = Student::all();
+        return view('trips.update' , compact('trip','paths','buses','drivers','supervisors','students'));
     }
     //===========================================================================================================================
     /**
@@ -97,8 +121,8 @@ class TripController extends Controller
      */
     public function all_trashed_Trip()
     {
-        $Trips = $this->Tripservices->all_trashed_Trip();
-        return view('trips.trashed', compact('Trips'));
+        $trips = $this->Tripservices->all_trashed_Trip();
+        return view('trips.trashed', compact('trips'));
     }
     //========================================================================================================================
     /**

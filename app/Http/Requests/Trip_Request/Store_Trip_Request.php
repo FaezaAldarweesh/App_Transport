@@ -26,26 +26,24 @@ class Store_Trip_Request extends FormRequest
     {
         return [
             'name' => 'required|string|in:delivery,school',
-            'type' => 'required|string|in:go,back',
             'path_id' => 'required|integer|exists:paths,id',
             'bus_id' => 'required|integer|exists:buses,id',
-            'status' => 'required|boolean',
             'students' => 'required|array',
-            'students.*.id' => 'required|integer|exists:students,id',
+            'students.*' => 'required|integer|exists:students,id',
             'supervisors' => 'required|array',
-            'supervisors.*.id' => 'required|integer|exists:supervisors,id',
+            'supervisors.*' => 'required|integer|exists:supervisors,id',
             'drivers' => 'required|array',
-            'drivers.*.id' => 'required|integer|exists:drivers,id',
+            'drivers.*' => 'required|integer|exists:drivers,id',
         ];
     }
-    //===========================================================================================================================
-    protected function failedValidation(Validator $validator){
-        throw new HttpResponseException(response()->json([
-            'status' => 'error 422',
-            'message' => 'فشل التحقق يرجى التأكد من المدخلات',
-            'errors' => $validator->errors(),
-        ]));
-    }
+    // //===========================================================================================================================
+    // protected function failedValidation(Validator $validator){
+    //     throw new HttpResponseException(response()->json([
+    //         'status' => 'error 422',
+    //         'message' => 'فشل التحقق يرجى التأكد من المدخلات',
+    //         'errors' => $validator->errors(),
+    //     ]));
+    // }
     //===========================================================================================================================
     protected function passedValidation()
     {
